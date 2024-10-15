@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mosbach Task Organizer</title>
+    <link rel="stylesheet" href="../css/myTasks.css">
+    <script type='text/javascript' src='../js/jquery-3.6.0.min.js'></script>
+</head>
+<body>
+
+
+<h1>Mosbach Task Organizer</h1>
+
+You have been given the following tasks/grades.<br/><br/>
+<!--
+TODO: Fetch the token from localstorage.
+-->
+<ul id="mytasks"></ul>
+<script>
+    (function () {
+        $.ajax({
+            url: 'https://WRONG.stackit.cloud/api/tasks?token=123&sortOrder=date',
+            type: 'get',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                    tempString = '';
+                    $.each(data.tasks, function(index, value) {
+                        tempString += '<li>' + 'Module ' + value.module + ' Grade ' + value.grade + '</li>';
+                    })
+                    $("#mytasks").html(tempString);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.status + '   ' + thrownError);
+              }
+        });
+    })()
+</script>
+
+
+
+<a href="../Homepage.html">back home</a>.
+
+</body>
+</html>
