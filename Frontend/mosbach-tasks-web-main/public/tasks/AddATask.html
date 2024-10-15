@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mosbach Task Organizer</title>
+    <script type='text/javascript' src='../js/jquery-3.6.0.min.js'></script>
+    <link rel="stylesheet" href="../css/myTasks.css">
+</head>
+<body>
+
+
+<h1>Mosbach Task Organizer</h1>
+
+<h2>Add a task</h2>
+
+Please provide the following information.<br/>
+
+<label>Module</label>
+<div>
+    <input id="taskmodule" type="text" maxlength="50" value=""/>
+</div>
+<label>Your grade</label>
+<div>
+    <input id="taskgrade" type="text" maxlength="50" value=""/>
+</div>
+<label>Task Date</label>
+<div>
+    <input id="taskdate" type="text" maxlength="50" value=""/>
+</div>
+<label>Token</label>
+<div>
+    <input id="tasktoken" type="text" maxlength="50" value=""/>
+</div>
+<br/>
+
+<button id="tasksubmit">Submit</button><br/>
+What did the server say about my learning?&nbsp;<span id="serveranswer"></span>
+
+<!--
+ToDo: The token shall not be fetched form an input field but rather from the localstorage.
+localstorage.getItem('mosbachtoken')
+If you use this code to logon, then in success you store the token locallly.
+localstorage.setItem('mosbachtoken', data.token)
+-->
+<script>
+    $("#tasksubmit").click(function() {
+        var tokentask = {
+                token : $("#tasktoken").val(),
+                task : {
+                    module : $("#taskmodule").val(),
+                    grade : parseFloat($("#taskgrade").val()),
+                    'date-as-number' : parseInt($("#taskdate").val())
+                }
+            };
+        console.log(tokentask);
+        $.ajax({
+            url: 'https://WRONG.stackit.cloud/api/tasks',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                $("#serveranswer").html(data.message);
+            },
+            data: JSON.stringify(tokentask),
+            processData: false,
+            contentType: "application/json; charset=UTF-8",
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.status + '   ' + thrownError);
+              }
+        });
+    });
+</script>
+
+
+
+
+
+
+<br/><br/>
+
+<a href="../Homepage.html">back home</a>.
+
+
+
+
+</body>
+</html>
