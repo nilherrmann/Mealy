@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #e0f7f5; /* Helles Grün für Hintergrund */
+    background-color: #e0f7f5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,13 +18,13 @@ body {
 }
 
 .logo img {
-    width: 60px; /* Größe des Logos */
+    width: 60px;
     margin-bottom: 20px;
 }
 
 .login-header header {
     font-size: 24px;
-    color: #1b6b5c; /* Dunkles Grün passend zum Logo */
+    color: #086A87;
     margin-bottom: 20px;
 }
 
@@ -32,20 +32,20 @@ body {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #c4e4df;
+    border: 1px solid #B0E0E6;
     border-radius: 5px;
     outline: none;
-    background-color: #f4fbfa;
+    background-color: #f0f8ff; /* Hellere Hintergrundfarbe */
 }
 
 .input-type .input-field:focus, .input-box .input-field:focus {
-    border-color: #00a896; /* Passend zum Logo-Farbton */
+    border-color: #6699CC; /* Dunklere Farbe bei Fokus */
 }
 
 .submit-btn {
     width: 100%;
     padding: 12px;
-    background-color: #028174; /* Passend zum Logo */
+    background-color: #086A87; /* Dunklerer Farbton für den Button */
     border: none;
     border-radius: 5px;
     color: white;
@@ -54,7 +54,7 @@ body {
 }
 
 .submit-btn:hover {
-    background-color: #035c50;
+    background-color: #065A66; /* Noch dunkler bei Hover */
 }
 
 .sign-up-link p {
@@ -63,7 +63,7 @@ body {
 }
 
 .sign-up-link a {
-    color: #028174;
+    color: #086A87;
     text-decoration: none;
 }
 
