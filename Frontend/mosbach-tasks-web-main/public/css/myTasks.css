@@ -51,6 +51,7 @@ body {
     color: white;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 25px;
 }
 
 .submit-btn:hover {
@@ -65,6 +66,7 @@ body {
 .sign-up-link a {
     color: #086A87;
     text-decoration: none;
+    margin-top: 30px;
 }
 
 .sign-up-link a:hover {
