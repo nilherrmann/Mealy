@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rezept erstellen - Mealy</title>
+  <link rel="stylesheet" href="../css/myRecipeCreate.css">
+  <link rel="icon" href="../Logo/Mealy-Favicon.ico">
+</head>
+<body>
+<header>
+  <nav class="navbar">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Rezeptsammlung</a></li>
+      <li><a href="#">Rezepte</a></li>
+      <li><a href="#">Mealplan</a></li>
+      <li><a href="#">Profil</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="recipe-container">
+  <h1>Rezept Erstellen</h1>
+
+  <form action="#" method="post" enctype="multipart/form-data">
+    <div class="form-section">
+      <label for="recipe-name">Rezeptname:</label>
+      <input type="text" id="recipe-name" name="recipe_name" required>
+    </div>
+
+    <div class="form-section">
+      <label for="recipe-description">Beschreibung:</label>
+      <textarea id="recipe-description" name="recipe_description" rows="4" required></textarea>
+    </div>
+
+    <div class="form-section">
+      <label for="nutritional-values">Nährwertangaben (pro Portion):</label>
+      <input type="number" name="calories" placeholder="Kalorien" required>
+      <input type="number" name="protein" placeholder="Proteine (g)" required>
+      <input type="number" name="carbs" placeholder="Kohlenhydrate (g)" required>
+      <input type="number" name="fat" placeholder="Fette (g)" required>
+    </div>
+
+    <div class="form-section">
+      <label for="recipe-image">Bild hochladen:</label>
+      <input type="file" id="recipe-image" name="recipe_image" accept="image/*" required>
+    </div>
+
+    <button type="submit" class="submit-btn">Rezept Erstellen</button>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mealplan Erstellen - Mealy</title>
+  <link rel="stylesheet" href="../css/myMealplanCreate.css">
+  <link rel="icon" href="../Logo/Mealy-Favicon.ico">
+</head>
+<body>
+<header>
+  <nav class="navbar">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Rezeptsammlung</a></li>
+      <li><a href="#">Rezepte</a></li>
+      <li><a href="#">Mealplan</a></li>
+      <li><a href="#">Profil</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="mealplan-container">
+  <h1>Mealplan Erstellen</h1>
+
+  <form action="#" method="post">
+    <div class="form-section">
+      <label for="plan-type">Plan Typ:</label>
+      <select id="plan-type" name="plan_type" required>
+        <option value="tagesplan">Tagesplan</option>
+        <option value="wochenplan">Wochenplan</option>
+      </select>
+    </div>
+
+    <div class="meal-section">
+      <h2>Frühstück</h2>
+      <input type="text" name="breakfast-recipe" placeholder="Rezeptname">
+      <input type="number" name="breakfast-calories" placeholder="Kalorien">
+      <input type="number" name="breakfast-protein" placeholder="Proteine (g)">
+      <input type="number" name="breakfast-carbs" placeholder="Kohlenhydrate (g)">
+      <input type="number" name="breakfast-fat" placeholder="Fette (g)">
+    </div>
+
+    <div class="meal-section">
+      <h2>Mittagessen</h2>
+      <input type="text" name="lunch-recipe" placeholder="Rezeptname">
+      <input type="number" name="lunch-calories" placeholder="Kalorien">
+      <input type="number" name="lunch-protein" placeholder="Proteine (g)">
+      <input type="number" name="lunch-carbs" placeholder="Kohlenhydrate (g)">
+      <input type="number" name="lunch-fat" placeholder="Fette (g)">
+    </div>
+
+    <div class="meal-section">
+      <h2>Abendessen</h2>
+      <input type="text" name="dinner-recipe" placeholder="Rezeptname">
+      <input type="number" name="dinner-calories" placeholder="Kalorien">
+      <input type="number" name="dinner-protein" placeholder="Proteine (g)">
+      <input type="number" name="dinner-carbs" placeholder="Kohlenhydrate (g)">
+      <input type="number" name="dinner-fat" placeholder="Fette (g)">
+    </div>
+
+    <div class="total-section">
+      <h2>Tägliche Gesamtnährwerte</h2>
+      <input type="number" name="total-calories" placeholder="Gesamtkalorien" readonly>
+      <input type="number" name="total-protein" placeholder="Gesamtproteine (g)" readonly>
+      <input type="number" name="total-carbs" placeholder="Gesamtkohlenhydrate (g)" readonly>
+      <input type="number" name="total-fat" placeholder="Gesamtfette (g)" readonly>
+    </div>
+
+    <button type="submit" class="submit-btn">Mealplan Erstellen</button>
+  </form>
+</div>
+</body>
+</html>
+
+
