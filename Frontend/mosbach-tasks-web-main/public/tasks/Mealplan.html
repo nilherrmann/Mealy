@@ -2,75 +2,133 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mealplan Erstellen - Mealy</title>
+  <title>Mealplan Erstellen</title>
   <link rel="stylesheet" href="../css/myMealplanCreate.css">
   <link rel="icon" href="../Logo/Mealy-Favicon.ico">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
   <nav class="navbar">
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Rezeptsammlung</a></li>
-      <li><a href="#">Rezepte</a></li>
-      <li><a href="#">Mealplan</a></li>
-      <li><a href="#">Profil</a></li>
+      <li><a href="home.html">HOME</a></li>
+      <li><a href="rezeptsammlung.html">REZEPTSAMMLUNG</a></li>
+      <li><a href="mealplan.html">MEALPLAN</a></li>
+      <li><a href="profil.html">PROFIL</a></li>
     </ul>
   </nav>
 </header>
 
 <div class="mealplan-container">
   <h1>Mealplan Erstellen</h1>
-
-  <form action="#" method="post">
-    <div class="form-section">
-      <label for="plan-type">Plan Typ:</label>
-      <select id="plan-type" name="plan_type" required>
-        <option value="tagesplan">Tagesplan</option>
-        <option value="wochenplan">Wochenplan</option>
-      </select>
-    </div>
-
-    <div class="meal-section">
-      <h2>Frühstück</h2>
-      <input type="text" name="breakfast-recipe" placeholder="Rezeptname">
-      <input type="number" name="breakfast-calories" placeholder="Kalorien">
-      <input type="number" name="breakfast-protein" placeholder="Proteine (g)">
-      <input type="number" name="breakfast-carbs" placeholder="Kohlenhydrate (g)">
-      <input type="number" name="breakfast-fat" placeholder="Fette (g)">
-    </div>
-
-    <div class="meal-section">
-      <h2>Mittagessen</h2>
-      <input type="text" name="lunch-recipe" placeholder="Rezeptname">
-      <input type="number" name="lunch-calories" placeholder="Kalorien">
-      <input type="number" name="lunch-protein" placeholder="Proteine (g)">
-      <input type="number" name="lunch-carbs" placeholder="Kohlenhydrate (g)">
-      <input type="number" name="lunch-fat" placeholder="Fette (g)">
-    </div>
-
-    <div class="meal-section">
-      <h2>Abendessen</h2>
-      <input type="text" name="dinner-recipe" placeholder="Rezeptname">
-      <input type="number" name="dinner-calories" placeholder="Kalorien">
-      <input type="number" name="dinner-protein" placeholder="Proteine (g)">
-      <input type="number" name="dinner-carbs" placeholder="Kohlenhydrate (g)">
-      <input type="number" name="dinner-fat" placeholder="Fette (g)">
-    </div>
-
-    <div class="total-section">
-      <h2>Tägliche Gesamtnährwerte</h2>
-      <input type="number" name="total-calories" placeholder="Gesamtkalorien" readonly>
-      <input type="number" name="total-protein" placeholder="Gesamtproteine (g)" readonly>
-      <input type="number" name="total-carbs" placeholder="Gesamtkohlenhydrate (g)" readonly>
-      <input type="number" name="total-fat" placeholder="Gesamtfette (g)" readonly>
-    </div>
-
-    <button type="submit" class="submit-btn">Mealplan Erstellen</button>
+  <form id="mealplan-form">
+    <table class="mealplan-table">
+      <thead>
+      <tr>
+        <th>Tag</th>
+        <th>Frühstück</th>
+        <th>Nährwerte</th>
+        <th>Mittagessen</th>
+        <th>Nährwerte</th>
+        <th>Abendessen</th>
+        <th>Nährwerte</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Montag</td>
+        <td><input type="text" name="breakfast-monday" placeholder="Rezept für Frühstück" required></td>
+        <td class="nutritional-info" id="breakfast-nutrition-monday"></td>
+        <td><input type="text" name="lunch-monday" placeholder="Rezept für Mittagessen" required></td>
+        <td class="nutritional-info" id="lunch-nutrition-monday"></td>
+        <td><input type="text" name="dinner-monday" placeholder="Rezept für Abendessen" required></td>
+        <td class="nutritional-info" id="dinner-nutrition-monday"></td>
+      </tr>
+      <tr>
+        <td>Dienstag</td>
+        <td><input type="text" name="breakfast-tuesday" placeholder="Rezept für Frühstück" required></td>
+        <td class="nutritional-info" id="breakfast-nutrition-tuesday"></td>
+        <td><input type="text" name="lunch-tuesday" placeholder="Rezept für Mittagessen" required></td>
+        <td class="nutritional-info" id="lunch-nutrition-tuesday"></td>
+        <td><input type="text" name="dinner-tuesday" placeholder="Rezept für Abendessen" required></td>
+        <td class="nutritional-info" id="dinner-nutrition-tuesday"></td>
+      </tr>
+      <tr>
+        <td>Mittwoch</td>
+        <td><input type="text" name="breakfast-wednesday" placeholder="Rezept für Frühstück" required></td>
+        <td class="nutritional-info" id="breakfast-nutrition-wednesday"></td>
+        <td><input type="text" name="lunch-wednesday" placeholder="Rezept für Mittagessen" required></td>
+        <td class="nutritional-info" id="lunch-nutrition-wednesday"></td>
+        <td><input type="text" name="dinner-wednesday" placeholder="Rezept für Abendessen" required></td>
+        <td class="nutritional-info" id="dinner-nutrition-wednesday"></td>
+      </tr>
+      <tr>
+        <td>Donnerstag</td>
+        <td><input type="text" name="breakfast-thursday" placeholder="Rezept für Frühstück" required></td>
+        <td class="nutritional-info" id="breakfast-nutrition-thursday"></td>
+        <td><input type="text" name="lunch-thursday" placeholder="Rezept für Mittagessen" required></td>
+        <td class="nutritional-info" id="lunch-nutrition-thursday"></td>
+        <td><input type="text" name="dinner-thursday" placeholder="Rezept für Abendessen" required></td>
+        <td class="nutritional-info" id="dinner-nutrition-thursday"></td>
+      </tr>
+      <tr>
+        <td>Freitag</td>
+        <td><input type="text" name="breakfast-friday" placeholder="Rezept für Frühstück" required></td>
+        <td class="nutritional-info" id="breakfast-nutrition-friday"></td>
+        <td><input type="text" name="lunch-friday" placeholder="Rezept für Mittagessen" required></td>
+        <td class="nutritional-info" id="lunch-nutrition-friday"></td>
+        <td><input type="text" name="dinner-friday" placeholder="Rezept für Abendessen" required></td>
+        <td class="nutritional-info" id="dinner-nutrition-friday"></td>
+      </tr>
+      <tr>
+        <td>Samstag</td>
+        <td><input type="text" name="breakfast-saturday" placeholder="Rezept für Frühstück" required></td>
+        <td class="nutritional-info" id="breakfast-nutrition-saturday"></td>
+        <td><input type="text" name="lunch-saturday" placeholder="Rezept für Mittagessen" required></td>
+        <td class="nutritional-info" id="lunch-nutrition-saturday"></td>
+        <td><input type="text" name="dinner-saturday" placeholder="Rezept für Abendessen" required></td>
+        <td class="nutritional-info" id="dinner-nutrition-saturday"></td>
+      </tr>
+      <tr>
+        <td>Sonntag</td>
+        <td><input type="text" name="breakfast-sunday" placeholder="Rezept für Frühstück" required></td>
+        <td class="nutritional-info" id="breakfast-nutrition-sunday"></td>
+        <td><input type="text" name="lunch-sunday" placeholder="Rezept für Mittagessen" required></td>
+        <td class="nutritional-info" id="lunch-nutrition-sunday"></td>
+        <td><input type="text" name="dinner-sunday" placeholder="Rezept für Abendessen" required></td>
+        <td class="nutritional-info" id="dinner-nutrition-sunday"></td>
+      </tr>
+      </tbody>
+    </table>
+    <button type="submit" class="submit-btn">Mealplan Speichern</button>
   </form>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('input[type="text"]').on('input', function() {
+      const recipeName = $(this).val();
+      const mealType = $(this).attr('name').split('-')[0];
+      const day = $(this).attr('name').split('-')[1];
+      const nutritionId = mealType + '-nutrition-' + day;
+
+      // Dummy-Nährwerte für Simulation
+      const nutritionalValues = {
+        'Frühstück': { calories: 300, protein: 20, carbs: 40, fat: 10 },
+        'Mittagessen': { calories: 500, protein: 30, carbs: 60, fat: 15 },
+        'Abendessen': { calories: 400, protein: 25, carbs: 50, fat: 12 }
+      };
+
+      if (recipeName) {
+        $('#' + nutritionId).text(`Kalorien: ${nutritionalValues[mealType].calories}, Protein: ${nutritionalValues[mealType].protein}g`);
+      } else {
+        $('#' + nutritionId).text('');
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
-
-

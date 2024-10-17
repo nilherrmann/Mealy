@@ -1,31 +1,36 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
-    color: #333;
+    background-color: #e0f7f5; /* Helles Grün für Hintergrund */
     margin: 0;
 }
 
 header {
-    background-color: #086A87;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    padding: 15px 0;
-    z-index: 1000;
+    background-color: #086A87; /* Dunkler Farbton für den Header */
+    padding: 10px 0; /* Vertikales Padding */
+    width: 100%; /* Volle Breite */
+    position: fixed; /* Fixiert oben */
+    top: 0; /* An die obere Seite anheften */
+    left: 0; /* An die linke Seite anheften */
+    z-index: 1000; /* Sicherstellen, dass der Header immer sichtbar ist */
 }
 
 .navbar {
-    display: flex;
-    justify-content: center;
+    background-color: #086A87;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    display: flex; /* Flexbox für die Navbar */
+    justify-content: space-between; /* Gleichmäßige Verteilung der Elemente */
+    align-items: center; /* Zentrieren der Elemente */
 }
 
 .navbar ul {
-    list-style: none;
-    padding: 0;
+    list-style-type: none;
     margin: 0;
+    padding: 0;
     display: flex;
-    gap: 20px;
+    justify-content: space-around;
+    flex: 1;
 }
 
 .navbar ul li {
@@ -34,29 +39,25 @@ header {
 
 .navbar ul li a {
     color: white;
+    font-size: 16px;
     font-weight: bold;
-    font-size: 1.2em;
     text-decoration: none;
-    padding: 10px 20px;
-    transition: background-color 0.3s;
-}
-
-.navbar ul li a:hover {
-    background-color: #0295A9;
-    border-radius: 5px;
+    padding: 10px 20px; /* Padding für die Links */
+    flex-grow: 1; /* Links nehmen gleichmäßig Platz ein */
+    text-align: center;
 }
 
 .homepage-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 100px;
-    padding-bottom: 30px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    padding-top: 100px; /* Abstand zur Navbar */
 }
 
 .logo-container {
-    max-width: 100px;
-    margin-bottom: 20px;
+    width: 30%;
+    text-align: center;
 }
 
 .logo {
@@ -65,51 +66,63 @@ header {
 }
 
 .content-container {
-    text-align: center;
-    max-width: 600px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    border-radius: 15px;
+    width: 70%;
+    padding-left: 30px;
 }
 
 .welcome-message h1 {
-    font-size: 2.5em;
-    color: #086A87;
-    margin: 0;
+    font-size: 2em;
+    color: #0295A9;
+    margin-bottom: 0;
+    text-align: center; /* Zentriert den Titel */
 }
 
 .content h2 {
-    font-size: 1.5em;
-    color: #0295A9;
+    text-align: center; /* Zentriert die Überschrift */
 }
 
-.content p {
-    font-size: 1.1em;
-    color: #555;
-    margin-top: 10px;
+.intro-text p {
+    color: #0295A9;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: center; /* Zentriert den Text */
 }
 
 .action-container {
-    margin-top: 30px;
+    text-align: center; /* Zentriert die Buttons und den Text */
+    margin-top: 20px;
 }
 
 .action-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
+    display: flex; /* Flexbox für die Buttons */
+    justify-content: center; /* Zentriert die Buttons */
+    gap: 20px; /* Abstand zwischen den Buttons */
+    margin-top: 10px; /* Abstand oben */
+}
+
+.action-description {
+    color: #0295A9; /* Gleiche Farbe wie der Rest des Textes */
+    font-size: 14px; /* Kleinere Schriftgröße für die Beschreibung */
+    margin-bottom: 5px; /* Abstand zum Button */
+    max-width: 180px; /* Maximale Breite des Beschreibungstextes */
+    text-align: center; /* Zentriert den Text */
 }
 
 .action-btn {
+    padding: 20px 30px;
     background-color: #0295A9;
     color: white;
-    font-weight: bold;
-    font-size: 1.1em;
-    padding: 15px 30px;
     border: none;
-    border-radius: 25px;
-    width: 160px;
-    transition: background-color 0.3s;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 180px; /* Breite der Buttons */
+    height: 80px; /* Höhe der Buttons */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
     text-align: center;
 }
 

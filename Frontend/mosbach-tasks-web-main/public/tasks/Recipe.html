@@ -12,27 +12,25 @@
 <header>
   <nav class="navbar">
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Rezeptsammlung</a></li>
-      <li><a href="#">Rezepte</a></li>
-      <li><a href="#">Mealplan</a></li>
-      <li><a href="#">Profil</a></li>
+      <li><a href="home.html">HOME</a></li>
+      <li><a href="rezeptsammlung.html">REZEPTSAMMLUNG</a></li>
+      <li><a href="mealplan.html">MEALPLAN</a></li>
+      <li><a href="profil.html">PROFIL</a></li>
     </ul>
   </nav>
 </header>
 
 <div class="recipe-container">
-  <h1>Rezept Erstellen</h1>
-
+  <h1 class="recipe-title">Rezept Erstellen</h1>
   <form action="#" method="post" enctype="multipart/form-data">
     <div class="form-section">
       <label for="recipe-name">Rezeptname:</label>
-      <input type="text" id="recipe-name" name="recipe_name" required>
+      <input type="text" id="recipe-name" name="recipe_name" placeholder="Gib den Namen deines Rezepts ein" required>
     </div>
 
     <div class="form-section">
       <label for="recipe-description">Beschreibung:</label>
-      <textarea id="recipe-description" name="recipe_description" rows="4" required></textarea>
+      <textarea id="recipe-description" name="recipe_description" rows="4" placeholder="Beschreibe dein Rezept hier..." required></textarea>
     </div>
 
     <div class="form-section">

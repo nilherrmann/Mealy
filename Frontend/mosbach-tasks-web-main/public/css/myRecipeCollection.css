@@ -5,9 +5,6 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .navbar {
@@ -43,77 +40,81 @@ body {
     text-align: center;
 }
 
-.recipe-container {
-  background-color: #ffffff;
+.recipe-list-container {
   padding: 40px;
   width: 80%;
-  max-width: 600px;
-  margin: 20px;
+  max-width: 900px;
+  margin: 20px auto;
+  background-color: white;
   border-radius: 10px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-.recipe-title {
-  font-size: 2em;
+.recipe-list-container h1 {
+  font-size: 2.5em;
   color: #086A87;
+  margin-bottom: 30px;
+}
+
+.recipe-item {
+  display: flex;
+  align-items: center;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 3D-Effekt */
-}
-
-.form-section {
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.form-section label {
-  font-weight: bold;
-  color: #333;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.form-section input[type="text"],
-.form-section input[type="number"],
-.form-section input[type="file"],
-.form-section textarea {
-  width: 100%;
-  padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
 }
 
-.form-section input[type="text"]:focus,
-.form-section input[type="number"]:focus,
-.form-section input[type="file"]:focus,
-.form-section textarea:focus {
-  border-color: #086A87;
+.recipe-item:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-item img {
+  width: 150px; /* Set image size */
+  height: 150px; /* Set image size */
+  object-fit: cover; /* Maintain aspect ratio */
+}
+
+.recipe-info {
+  padding: 20px;
+  flex: 1; /* Allow info to take remaining space */
+}
+
+.recipe-info h2 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #086A87;
+}
+
+.recipe-info p {
+  color: #666;
+}
+
+.add-recipe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.add-recipe-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .submit-btn {
-  background-color: #0295A9;
+  background-color: #086A87; /* Button color */
   color: white;
+  padding: 10px;
   border: none;
-  padding: 15px 30px;
-  font-size: 16px;
-  font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .submit-btn:hover {
-  background-color: #065f71;
-}
-
-.form-section input[type="number"] {
-  width: calc(25% - 10px);
-  margin-right: 10px;
-}
-
-.form-section input[type="file"] {
-  background-color: #f9f9f9;
-  padding: 8px;
+  background-color: #065f71; /* Darker shade on hover */
 }

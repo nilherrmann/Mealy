@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezeptsammlung - Mealy</title>
+    <link rel="stylesheet" href="../css/myRecipeCollection.css">
+    <link rel="icon" href="../Logo/Mealy-Favicon.ico">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="home.html">HOME</a></li>
+            <li><a href="rezeptsammlung.html">REZEPTSAMMLUNG</a></li>
+            <li><a href="mealplan.html">MEALPLAN</a></li>
+            <li><a href="profil.html">PROFIL</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="recipe-list-container">
+    <h1>Rezeptsammlung</h1>
+
+    <div class="recipe-item">
+        <img src="../images/recipe1.jpg" alt="Rezept 1">
+        <div class="recipe-info">
+            <h2>Rezeptname 1</h2>
+            <p>Eine kurze Beschreibung des Rezepts. Es ist lecker und gesund!</p>
+        </div>
+    </div>
+    <div class="recipe-item">
+        <img src="../images/recipe2.jpg" alt="Rezept 2">
+        <div class="recipe-info">
+            <h2>Rezeptname 2</h2>
+            <p>Eine kurze Beschreibung des Rezepts. Es ist einfach zuzubereiten!</p>
+        </div>
+    </div>
+    <!-- Fügen Sie hier weitere Rezepte hinzu -->
+
+    <h2>Neues Rezept hinzufügen</h2>
+    <form action="#" method="post" class="add-recipe-form">
+        <input type="text" name="recipe_name" placeholder="Rezeptname" required>
+        <input type="text" name="recipe_description" placeholder="Beschreibung" required>
+        <input type="file" name="recipe_image" accept="image/*" required>
+        <button type="submit" class="submit-btn">Hinzufügen</button>
+    </form>
+</div>
+</body>
+</html>

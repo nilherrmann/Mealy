@@ -15,8 +15,13 @@ header {
 }
 
 .navbar {
+    background-color: #086A87;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
     display: flex; /* Flexbox für die Navbar */
-    justify-content: center; /* Zentrieren der Elemente */
+    justify-content: space-between; /* Gleichmäßige Verteilung der Elemente */
+    align-items: center; /* Zentrieren der Elemente */
 }
 
 .navbar ul {
@@ -24,10 +29,12 @@ header {
     margin: 0;
     padding: 0;
     display: flex;
+    justify-content: space-around;
+    flex: 1;
 }
 
 .navbar ul li {
-    margin: 0 15px; /* Abstand zwischen den Menüpunkten */
+    display: inline;
 }
 
 .navbar ul li a {
@@ -35,9 +42,12 @@ header {
     font-size: 16px;
     font-weight: bold;
     text-decoration: none;
+    padding: 10px 20px; /* Padding für die Links */
+    flex-grow: 1; /* Links nehmen gleichmäßig Platz ein */
+    text-align: center;
 }
 
-.mealplan-container {
+.profile-container {
     display: flex;
     flex-direction: column;
     align-items: center; /* Zentrieren des Inhalts */
@@ -50,43 +60,30 @@ h1 {
     margin-bottom: 30px; /* Abstand nach unten */
 }
 
-.mealplan-table {
-    border-collapse: collapse; /* Zusammenlegen der Zellen */
-    width: 100%; /* Volle Breite */
+.action-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.mealplan-table th, .mealplan-table td {
-    border: 1px solid #ccc; /* Rand für die Zellen */
-    padding: 10px; /* Innenabstand */
-    text-align: center; /* Zentrieren des Textes */
+.action-buttons {
+    display: flex;
+    justify-content: center; /* Zentrieren der Buttons */
+    flex-wrap: wrap; /* Zeilenumbruch für kleinere Bildschirme */
 }
 
-.mealplan-table th {
-    background-color: #086A87; /* Gleiche Farbe wie die Navbar */
-    color: white; /* Textfarbe für die Überschrift */
-}
-
-input[type="text"] {
-    width: 150px; /* Breite der Eingabefelder */
-    padding: 5px; /* Innenabstand */
-    border: 1px solid #ccc; /* Rand */
-    border-radius: 5px; /* Runde Ecken */
-}
-
-.nutritional-info {
-    font-weight: bold; /* Fettdruck für Nährwertangaben */
-}
-
-.submit-btn {
-    padding: 10px 20px;
+.action-btn {
+    padding: 15px 30px;
     background-color: #086A87; /* Gleiche Farbe wie die Navbar */
     color: white;
     border: none;
-    border-radius: 5px; /* Runde Ecken */
+    border-radius: 25px; /* Runde Ecken */
+    font-size: 16px;
     cursor: pointer;
+    margin: 10px; /* Abstand zwischen den Buttons */
     transition: background-color 0.3s; /* Übergangseffekt für Hover */
 }
 
-.submit-btn:hover {
+.action-btn:hover {
     background-color: #055f6a; /* Etwas dunklerer Farbton beim Hover */
 }
