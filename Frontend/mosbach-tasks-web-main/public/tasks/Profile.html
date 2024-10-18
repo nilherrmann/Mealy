@@ -12,10 +12,10 @@
 <header>
     <nav class="navbar">
         <ul>
-            <li><a href="home.html">HOME</a></li>
-            <li><a href="rezeptsammlung.html">REZEPTSAMMLUNG</a></li>
-            <li><a href="mealplan.html">MEALPLAN</a></li>
-            <li><a href="profil.html">PROFIL</a></li>
+            <li><a href="Hompage2.html">HOME</a></li>
+            <li><a href="RecipeCollection.html">REZEPTSAMMLUNG</a></li>
+            <li><a href="Mealplan.html">MEALPLAN</a></li>
+            <li><a href="Profile.html" class="active">PROFIL</a></li>
         </ul>
     </nav>
 </header>
@@ -23,19 +23,27 @@
 <div class="profile-container">
     <h1>Mein Profil</h1>
     <div class="profile-info">
-        <img src="../images/user-avatar.png" alt="Benutzeravatar" class="avatar">
         <div class="user-details">
             <h2>Max Mustermann</h2>
-            <p>Email: max.mustermann@example.com</p>
-            <p>Mitglied seit: Januar 2023</p>
+            <p>Email: <span id="userEmail">max.mustermann@example.com</span></p>
         </div>
     </div>
     <div class="action-container">
         <h3>Aktionen</h3>
         <div class="action-buttons">
-            <button class="action-btn" onclick="window.location.href='#'">E-Mail-Adresse<br>ändern</button>
-            <button class="action-btn" onclick="window.location.href='#'">Passwort<br>ändern</button>
-            <button class="action-btn" onclick="window.location.href='#'">Meine<br>Daten</button>
+            <button class="action-btn" onclick="toggleEmailInput()">E-Mail-Adresse<br>ändern</button>
+            <div id="emailInput" style="display:none;">
+                <input type="email" id="newEmail" placeholder="Neue E-Mail-Adresse">
+                <button onclick="saveEmail()">Speichern</button>
+                <button onclick="toggleEmailInput()">Abbrechen</button>
+            </div>
+            <button class="action-btn" onclick="togglePasswordInput()">Passwort<br>ändern</button>
+            <div id="passwordInput" style="display:none;">
+                <input type="password" id="newPassword" placeholder="Neues Passwort">
+                <input type="password" id="confirmPassword" placeholder="Passwort bestätigen">
+                <button onclick="savePassword()">Speichern</button>
+                <button onclick="togglePasswordInput()">Abbrechen</button>
+            </div>
         </div>
     </div>
 </div>
@@ -43,5 +51,36 @@
 <footer>
     <p>&copy; 2024 Mealy. Alle Rechte vorbehalten.</p>
 </footer>
+
+<script>
+    function toggleEmailInput() {
+        const emailInput = document.getElementById('emailInput');
+        emailInput.style.display = emailInput.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function togglePasswordInput() {
+        const passwordInput = document.getElementById('passwordInput');
+        passwordInput.style.display = passwordInput.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function saveEmail() {
+        const newEmail = document.getElementById('newEmail').value;
+        document.getElementById('userEmail').textContent = newEmail;
+        toggleEmailInput();
+    }
+
+    function savePassword() {
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (newPassword === confirmPassword) {
+            // Hier könnte Logik zum Speichern des neuen Passworts hinzugefügt werden
+            alert('Passwort erfolgreich geändert!');
+            togglePasswordInput();
+        } else {
+            alert('Die Passwörter stimmen nicht überein.');
+        }
+    }
+</script>
 </body>
 </html>

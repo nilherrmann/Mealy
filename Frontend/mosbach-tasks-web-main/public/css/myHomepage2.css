@@ -47,6 +47,17 @@ header {
     text-align: center;
 }
 
+/* Styling for the active (current) page */
+.navbar ul li a.active {
+    color: #333; /* Dunklere Schriftfarbe für die aktuelle Seite */
+    background-color: #f4fbfa; /* Hintergrundfarbe, um die aktive Seite hervorzuheben */
+    border-radius: 5px; /* Leicht abgerundete Kanten */
+}
+
+.navbar ul li a:hover {
+    background-color: #065f6a; /* Hover-Effekt für alle Links */
+}
+
 .homepage-container {
     display: flex;
     width: 100%;
@@ -74,7 +85,8 @@ header {
     font-size: 2em;
     color: #0295A9;
     margin-bottom: 0;
-    text-align: center; /* Zentriert den Titel */
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2)/* Zentriert den Titel */
 }
 
 .content h2 {
@@ -96,8 +108,8 @@ header {
 .action-buttons {
     display: flex; /* Flexbox für die Buttons */
     justify-content: center; /* Zentriert die Buttons */
-    gap: 20px; /* Abstand zwischen den Buttons */
-    margin-top: 10px; /* Abstand oben */
+    gap: 30px; /* Abstand zwischen den Buttons */
+    margin-top: 50px; /* Abstand oben */
 }
 
 .action-description {

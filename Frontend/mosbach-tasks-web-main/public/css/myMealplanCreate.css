@@ -36,6 +36,14 @@ header {
     font-weight: bold;
     text-decoration: none;
 }
+.navbar ul li a.active {
+    color: #333; /* Dunklere Schriftfarbe für die aktuelle Seite */
+    background-color: #f4fbfa; /* Hintergrundfarbe, um die aktive Seite hervorzuheben */
+    border-radius: 5px; /* Leicht abgerundete Kanten */
+}
+.navbar ul li a:hover {
+    background-color: #065f6a; /* Hover-Effekt für alle Links */
+}
 
 .mealplan-container {
     display: flex;
@@ -48,6 +56,7 @@ h1 {
     color: #0295A9; /* Helle Farbe für die Überschrift */
     text-align: center; /* Zentrieren der Überschrift */
     margin-bottom: 30px; /* Abstand nach unten */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2)
 }
 
 .mealplan-table {

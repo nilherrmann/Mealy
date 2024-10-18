@@ -42,7 +42,7 @@ body {
     border-color: #6699CC; /* Dunklere Farbe bei Fokus */
 }
 
-.submit-btn {
+.action-btn {
     width: 100%;
     padding: 12px;
     background-color: #086A87; /* Dunklerer Farbton für den Button */
@@ -54,7 +54,7 @@ body {
     margin-top: 25px;
 }
 
-.submit-btn:hover {
+.action-btn:hover {
     background-color: #065A66; /* Noch dunkler bei Hover */
 }
 

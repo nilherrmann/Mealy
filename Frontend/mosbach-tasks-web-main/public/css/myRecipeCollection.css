@@ -39,6 +39,14 @@ body {
     flex-grow: 1; /* Links nehmen gleichmäßig Platz ein */
     text-align: center;
 }
+.navbar ul li a.active {
+    color: #333; /* Dunklere Schriftfarbe für die aktuelle Seite */
+    background-color: #f4fbfa; /* Hintergrundfarbe, um die aktive Seite hervorzuheben */
+    border-radius: 5px; /* Leicht abgerundete Kanten */
+}
+.navbar ul li a:hover {
+    background-color: #065f6a; /* Hover-Effekt für alle Links */
+}
 
 .recipe-list-container {
   padding: 40px;
@@ -55,6 +63,7 @@ body {
   font-size: 2.5em;
   color: #086A87;
   margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2)
 }
 
 .recipe-item {

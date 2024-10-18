@@ -9,7 +9,6 @@ body {
   flex-direction: column;
   align-items: center;
 }
-
 .navbar {
     background-color: #086A87;
     padding: 10px 0;
@@ -42,7 +41,6 @@ body {
     flex-grow: 1; /* Links nehmen gleichmäßig Platz ein */
     text-align: center;
 }
-
 .recipe-container {
   background-color: #ffffff;
   padding: 40px;
