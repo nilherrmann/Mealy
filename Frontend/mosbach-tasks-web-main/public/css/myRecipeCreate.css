@@ -1,14 +1,25 @@
 /* Global Styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #e0f7f5;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: #e0f7f5; /* Helles Grün für den Hintergrund */
+    color: #333; /* Textfarbe */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Zentrieren des Inhalts */
 }
+
+header {
+    background-color: #086A87; /* Dunkler Farbton für den Header */
+    padding: 10px 0; /* Vertikales Padding */
+    width: 100%; /* Volle Breite */
+    position: fixed; /* Fixiert oben */
+    top: 0; /* An die obere Seite anheften */
+    left: 0; /* An die linke Seite anheften */
+    z-index: 1000; /* Sicherstellen, dass der Header immer sichtbar ist */
+}
+
 .navbar {
     background-color: #086A87;
     padding: 10px 0;
@@ -41,77 +52,153 @@ body {
     flex-grow: 1; /* Links nehmen gleichmäßig Platz ein */
     text-align: center;
 }
+
+.navbar ul li a.active {
+    color: #333; /* Dunklere Schriftfarbe für die aktive Seite */
+    background-color: #f4fbfa; /* Hintergrundfarbe, um die aktive Seite hervorzuheben */
+    border-radius: 5px; /* Leicht abgerundete Kanten */
+}
+
+.navbar ul li a:hover {
+    background-color: #065f6a; /* Hover-Effekt für alle Links */
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Zentrieren des Inhalts */
+    padding: 100px 20px; /* Platz für Header */
+    width: 80%; /* Breite des Profilcontainers */
+    max-width: 600px; /* Maximale Breite */
+    background-color: #ffffff; /* Hintergrundfarbe für den Profilcontainer */
+    border-radius: 10px; /* Runde Ecken */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Schatten für den Container */
+}
+
+h1 {
+    color: #0295A9; /* Helle Farbe für die Überschrift */
+    text-align: center; /* Zentrieren der Überschrift */
+    margin-bottom: 30px; /* Abstand nach unten */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 3D-Effekt */
+}
+
+.action-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center; /* Zentrieren der Buttons */
+    flex-wrap: wrap; /* Zeilenumbruch für kleinere Bildschirme */
+}
+
+.action-btn {
+    padding: 15px 30px;
+    background-color: #086A87; /* Gleiche Farbe wie die Navbar */
+    color: white;
+    border: none;
+    border-radius: 25px; /* Runde Ecken */
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px; /* Abstand zwischen den Buttons */
+    transition: background-color 0.3s; /* Übergangseffekt für Hover */
+}
+
+.action-btn:hover {
+    background-color: #055f6a; /* Etwas dunklerer Farbton beim Hover */
+}
+
+/* Stile für die Eingabefelder */
+input[type="email"],
+input[type="password"] {
+    padding: 10px; /* Innenabstand */
+    margin: 10px; /* Außenabstand */
+    border-radius: 5px; /* Runde Ecken */
+    border: 1px solid #ddd; /* Graue Rahmenfarbe */
+    width: 100%; /* Breite der Eingabefelder */
+    box-sizing: border-box; /* Box-Modell anpassen */
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #086A87; /* Rahmenfarbe beim Fokus ändern */
+}
+
+/* Styles für Rezepte */
 .recipe-container {
-  background-color: #ffffff;
-  padding: 40px;
-  width: 80%;
-  max-width: 600px;
-  margin: 20px;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  text-align: center;
+    background-color: #ffffff; /* Hintergrundfarbe für Rezepte */
+    padding: 40px; /* Innenabstand */
+    width: 80%; /* Breite des Rezeptcontainers */
+    max-width: 600px; /* Maximale Breite */
+    margin: 20px; /* Außenabstand */
+    border-radius: 10px; /* Runde Ecken */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Schatten für den Container */
+    text-align: center; /* Zentrierter Text */
 }
 
 .recipe-title {
-  font-size: 2em;
-  color: #086A87;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 3D-Effekt */
+    font-size: 2em; /* Schriftgröße für den Rezepttitel */
+    color: #086A87; /* Farbton für den Titel */
+    margin-bottom: 20px; /* Abstand nach unten */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 3D-Effekt */
 }
 
+/* Styles für Formulare */
 .form-section {
-  margin-bottom: 20px;
-  text-align: left;
+    margin-bottom: 20px; /* Abstand nach unten */
+    text-align: left; /* Linksbündiger Text */
 }
 
 .form-section label {
-  font-weight: bold;
-  color: #333;
-  display: block;
-  margin-bottom: 8px;
+    font-weight: bold; /* Fettdruck für Labels */
+    color: #333; /* Farbe für Labels */
+    display: block; /* Block-Layout für Labels */
+    margin-bottom: 8px; /* Abstand nach unten */
 }
 
 .form-section input[type="text"],
 .form-section input[type="number"],
 .form-section input[type="file"],
 .form-section textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
+    width: 100%; /* Breite auf 100% setzen */
+    padding: 10px; /* Innenabstand */
+    border: 1px solid #ddd; /* Graue Rahmenfarbe */
+    border-radius: 5px; /* Runde Ecken */
+    box-sizing: border-box; /* Box-Modell anpassen */
+    transition: border-color 0.3s ease; /* Übergangseffekt für Rahmenfarbe */
 }
 
 .form-section input[type="text"]:focus,
 .form-section input[type="number"]:focus,
 .form-section input[type="file"]:focus,
 .form-section textarea:focus {
-  border-color: #086A87;
+    border-color: #086A87; /* Rahmenfarbe beim Fokus ändern */
 }
 
 .submit-btn {
-  background-color: #0295A9;
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    background-color: #0295A9; /* Farbton für den Button */
+    color: white; /* Schriftfarbe */
+    border: none; /* Kein Rahmen */
+    padding: 15px 30px; /* Innenabstand */
+    font-size: 16px; /* Schriftgröße */
+    font-weight: bold; /* Fettdruck */
+    border-radius: 5px; /* Runde Ecken */
+    cursor: pointer; /* Handcursor beim Hover */
+    transition: background-color 0.3s ease; /* Übergangseffekt für Hintergrundfarbe */
 }
 
 .submit-btn:hover {
-  background-color: #065f71;
+    background-color: #065f71; /* Etwas dunklerer Farbton beim Hover */
 }
 
 .form-section input[type="number"] {
-  width: calc(25% - 10px);
-  margin-right: 10px;
+    width: calc(25% - 10px); /* Breite für Zahlenfelder */
+    margin-right: 10px; /* Abstand nach rechts */
 }
 
 .form-section input[type="file"] {
-  background-color: #f9f9f9;
-  padding: 8px;
+    background-color: #f9f9f9; /* Hintergrundfarbe für Datei-Upload */
+    padding: 8px; /* Innenabstand */
 }

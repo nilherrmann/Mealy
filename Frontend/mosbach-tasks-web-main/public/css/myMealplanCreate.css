@@ -1,7 +1,8 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif; /* Schriftart */
     background-color: #e0f7f5; /* Helles Grün für den Hintergrund */
-    margin: 0;
+    margin: 0; /* Kein Außenabstand */
+    padding: 0; /* Kein Innenabstand */
 }
 
 header {
@@ -17,13 +18,16 @@ header {
 .navbar {
     display: flex; /* Flexbox für die Navbar */
     justify-content: center; /* Zentrieren der Elemente */
+    padding: 10px 0; /* Vertikales Padding */
 }
 
 .navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
+    list-style-type: none; /* Keine Aufzählungszeichen */
+    margin: 0; /* Kein Außenabstand */
+    padding: 0; /* Kein Innenabstand */
+    display: flex; /* Flexbox für die Listenelemente */
+    justify-content: space-around; /* Gleichmäßige Verteilung der Listenelemente */
+    flex: 1; /* Flexibles Layout */
 }
 
 .navbar ul li {
@@ -31,23 +35,26 @@ header {
 }
 
 .navbar ul li a {
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
+    color: white; /* Schriftfarbe für Links */
+    font-size: 16px; /* Schriftgröße */
+    font-weight: bold; /* Fettdruck */
+    text-decoration: none; /* Keine Unterstreichung */
+    padding: 10px 20px; /* Padding für die Links */
 }
+
 .navbar ul li a.active {
     color: #333; /* Dunklere Schriftfarbe für die aktuelle Seite */
-    background-color: #f4fbfa; /* Hintergrundfarbe, um die aktive Seite hervorzuheben */
+    background-color: #f4fbfa; /* Hintergrundfarbe für die aktive Seite */
     border-radius: 5px; /* Leicht abgerundete Kanten */
 }
+
 .navbar ul li a:hover {
     background-color: #065f6a; /* Hover-Effekt für alle Links */
 }
 
 .mealplan-container {
-    display: flex;
-    flex-direction: column;
+    display: flex; /* Flexbox für den Container */
+    flex-direction: column; /* Vertikale Anordnung */
     align-items: center; /* Zentrieren des Inhalts */
     padding: 100px 20px; /* Platz für Header */
 }
@@ -56,12 +63,13 @@ h1 {
     color: #0295A9; /* Helle Farbe für die Überschrift */
     text-align: center; /* Zentrieren der Überschrift */
     margin-bottom: 30px; /* Abstand nach unten */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2)
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 3D-Effekt */
 }
 
 .mealplan-table {
     border-collapse: collapse; /* Zusammenlegen der Zellen */
     width: 100%; /* Volle Breite */
+    margin-bottom: 20px; /* Abstand nach unten */
 }
 
 .mealplan-table th, .mealplan-table td {
@@ -80,6 +88,7 @@ input[type="text"] {
     padding: 5px; /* Innenabstand */
     border: 1px solid #ccc; /* Rand */
     border-radius: 5px; /* Runde Ecken */
+    box-sizing: border-box; /* Berücksichtigt Padding und Border bei der Breite */
 }
 
 .nutritional-info {
@@ -87,12 +96,12 @@ input[type="text"] {
 }
 
 .submit-btn {
-    padding: 10px 20px;
+    padding: 10px 20px; /* Innenabstand */
     background-color: #086A87; /* Gleiche Farbe wie die Navbar */
-    color: white;
-    border: none;
+    color: white; /* Schriftfarbe */
+    border: none; /* Kein Rahmen */
     border-radius: 5px; /* Runde Ecken */
-    cursor: pointer;
+    cursor: pointer; /* Handcursor */
     transition: background-color 0.3s; /* Übergangseffekt für Hover */
 }
 
