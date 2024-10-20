@@ -1,30 +1,30 @@
-/* Global Styles */
+
 body {
-    font-family: Arial, sans-serif; /* Schriftart */
-    background-color: #e0f7f5; /* Hintergrundfarbe */
-    color: #333; /* Textfarbe */
-    margin: 0; /* Kein Außenabstand */
-    padding: 0; /* Kein Innenabstand */
+    font-family: Arial, sans-serif;
+    background-color: #e0f7f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /
 }
 
+/* Header */
 header {
-    background-color: #086A87; /* Dunkler Farbton für den Header */
-    padding: 10px 0; /* Vertikales Padding */
-    width: 100%; /* Volle Breite */
-    position: fixed; /* Fixiert oben */
-    top: 0; /* An die obere Seite anheften */
-    left: 0; /* An die linke Seite anheften */
-    z-index: 1000; /* Sicherstellen, dass der Header immer sichtbar ist */
+    background-color: #086A87; 
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
+/* Navbar */
 .navbar {
-    background-color: #086A87; /* Hintergrundfarbe für die Navbar */
-    padding: 10px 0; /* Vertikales Padding */
-    text-align: center; /* Text zentrieren */
-    width: 100%; /* Volle Breite */
     display: flex; /* Flexbox für die Navbar */
-    justify-content: space-between; /* Gleichmäßige Verteilung der Elemente */
-    align-items: center; /* Zentrieren der Elemente */
+    justify-content: center; /* Zentrieren der Elemente */
+    padding: 10px 0; /* Vertikales Padding */
 }
 
 .navbar ul {
@@ -37,7 +37,7 @@ header {
 }
 
 .navbar ul li {
-    display: inline; /* Inline-Elemente */
+    margin: 0 15px; /* Abstand zwischen den Menüpunkten */
 }
 
 .navbar ul li a {
@@ -46,97 +46,86 @@ header {
     font-weight: bold; /* Fettdruck */
     text-decoration: none; /* Keine Unterstreichung */
     padding: 10px 20px; /* Padding für die Links */
-    flex-grow: 1; /* Links nehmen gleichmäßig Platz ein */
-    text-align: center; /* Text zentrieren */
 }
 
 .navbar ul li a.active {
-    color: #333; /* Dunklere Schriftfarbe für die aktive Seite */
-    background-color: #f4fbfa; /* Hintergrundfarbe für aktive Seite */
+    color: #333; /* Dunklere Schriftfarbe für die aktuelle Seite */
+    background-color: #f4fbfa; /* Hintergrundfarbe für die aktive Seite */
     border-radius: 5px; /* Leicht abgerundete Kanten */
 }
 
 .navbar ul li a:hover {
-    background-color: #065f6a; /* Hover-Effekt für Links */
+    background-color: #065f6a; /* Hover-Effekt für alle Links */
 }
 
-.recipe-list-container {
-    padding: 40px; /* Innenabstand */
-    width: 80%; /* Breite des Containers */
-    max-width: 900px; /* Maximale Breite */
-    margin: 20px auto; /* Automatischer Außenabstand oben und unten, zentriert */
-    background-color: white; /* Hintergrundfarbe für den Container */
-    border-radius: 10px; /* Runde Ecken */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Schatten für den Container */
-    text-align: center; /* Zentrierter Text */
+/* Rezept-Container */
+.recipe-container {
+    display: flex; /* Flexbox für den Container */
+    flex-direction: column; /* Vertikale Anordnung */
+    align-items: center; /* Zentrieren des Inhalts */
+    padding: 100px 20px; /* Platz für Header */
+    width: 80%; /* Breite des Rezeptcontainers */
+    max-width: 600px; /* Maximale Breite */
+    margin-top: 60px; /* Abstand zum Header */
 }
 
-.recipe-list-container h1 {
-    font-size: 2.5em; /* Schriftgröße für die Überschrift */
-    color: #086A87; /* Farbe für die Überschrift */
+/* Überschrift */
+h1 {
+    color: #0295A9; /* Helle Farbe für die Überschrift */
+    text-align: center; /* Zentrieren der Überschrift */
+    margin-top: 0px; /* Abstand nach oben verringern */
     margin-bottom: 30px; /* Abstand nach unten */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 3D-Effekt */
 }
 
-.recipe-item {
-    display: flex; /* Flexbox für Rezept-Elemente */
-    align-items: center; /* Vertikale Zentrierung */
-    margin-bottom: 20px; /* Abstand nach unten */
-    border: 1px solid #ddd; /* Grauer Rahmen */
-    border-radius: 10px; /* Runde Ecken */
-    overflow: hidden; /* Versteckt überflüssigen Inhalt */
-    transition: box-shadow 0.3s ease; /* Übergangseffekt für Schatten */
-}
-
-.recipe-item:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Schatten beim Hover */
-}
-
-.recipe-item img {
-    width: 150px; /* Breite des Bildes */
-    height: 150px; /* Höhe des Bildes */
-    object-fit: cover; /* Erhält das Seitenverhältnis */
-}
-
-.recipe-info {
-    padding: 20px; /* Innenabstand für Informationen */
-    flex: 1; /* Erlaubt den Infos, den verbleibenden Platz einzunehmen */
-}
-
-.recipe-info h2 {
-    margin: 0; /* Kein Außenabstand */
-    font-size: 1.5em; /* Schriftgröße für den Rezeptnamen */
-    color: #086A87; /* Farbe für den Rezeptnamen */
-}
-
-.recipe-info p {
-    color: #666; /* Farbton für die Beschreibung */
-}
-
-/* Formular zum Hinzufügen eines Rezepts */
-.add-recipe-form {
-    display: flex; /* Flexbox für das Formular */
+/* Rezeptliste */
+.recipe-list {
+    display: flex;
     flex-direction: column; /* Vertikale Anordnung */
-    gap: 10px; /* Abstand zwischen den Elementen */
+    width: 100%; /* Volle Breite */
     margin-top: 20px; /* Abstand nach oben */
 }
 
-.add-recipe-form input {
-    padding: 10px; /* Innenabstand */
-    border: 1px solid #ccc; /* Graue Rahmenfarbe */
-    border-radius: 5px; /* Runde Ecken */
+/* Einzelnes Rezept-Element */
+.recipe-item {
+    background-color: #ffffff; /* Weiße Hintergrundfarbe für jedes Rezept */
+    border-radius: 10px; /* Runde Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Schatten für den Kasten */
+    margin-bottom: 20px; /* Abstand zwischen den Rezepten */
+    overflow: hidden; /* Verhindert Überlappungen */
+    transition: box-shadow 0.3s ease; /* Übergang für Hover-Effekt */
 }
 
-.submit-btn {
-    background-color: #086A87; /* Hintergrundfarbe für den Button */
-    color: white; /* Schriftfarbe */
-    padding: 10px; /* Innenabstand */
-    border: none; /* Kein Rahmen */
-    border-radius: 5px; /* Runde Ecken */
-    cursor: pointer; /* Handcursor */
-    transition: background-color 0.3s ease; /* Übergangseffekt für Hintergrundfarbe */
+.recipe-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Dunklerer Schatten beim Hover */
 }
 
-.submit-btn:hover {
-    background-color: #065f71; /* Etwas dunklerer Farbton beim Hover */
+.recipe-item img {
+    width: 100%; /* Bild nimmt volle Breite ein */
+    height: 150px; /* Höhe der Bilder */
+    object-fit: cover; /* Bild an Container anpassen */
+}
+
+.recipe-info {
+    padding: 15px; /* Innenabstand für Rezeptinformationen */
+    text-align: center; /* Zentrieren des Textes */
+}
+
+.recipe-info h2 {
+    color: #086A87; /* Farbton für die Rezeptnamen */
+    font-size: 1.5em; /* Schriftgröße für Rezeptnamen */
+    margin: 10px 0; /* Abstand nach oben und unten */
+}
+
+.recipe-info p {
+    color: #666; /* Farbe für die Rezeptbeschreibung */
+    font-size: 1em; /* Schriftgröße für die Beschreibung */
+}
+
+/* Footer */
+footer {
+    text-align: center; /* Zentrieren des Fußbereichs */
+    font-size: 0.8em; /* Schriftgröße für den Fußbereich */
+    color: #666; /* Farbe für den Fußbereich */
+    padding: 20px; /* Innenabstand für den Fußbereich */
 }

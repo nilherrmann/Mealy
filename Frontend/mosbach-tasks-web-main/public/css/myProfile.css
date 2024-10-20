@@ -1,110 +1,69 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #e0f7f5; /* Helles Grün für den Hintergrund */
+    background-color: #e0f7f5;
     margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
 }
 
-header {
-    background-color: #086A87; /* Dunkler Farbton für den Header */
-    padding: 10px 0; /* Vertikales Padding */
-    width: 100%; /* Volle Breite */
-    position: fixed; /* Fixiert oben */
-    top: 0; /* An die obere Seite anheften */
-    left: 0; /* An die linke Seite anheften */
-    z-index: 1000; /* Sicherstellen, dass der Header immer sichtbar ist */
+.profile-box {
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-.navbar {
+.logo img {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.profile-title {
+    font-size: 24px;
+    color: #086A87;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 3D-Effekt */
+}
+
+.input-box {
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 280px; /* Feste Breite für alle Eingabefelder */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.input-submit .submit-btn {
     background-color: #086A87;
-    padding: 10px 0;
-    text-align: center;
-    width: 100%;
-    display: flex; /* Flexbox für die Navbar */
-    justify-content: space-between; /* Gleichmäßige Verteilung der Elemente */
-    align-items: center; /* Zentrieren der Elemente */
-}
-
-.navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-around;
-    flex: 1;
-}
-
-.navbar ul li {
-    display: inline;
-}
-
-.navbar ul li a {
     color: white;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    padding: 10px 20px; /* Padding für die Links */
-    flex-grow: 1; /* Links nehmen gleichmäßig Platz ein */
-    text-align: center;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.navbar ul li a.active {
-    color: #333; /* Dunklere Schriftfarbe für die aktuelle Seite */
-    background-color: #f4fbfa; /* Hintergrundfarbe, um die aktive Seite hervorzuheben */
-    border-radius: 5px; /* Leicht abgerundete Kanten */
-}
-
-.navbar ul li a:hover {
-    background-color: #065f6a; /* Hover-Effekt für alle Links */
-}
-
-.profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Zentrieren des Inhalts */
-    padding: 100px 20px; /* Platz für Header */
-}
-
-h1 {
-    color: #0295A9; /* Helle Farbe für die Überschrift */
-    text-align: center; /* Zentrieren der Überschrift */
-    margin-bottom: 30px; /* Abstand nach unten */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+.input-submit .submit-btn:hover {
+    background-color: #065f6a;
 }
 
 .action-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-top: 30px;
 }
 
-.action-buttons {
-    display: flex;
-    justify-content: center; /* Zentrieren der Buttons */
-    flex-wrap: wrap; /* Zeilenumbruch für kleinere Bildschirme */
-}
-
-.action-btn {
-    padding: 15px 30px;
-    background-color: #086A87; /* Gleiche Farbe wie die Navbar */
-    color: white;
-    border: none;
-    border-radius: 25px; /* Runde Ecken */
-    font-size: 16px;
-    cursor: pointer;
-    margin: 10px; /* Abstand zwischen den Buttons */
-    transition: background-color 0.3s; /* Übergangseffekt für Hover */
-}
-
-.action-btn:hover {
-    background-color: #055f6a; /* Etwas dunklerer Farbton beim Hover */
-}
-
-/* Stile für die Eingabefelder */
-input[type="email"],
-input[type="password"] {
-    padding: 10px; /* Innenabstand */
-    margin: 10px; /* Außenabstand */
-    border-radius: 5px; /* Runde Ecken */
-    border: 1px solid #ccc; /* Graue Rahmenfarbe */
-    width: 200px; /* Breite der Eingabefelder */
+footer {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 12px;
+    color: #666;
 }

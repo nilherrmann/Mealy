@@ -9,77 +9,78 @@
     <link rel="icon" href="../Logo/Mealy-Favicon.ico">
 </head>
 <body>
-<header>
-    <nav class="navbar">
-        <ul>
-            <li><a href="Hompage2.html">HOME</a></li>
-            <li><a href="RecipeCollection.html">REZEPTSAMMLUNG</a></li>
-            <li><a href="Mealplan.html">MEALPLAN</a></li>
-            <li><a href="Profile.html" class="active">PROFIL</a></li>
-        </ul>
-    </nav>
-</header>
+<div class="profile-box">
+    <div class="logo">
+        <img src="../Logo/Mealy-Logo1.png" alt="Mealy Logo">
+    </div>
 
-<div class="profile-container">
-    <h1>Mein Profil</h1>
-    <div class="profile-info">
-        <div class="user-details">
-            <h2>Max Mustermann</h2>
-            <p>Email: <span id="userEmail">max.mustermann@example.com</span></p>
-        </div>
+    <div class="profile-title">
+        Mein Profil
     </div>
+
+    <div class="input-box">
+        <input type="text" id="userName" class="input-field" placeholder="Nutzername" required>
+    </div>
+    <div class="input-box">
+        <input type="email" id="userEmail" class="input-field" placeholder="E-Mail-Adresse" required>
+    </div>
+    <div class="input-box">
+        <input type="password" id="newPassword" class="input-field" placeholder="Neues Passwort festlegen">
+    </div>
+    <div class="input-box">
+        <input type="password" id="confirmPassword" class="input-field" placeholder="Passwort wiederholen">
+    </div>
+    <div class="input-submit">
+        <button class="submit-btn" onclick="saveProfile()">Profil speichern</button>
+    </div>
+
     <div class="action-container">
-        <h3>Aktionen</h3>
-        <div class="action-buttons">
-            <button class="action-btn" onclick="toggleEmailInput()">E-Mail-Adresse<br>ändern</button>
-            <div id="emailInput" style="display:none;">
-                <input type="email" id="newEmail" placeholder="Neue E-Mail-Adresse">
-                <button onclick="saveEmail()">Speichern</button>
-                <button onclick="toggleEmailInput()">Abbrechen</button>
-            </div>
-            <button class="action-btn" onclick="togglePasswordInput()">Passwort<br>ändern</button>
-            <div id="passwordInput" style="display:none;">
-                <input type="password" id="newPassword" placeholder="Neues Passwort">
-                <input type="password" id="confirmPassword" placeholder="Passwort bestätigen">
-                <button onclick="savePassword()">Speichern</button>
-                <button onclick="togglePasswordInput()">Abbrechen</button>
-            </div>
+        <button class="submit-btn" onclick="logOut()">Abmelden</button>
+    </div>
         </div>
     </div>
-</div>
 
 <footer>
     <p>&copy; 2024 Mealy. Alle Rechte vorbehalten.</p>
 </footer>
 
 <script>
-    function toggleEmailInput() {
-        const emailInput = document.getElementById('emailInput');
-        emailInput.style.display = emailInput.style.display === 'none' ? 'block' : 'none';
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const userData = {
+            name: "Johanna",
+            email: "lehre@mosbach.de"
+        };
 
-    function togglePasswordInput() {
-        const passwordInput = document.getElementById('passwordInput');
-        passwordInput.style.display = passwordInput.style.display === 'none' ? 'block' : 'none';
-    }
 
-    function saveEmail() {
-        const newEmail = document.getElementById('newEmail').value;
-        document.getElementById('userEmail').textContent = newEmail;
-        toggleEmailInput();
-    }
+        document.getElementById('userName').value = userData.name;
+        document.getElementById('userEmail').value = userData.email;
+    });
 
-    function savePassword() {
+    function saveProfile() {
+        const userName = document.getElementById('userName').value;
+        const userEmail = document.getElementById('userEmail').value;
         const newPassword = document.getElementById('newPassword').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
 
-        if (newPassword === confirmPassword) {
-            // Hier könnte Logik zum Speichern des neuen Passworts hinzugefügt werden
-            alert('Passwort erfolgreich geändert!');
-            togglePasswordInput();
-        } else {
+        if (newPassword && newPassword !== confirmPassword) {
             alert('Die Passwörter stimmen nicht überein.');
+            return;
         }
+
+
+        console.log('Profil gespeichert:', {
+            name: userName,
+            email: userEmail,
+            password: newPassword || "Kein Passwort geändert"
+        });
+
+        alert('Profil erfolgreich aktualisiert!');
+    }
+
+    function logOut() {
+        // Beispiel-Logout-Logik
+        alert('Erfolgreich abgemeldet!');
+        window.location.href = "login.html";
     }
 </script>
 </body>
