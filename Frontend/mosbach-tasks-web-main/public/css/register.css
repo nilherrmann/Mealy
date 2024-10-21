@@ -42,7 +42,7 @@ body {
     border-color: #00a896; /* Passend zum Logo-Farbton */
 }
 
-.submit-btn {
+.action-btn {
     width: 100%;
     padding: 12px;
     background-color: #086A87; /* Dunkler Farbton für den Button */
@@ -54,7 +54,7 @@ body {
     margin-top: 20px;
 }
 
-.submit-btn:hover {
+.action-btn:hover {
     background-color: #065b68; /* Etwas dunklerer Farbton beim Hover */
 }
 
