@@ -1,4 +1,3 @@
-//This is a test note for Johanna 2
 package mosbach.dhbw.de.tasks.controller;
 import mosbach.dhbw.de.tasks.data.api.Task;
 import mosbach.dhbw.de.tasks.data.api.TaskManager;
@@ -147,7 +146,6 @@ public class MappingController {
         alexaRO.setResponse(response);
         return alexaRO;
     }
-
 
 
 }
