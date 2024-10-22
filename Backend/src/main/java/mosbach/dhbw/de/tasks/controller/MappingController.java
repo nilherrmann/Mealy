@@ -1,15 +1,12 @@
 package mosbach.dhbw.de.tasks.controller;
 import mosbach.dhbw.de.tasks.data.api.Task;
 import mosbach.dhbw.de.tasks.data.api.TaskManager;
-import mosbach.dhbw.de.tasks.data.impl.PostgresDBTaskManagerImpl;
 import mosbach.dhbw.de.tasks.data.impl.TaskImpl;
 import mosbach.dhbw.de.tasks.data.impl.TaskManagerImpl;
 import mosbach.dhbw.de.tasks.model.MessageAnswer;
 import mosbach.dhbw.de.tasks.model.SortedTasks;
 import mosbach.dhbw.de.tasks.model.TokenTask;
-import mosbach.dhbw.de.tasks.model.alexa.AlexaRO;
-import mosbach.dhbw.de.tasks.model.alexa.OutputSpeechRO;
-import mosbach.dhbw.de.tasks.model.alexa.ResponseRO;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -113,39 +110,4 @@ public class MappingController {
 
         return "ok";
     }
-
-    @PostMapping(
-            path = "/alexa",
-            consumes = {MediaType.APPLICATION_JSON_VALUE}
-    )
-    public AlexaRO readTasks(@RequestBody AlexaRO alexaRO) {
-
-        String myAnswer = "";
-        if (alexaRO.getRequest().getIntent().getName().equals("TaskReadIntent")) {
-            myAnswer += "These are the tasks you have to do: ";
-            for (Task t : taskManager.getAllTasks()) {
-                myAnswer = myAnswer + t.getModule() + ", " + t.getGrade() + ", ";
-            }
-        }
-        // TODO: Act on other intents
-
-        return
-                prepareResponse(alexaRO, myAnswer, true);
-    }
-
-
-    private AlexaRO prepareResponse(AlexaRO alexaRO, String outText, boolean shouldEndSession) {
-
-        alexaRO.setRequest(null);
-        alexaRO.setContext(null);
-        alexaRO.setSession(null);
-        OutputSpeechRO outputSpeechRO = new OutputSpeechRO();
-        outputSpeechRO.setType("PlainText");
-        outputSpeechRO.setText(outText);
-        ResponseRO response = new ResponseRO(outputSpeechRO, shouldEndSession);
-        alexaRO.setResponse(response);
-        return alexaRO;
-    }
-
-
 }
