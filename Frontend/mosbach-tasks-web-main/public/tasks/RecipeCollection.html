@@ -7,6 +7,8 @@
     <title>Rezeptsammlung - Mealy</title>
     <link rel="stylesheet" href="../css/myRecipeCollection.css">
     <link rel="icon" href="../Logo/Mealy-Favicon.ico">
+    <script src="../js/RecipeCollection.js" defer></script>
+    <script src="../js/RecipeCollectionID.js" defer></script>
 </head>
 <body>
 <header>
@@ -34,111 +36,6 @@
     <!-- Liste der erstellten Rezepte -->
     <div id="recipe-list" class="recipe-list"></div>
 </div>
-
-
-<script>
-    // Beispiel-Datenbank mit Rezepten
-    const recipes = [
-      {
-        name: "Rezeptname 1",
-        description: "Eine kurze Beschreibung des Rezepts.",
-        image: "../images/recipe1.jpg"
-      },
-      {
-        name: "Rezeptname 2",
-        description: "Ein weiteres leckeres Rezept.",
-        image: "../images/recipe2.jpg"
-      },
-      {
-        name: "Rezeptname 3",
-        description: "Dies ist eine kurze Beschreibung des dritten Rezepts.",
-        image: "../images/recipe3.jpg"
-      }
-    ];
-
-    const folders = {};
-
-    // Funktion zum Erstellen der Rezeptliste
-    function displayRecipes() {
-      const recipeList = document.getElementById("recipe-list");
-      recipeList.innerHTML = ''; // Vorherige Rezepte löschen
-
-      recipes.forEach((recipe) => {
-        const recipeItem = document.createElement("div");
-        recipeItem.classList.add("recipe-item");
-
-        recipeItem.innerHTML = `
-          <img src="${recipe.image}" alt="${recipe.name}">
-          <div class="recipe-info">
-            <h2>${recipe.name}</h2>
-            <p>${recipe.description}</p>
-          </div>
-          <button onclick="addToFolder('${recipe.name}')">In Ordner verschieben</button>
-        `;
-
-        recipeList.appendChild(recipeItem);
-      });
-    }
-
-    function createFolder() {
-      const folderName = document.getElementById('folder-name').value;
-      if (folderName && !folders[folderName]) {
-        folders[folderName] = [];
-        displayFolders();
-        document.getElementById('folder-name').value = ''; // Input zurücksetzen
-      } else {
-        alert('Bitte geben Sie einen gültigen Ordnernamen ein oder der Ordner existiert bereits.');
-      }
-    }
-
-    function displayFolders() {
-      const folderList = document.getElementById('folder-list');
-      folderList.innerHTML = ''; // Vorherige Ordner löschen
-
-      for (const folderName in folders) {
-        const folderDiv = document.createElement('div');
-        folderDiv.classList.add('folder');
-        folderDiv.innerHTML = `<h2>${folderName}</h2>`;
-
-        const recipeListInFolder = document.createElement('div');
-        recipeListInFolder.classList.add('recipe-list-in-folder');
-
-        folders[folderName].forEach((recipeName) => {
-          const recipe = recipes.find(r => r.name === recipeName);
-          if (recipe) {
-            const recipeItem = document.createElement('div');
-            recipeItem.classList.add('recipe-item');
-
-            recipeItem.innerHTML = `
-              <img src="${recipe.image}" alt="${recipe.name}">
-              <div class="recipe-info">
-                <h2>${recipe.name}</h2>
-                <p>${recipe.description}</p>
-              </div>
-            `;
-
-            recipeListInFolder.appendChild(recipeItem);
-          }
-        });
-
-        folderDiv.appendChild(recipeListInFolder);
-        folderList.appendChild(folderDiv);
-      }
-    }
-
-    function addToFolder(recipeName) {
-      const folderName = prompt("In welchen Ordner möchten Sie das Rezept verschieben?");
-      if (folderName && folders[folderName]) {
-        folders[folderName].push(recipeName);
-        alert(`${recipeName} wurde in den Ordner "${folderName}" verschoben.`);
-      } else {
-        alert('Ordner existiert nicht oder ungültiger Name.');
-      }
-    }
-
-    // Rezepte anzeigen, wenn die Seite geladen wird
-    window.onload = displayRecipes;
-</script>
 
 </body>
 </html>

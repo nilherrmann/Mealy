@@ -7,6 +7,7 @@
     <title>Login Mealy</title>
     <link rel="stylesheet" href="../css/myTasks.css">
     <link rel="icon" href="../Logo/Mealy-Favicon.ico" type="image/x-icon">
+    <script src="../js/Login.js" defer></script>
 </head>
 <body>
 <div class="login-box">
@@ -17,18 +18,19 @@
         <header>Profil Login</header>
     </div>
     <div class="input-type">
-        <input type="text" class="input-field" placeholder="Nutzername" autocomplete="off" required>
+        <input type="text" id="userName" class="input-field" placeholder="Nutzername" autocomplete="off" required>
     </div>
     <div class="input-box">
-        <input type="password" class="input-field" placeholder="Passwort" autocomplete="off" required>
+        <input type="password" id="password" class="input-field" placeholder="Passwort" autocomplete="off" required>
     </div>
     <div class="input-action">
-        <button class="action-btn" onclick="window.location.href='Hompage2.html'">Login</button>
+        <button class="action-btn" onclick="login()">Login</button>
     </div>
     <div class="sign-up-link">
         <p>Du hast noch keinen Account?</p>
         <p>Dann registriere dich<a href="AccountErstellen.html"> hier.</a></p>
     </div>
 </div>
+
 </body>
 </html>

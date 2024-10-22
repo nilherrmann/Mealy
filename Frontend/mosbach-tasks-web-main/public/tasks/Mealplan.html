@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mealplan Erstellen</title>
+  <title>Mealplan Erstellen - Mealy</title>
   <link rel="stylesheet" href="../css/myMealplanCreate.css">
   <link rel="icon" href="../Logo/Mealy-Favicon.ico">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -13,10 +13,10 @@
 <header>
   <nav class="navbar">
     <ul>
-        <li><a href="Hompage2.html">HOME</a></li>
-        <li><a href="RecipeCollection.html">REZEPTSAMMLUNG</a></li>
-        <li><a href="Mealplan.html" class="active">MEALPLAN</a></li>
-        <li><a href="Profile.html">PROFIL</a></li>
+      <li><a href="Hompage2.html">HOME</a></li>
+      <li><a href="RecipeCollection.html">REZEPTSAMMLUNG</a></li>
+      <li><a href="Mealplan.html" class="active">MEALPLAN</a></li>
+      <li><a href="Profile.html">PROFIL</a></li>
     </ul>
   </nav>
 </header>
@@ -102,33 +102,9 @@
       </tr>
       </tbody>
     </table>
-    <button type="submit" class="submit-btn">Mealplan Speichern</button>
+    <button type="submit" class="submit-btn">Mealplan speichern</button>
   </form>
 </div>
-
-<script>
-  $(document).ready(function() {
-    $('input[type="text"]').on('input', function() {
-      const recipeName = $(this).val();
-      const mealType = $(this).attr('name').split('-')[0];
-      const day = $(this).attr('name').split('-')[1];
-      const nutritionId = mealType + '-nutrition-' + day;
-
-      // Dummy-Nährwerte für Simulation
-      const nutritionalValues = {
-        'Frühstück': { calories: 300, protein: 20, carbs: 40, fat: 10 },
-        'Mittagessen': { calories: 500, protein: 30, carbs: 60, fat: 15 },
-        'Abendessen': { calories: 400, protein: 25, carbs: 50, fat: 12 }
-      };
-
-      if (recipeName) {
-        $('#' + nutritionId).text(`Kalorien: ${nutritionalValues[mealType].calories}, Protein: ${nutritionalValues[mealType].protein}g`);
-      } else {
-        $('#' + nutritionId).text('');
-      }
-    });
-  });
-</script>
 
 </body>
 </html>

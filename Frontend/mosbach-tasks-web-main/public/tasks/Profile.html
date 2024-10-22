@@ -35,53 +35,14 @@
     </div>
 
     <div class="action-container">
+        <button class="submit-btn" onclick="deleteAccount()">Account löschen</button>
         <button class="submit-btn" onclick="logOut()">Abmelden</button>
     </div>
-        </div>
-    </div>
+</div>
 
 <footer>
     <p>&copy; 2024 Mealy. Alle Rechte vorbehalten.</p>
 </footer>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const userData = {
-            name: "Johanna",
-            email: "lehre@mosbach.de"
-        };
-
-
-        document.getElementById('userName').value = userData.name;
-        document.getElementById('userEmail').value = userData.email;
-    });
-
-    function saveProfile() {
-        const userName = document.getElementById('userName').value;
-        const userEmail = document.getElementById('userEmail').value;
-        const newPassword = document.getElementById('newPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-
-        if (newPassword && newPassword !== confirmPassword) {
-            alert('Die Passwörter stimmen nicht überein.');
-            return;
-        }
-
-
-        console.log('Profil gespeichert:', {
-            name: userName,
-            email: userEmail,
-            password: newPassword || "Kein Passwort geändert"
-        });
-
-        alert('Profil erfolgreich aktualisiert!');
-    }
-
-    function logOut() {
-        // Beispiel-Logout-Logik
-        alert('Erfolgreich abgemeldet!');
-        window.location.href = "login.html";
-    }
-</script>
 </body>
 </html>

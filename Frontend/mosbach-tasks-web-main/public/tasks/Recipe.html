@@ -7,6 +7,8 @@
   <title>Rezept erstellen - Mealy</title>
   <link rel="stylesheet" href="../css/myRecipeCreate.css">
   <link rel="icon" href="../Logo/Mealy-Favicon.ico">
+  <script src="../js/Recipe.js" defer></script>
+  <script src="../js/RecipeID.js" defer></script>
 </head>
 <body>
 <header>
@@ -22,7 +24,7 @@
 
 <div class="recipe-container">
   <h1 class="recipe-title">Rezept Erstellen</h1>
-  <form action="#" method="post" enctype="multipart/form-data">
+  <form id="recipe-form" enctype="multipart/form-data">
     <div class="form-section">
       <label for="recipe-name">Rezeptname:</label>
       <input type="text" id="recipe-name" name="recipe_name" placeholder="Gib den Namen deines Rezepts ein" required>
@@ -53,7 +55,6 @@
       <textarea id="recipe-description" name="recipe_description" rows="4" placeholder="Beschreibe dein Rezept hier..." required></textarea>
     </div>
 
-
     <div class="form-section">
       <label for="recipe-image">Bild hochladen:</label>
       <input type="file" id="recipe-image" name="recipe_image" accept="image/*" required>
@@ -62,39 +63,6 @@
     <button type="submit" class="submit-btn">Rezept erstellen und zur Rezeptsammlung hinzufügen</button>
   </form>
 </div>
-
-<script>
-  function addIngredient(button) {
-    const ingredientContainer = document.getElementById('ingredient-fields-container');
-
-    const newIngredient = document.createElement('div');
-    newIngredient.classList.add('ingredient-fields');
-    newIngredient.innerHTML = `
-      <input type="text" name="ingredient_name[]" placeholder="Zutat" class="ingredient-input" required>
-      <input type="number" name="ingredient_amount[]" placeholder="Menge" class="ingredient-input" required>
-      <select name="ingredient_unit[]" class="ingredient-input" required>
-        <option value="g">Gramm (g)</option>
-        <option value="kg">Kilogramm (kg)</option>
-        <option value="ml">Milliliter (ml)</option>
-        <option value="l">Liter (l)</option>
-        <option value="stück">Stück</option>
-      </select>
-      <button type="button" class="add-ingredient-btn" onclick="addIngredient(this)">+</button>
-      <button type="button" class="remove-ingredient-btn" onclick="removeIngredient(this)">-</button>
-    `;
-
-    ingredientContainer.appendChild(newIngredient);
-  }
-
-  function removeIngredient(button) {
-    const ingredientContainer = document.getElementById('ingredient-fields-container');
-    if (ingredientContainer.children.length > 1) {
-      button.parentElement.remove();
-    } else {
-      alert('Mindestens eine Zutat muss vorhanden sein.');
-    }
-  }
-</script>
 
 </body>
 </html>

@@ -26,6 +26,7 @@ body {
     font-size: 24px;
     color: #086A87;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .input-type .input-field, .input-box .input-field {
