@@ -1,5 +1,5 @@
 document.getElementById('registrationForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Verhindert das automatische Neuladen der Seite
+  event.preventDefault();
 
   // Eingabewerte sammeln
   const email = document.getElementById('email').value;
@@ -8,10 +8,10 @@ document.getElementById('registrationForm').addEventListener('submit', function(
   const passwordConfirm = document.getElementById('passwordConfirm').value;
 
   // Überprüfen, ob die Passwörter übereinstimmen
- if (password !== passwordConfirm) {
-   alert('Die Passwörter stimmen nicht überein.');
-   return;
- }
+   if (password !== passwordConfirm) {
+     alert('Die Passwörter stimmen nicht überein.');
+     return;
+   }
 
   // Daten für die API erstellen
   const data = {
@@ -21,25 +21,29 @@ document.getElementById('registrationForm').addEventListener('submit', function(
   };
 
   // Fetch-Anfrage an das Backend senden
-  fetch('http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/register', {
+  fetch('http://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
   .then(result => {
+    console.log(result); // Antwort prüfen
     if (result.message === "Account successfully registered") {
-      // Erfolgreiche Registrierung, weiterleiten zur Bestätigungsseite
       window.location.href = 'RegistBestätigung.html';
     } else {
-      // Fehler anzeigen
-      alert(result.reason || 'Registrierung fehlgeschlagen');
+      alert(result.reason || "Registrierung fehlgeschlagen");
     }
   })
   .catch(error => {
-    console.error('Fehler:', error);
-    alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
+    console.error("Fehler:", error);
+    alert("Fehler beim Registrieren: " + error.message);
   });
-});
+})

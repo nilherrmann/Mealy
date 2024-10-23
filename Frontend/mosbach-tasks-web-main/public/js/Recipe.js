@@ -1,4 +1,4 @@
-const token = "123";
+const apitoken = "123";
 
 // EventListener für das Absenden des Formulars
 document.getElementById('recipe-form').addEventListener('submit', function(event) {
@@ -24,7 +24,7 @@ document.getElementById('recipe-form').addEventListener('submit', function(event
   }
 
   // API-Anfrage mit fetch() senden
-  fetch('http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe', {
+  fetch( 'http://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
