@@ -1,8 +1,8 @@
 ---
 applications:
-- name: TasksFrontend
+- name: MealyFrontend
   instances: 1
-  host: TasksFrontend{random-word}
+  host: MealyFrontend{random-word}
   path: .
   buildpacks:
     - php_buildpack
