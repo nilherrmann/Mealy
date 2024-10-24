@@ -1,108 +1,82 @@
-<script>
-  $(document).ready(function() {
-    const token = '123';  // Verwendet den festgelegten Token
+$(document).ready(function() {
+  const token = '123';  // Dummy Token
 
-    // Mealplan abrufen (GET Request)
-    $.ajax({
-        url: 'http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/getMeals',
-        method: 'GET',
-        data: JSON.stringify({ token: token }),
-        contentType: 'application/json',
-        success: function(response) {
-            // Mahlzeiten in den Plan eintragen
-            response.meals.forEach(function(meal) {
-                const [day, time] = meal.time.split('-');
-                const mealType = time; // Frühstück, Mittag, Abend
-                $(`input[name=${mealType}-${day}]`).val(meal.name);
-                $(`#${mealType}-nutrition-${day}`).text(`Nährwerte: ${meal['nutrition values']}`);
-            });
-        },
-        error: function(xhr) {
-            alert('Fehler beim Abrufen der Mahlzeiten: ' + xhr.responseJSON.reason);
-        }
-    });
+  // FullCalendar Initialisierung
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    locale: 'de',  // Sprache auf Deutsch setzen
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+    dateClick: function(info) {
+      // Zeigt das Formular an, wenn ein Datum im Kalender geklickt wird
+      $('#mealForm').show();
+      $('#selectedDate').text(info.dateStr);  // Ausgewähltes Datum anzeigen
 
-    // Mealplan speichern (POST Request)
-    $('#mealplan-form').on('submit', function(e) {
+      // Formular für das Hinzufügen von Mahlzeiten bearbeiten
+      $('#mealAddForm').off('submit').on('submit', function(e) {
         e.preventDefault();
-        const formData = $(this).serializeArray();
+        const mealTime = $('#mealTime').val();
+        const meal = $('#meal').val();
+        const selectedDate = info.dateStr;
 
-        formData.forEach(function(item) {
-            const [mealType, day] = item.name.split('-');
-            const recipeName = item.value;
-
-            // Hier eine Funktion zum Abrufen der Rezept-ID basierend auf dem Rezeptnamen
-            const recipeId = getRecipeIdByName(recipeName);  // Muss implementiert werden
-
-            if (recipeId) {
-                $.ajax({
-                    url: 'http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/linkRecipeToMealplan',
-                    method: 'POST',
-                    data: JSON.stringify({
-                        token: token,
-                        day: day,
-                        time: mealType,
-                        recipe_id: recipeId
-                    }),
-                    contentType: 'application/json',
-                    success: function(response) {
-                        alert('Mahlzeit erfolgreich zum Plan hinzugefügt: ' + response.message);
-                    },
-                    error: function(xhr) {
-                        alert('Fehler beim Hinzufügen der Mahlzeit: ' + xhr.responseJSON.reason);
-                    }
-                });
-            }
+        // Füge die Mahlzeit zum Kalender hinzu
+        calendar.addEvent({
+          title: `${mealTime}: ${meal}`,
+          start: selectedDate,
+          allDay: true,
+          extendedProps: {
+            mealType: mealTime,
+            mealName: meal
+          }
         });
-    });
 
-    // Funktion zum Abrufen der Rezept-ID
-    function getRecipeIdByName(recipeName) {
-        // Hier sollte die Logik implementiert werden, um die Rezept-ID basierend auf dem Rezeptnamen abzurufen
-        // Zum Beispiel könnte hier ein API-Call erfolgen, um alle Rezepte zu durchsuchen und die ID des Rezepts zu finden
-        return "dummyRecipeId"; // Temporärer Rückgabewert
-    }
-
-    // Änderung des Mealplans (PUT Request)
-    function updateMealPlan(field, value) {
+        // Hier der POST Request zum Backend, um die Mahlzeit zu speichern
         $.ajax({
-            url: 'http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/updateMealPlan',
-            method: 'PUT',
-            data: JSON.stringify({
-                token: token,
-                field: field,
-                value: value
-            }),
-            contentType: 'application/json',
-            success: function(response) {
-                alert('Mealplan aktualisiert: ' + response.message);
-            },
-            error: function(xhr) {
-                alert('Fehler beim Aktualisieren des Mealplans: ' + xhr.responseJSON.reason);
-            }
+          url: 'http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/linkRecipeToMealplan',
+          method: 'POST',
+          data: JSON.stringify({
+            token: token,
+            day: selectedDate,
+            time: mealTime,
+            recipe: meal
+          }),
+          contentType: 'application/json',
+          success: function(response) {
+            alert('Mahlzeit erfolgreich gespeichert');
+            $('#mealForm').hide();
+            updateNutritionalInfo(selectedDate, mealTime, meal); // Nährwerte aktualisieren
+          },
+          error: function(xhr) {
+            alert('Fehler beim Hinzufügen der Mahlzeit: ' + xhr.responseJSON.reason);
+          }
         });
-    }
-
-    // Meal aus Mealplan entfernen (DELETE Request)
-    function removeMeal(day, time) {
-        $.ajax({
-            url: 'http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/removeMeal',
-            method: 'DELETE',
-            data: JSON.stringify({
-                token: token,
-                day: day,
-                time: time
-            }),
-            contentType: 'application/json',
-            success: function(response) {
-                alert('Mahlzeit erfolgreich entfernt: ' + response.message);
-                $(`input[name=${time}-${day}]`).val('');
-                $(`#${time}-nutrition-${day}`).text('');
-            },
-            error: function(xhr) {
-                alert('Fehler beim Entfernen der Mahlzeit: ' + xhr.responseJSON.reason);
-            }
-        });
+      });
     }
   });
-</script>
+
+  calendar.render();
+
+  // Funktion zum Abrufen der Nährwerte und Aktualisieren der Anzeige
+  function updateNutritionalInfo(day, mealTime, meal) {
+    // Hier kann die Logik implementiert werden, um die Nährwerte des Gerichts abzurufen
+    // Beispiel: API-Call, um die Nährwerte zu erhalten
+    $.ajax({
+      url: 'http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/getNutritionalValues', // Beispiel-URL
+      method: 'GET',
+      data: { meal: meal }, // Senden des Mahlzeitnamens
+      contentType: 'application/json',
+      success: function(response) {
+        // Aktualisieren der Nährwerte in der Tabelle
+        const nutritionalInfo = response.nutrition; // Beispielhafte Rückgabe von Nährwerten
+        $(`#${mealTime.toLowerCase()}-nutrition-${day}`).text(`Nährwerte: ${nutritionalInfo}`);
+      },
+      error: function(xhr) {
+        alert('Fehler beim Abrufen der Nährwerte: ' + xhr.responseJSON.reason);
+      }
+    });
+  }
+});

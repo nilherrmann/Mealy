@@ -1,49 +1,44 @@
-document.getElementById('registrationForm').addEventListener('submit', function(event) {
-  event.preventDefault();
 
-  // Eingabewerte sammeln
-  const email = document.getElementById('email').value;
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-  const passwordConfirm = document.getElementById('passwordConfirm').value;
+$(document).ready(function() {
+  $("#submit").click(function(event) {
+    event.preventDefault(); // Verhindert das Standardverhalten des Formulars (Seitenreload)
 
-  // Überprüfen, ob die Passwörter übereinstimmen
-   if (password !== passwordConfirm) {
-     alert('Die Passwörter stimmen nicht überein.');
-     return;
-   }
+    // Eingabewerte sammeln
+    var loginData = {
+      email: $("#email").val(),
+      username: $("#username").val(),
+      password: $("#password").val(),
+      passwordConfirm: $("#passwordConfirm").val(),
+    };
 
-  // Daten für die API erstellen
-  const data = {
-    userName: username,
-    email: email,
-    password: password
-  };
-
-  // Fetch-Anfrage an das Backend senden
-  fetch('http://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    // Überprüfen, ob die Passwörter übereinstimmen
+    if (password !== passwordConfirm) {
+      alert('Die Passwörter stimmen nicht überein.');
+      return;
     }
-    return response.json();
-  })
-  .then(result => {
-    console.log(result); // Antwort prüfen
-    if (result.message === "Account successfully registered") {
-      window.location.href = 'RegistBestätigung.html';
-    } else {
-      alert(result.reason || "Registrierung fehlgeschlagen");
-    }
-  })
-  .catch(error => {
-    console.error("Fehler:", error);
-    alert("Fehler beim Registrieren: " + error.message);
+
+    console.log("Registrierungsdaten:", data);
+
+    // AJAX-Anfrage an das Backend senden
+    $.ajax({
+      url: 'http://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/register', // Stelle sicher, dass die URL korrekt ist
+      type: 'POST',
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify(data),
+      success: function(response) {
+        console.log(response); // Antwort prüfen
+        if (response.message === "Account successfully registered") {
+          window.location.href = 'RegistBestätigung.html'; // Weiterleitung nach erfolgreicher Registrierung
+        } else {
+          alert(response.reason || "Registrierung fehlgeschlagen");
+        }
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        console.log('Fehler: ' + xhr.status + ' ' + thrownError);
+        alert('Ein Fehler ist bei der Registrierung aufgetreten: ' + xhr.status + ' ' + thrownError);
+      }
+    });
   });
-})
+});
+

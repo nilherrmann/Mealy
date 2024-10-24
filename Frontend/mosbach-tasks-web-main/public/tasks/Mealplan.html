@@ -7,7 +7,18 @@
   <title>Mealplan Erstellen - Mealy</title>
   <link rel="stylesheet" href="../css/myMealplanCreate.css">
   <link rel="icon" href="../Logo/Mealy-Favicon.ico">
+
+  <link href="https://unpkg.com/@fullcalendar/core@6.1.5/main.min.css" rel="stylesheet" />
+  
+  <!-- jQuery einbinden -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- FullCalendar JS einbinden -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+
+  <!-- Dein JavaScript-File -->
+  <script src="../js/mealplan.js"></script> <!-- Dies verweist auf die separate JavaScript-Datei -->
+
 </head>
 <body>
 <header>
@@ -23,87 +34,11 @@
 
 <div class="mealplan-container">
   <h1>Mealplan Erstellen</h1>
-  <form id="mealplan-form">
-    <table class="mealplan-table">
-      <thead>
-      <tr>
-        <th>Tag</th>
-        <th>Frühstück</th>
-        <th>Nährwerte</th>
-        <th>Mittagessen</th>
-        <th>Nährwerte</th>
-        <th>Abendessen</th>
-        <th>Nährwerte</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Montag</td>
-        <td><input type="text" name="breakfast-monday" placeholder="Rezept für Frühstück" required></td>
-        <td class="nutritional-info" id="breakfast-nutrition-monday"></td>
-        <td><input type="text" name="lunch-monday" placeholder="Rezept für Mittagessen" required></td>
-        <td class="nutritional-info" id="lunch-nutrition-monday"></td>
-        <td><input type="text" name="dinner-monday" placeholder="Rezept für Abendessen" required></td>
-        <td class="nutritional-info" id="dinner-nutrition-monday"></td>
-      </tr>
-      <tr>
-        <td>Dienstag</td>
-        <td><input type="text" name="breakfast-tuesday" placeholder="Rezept für Frühstück" required></td>
-        <td class="nutritional-info" id="breakfast-nutrition-tuesday"></td>
-        <td><input type="text" name="lunch-tuesday" placeholder="Rezept für Mittagessen" required></td>
-        <td class="nutritional-info" id="lunch-nutrition-tuesday"></td>
-        <td><input type="text" name="dinner-tuesday" placeholder="Rezept für Abendessen" required></td>
-        <td class="nutritional-info" id="dinner-nutrition-tuesday"></td>
-      </tr>
-      <tr>
-        <td>Mittwoch</td>
-        <td><input type="text" name="breakfast-wednesday" placeholder="Rezept für Frühstück" required></td>
-        <td class="nutritional-info" id="breakfast-nutrition-wednesday"></td>
-        <td><input type="text" name="lunch-wednesday" placeholder="Rezept für Mittagessen" required></td>
-        <td class="nutritional-info" id="lunch-nutrition-wednesday"></td>
-        <td><input type="text" name="dinner-wednesday" placeholder="Rezept für Abendessen" required></td>
-        <td class="nutritional-info" id="dinner-nutrition-wednesday"></td>
-      </tr>
-      <tr>
-        <td>Donnerstag</td>
-        <td><input type="text" name="breakfast-thursday" placeholder="Rezept für Frühstück" required></td>
-        <td class="nutritional-info" id="breakfast-nutrition-thursday"></td>
-        <td><input type="text" name="lunch-thursday" placeholder="Rezept für Mittagessen" required></td>
-        <td class="nutritional-info" id="lunch-nutrition-thursday"></td>
-        <td><input type="text" name="dinner-thursday" placeholder="Rezept für Abendessen" required></td>
-        <td class="nutritional-info" id="dinner-nutrition-thursday"></td>
-      </tr>
-      <tr>
-        <td>Freitag</td>
-        <td><input type="text" name="breakfast-friday" placeholder="Rezept für Frühstück" required></td>
-        <td class="nutritional-info" id="breakfast-nutrition-friday"></td>
-        <td><input type="text" name="lunch-friday" placeholder="Rezept für Mittagessen" required></td>
-        <td class="nutritional-info" id="lunch-nutrition-friday"></td>
-        <td><input type="text" name="dinner-friday" placeholder="Rezept für Abendessen" required></td>
-        <td class="nutritional-info" id="dinner-nutrition-friday"></td>
-      </tr>
-      <tr>
-        <td>Samstag</td>
-        <td><input type="text" name="breakfast-saturday" placeholder="Rezept für Frühstück" required></td>
-        <td class="nutritional-info" id="breakfast-nutrition-saturday"></td>
-        <td><input type="text" name="lunch-saturday" placeholder="Rezept für Mittagessen" required></td>
-        <td class="nutritional-info" id="lunch-nutrition-saturday"></td>
-        <td><input type="text" name="dinner-saturday" placeholder="Rezept für Abendessen" required></td>
-        <td class="nutritional-info" id="dinner-nutrition-saturday"></td>
-      </tr>
-      <tr>
-        <td>Sonntag</td>
-        <td><input type="text" name="breakfast-sunday" placeholder="Rezept für Frühstück" required></td>
-        <td class="nutritional-info" id="breakfast-nutrition-sunday"></td>
-        <td><input type="text" name="lunch-sunday" placeholder="Rezept für Mittagessen" required></td>
-        <td class="nutritional-info" id="lunch-nutrition-sunday"></td>
-        <td><input type="text" name="dinner-sunday" placeholder="Rezept für Abendessen" required></td>
-        <td class="nutritional-info" id="dinner-nutrition-sunday"></td>
-      </tr>
-      </tbody>
-    </table>
-    <button type="submit" class="submit-btn">Mealplan speichern</button>
-  </form>
+
+  <!-- FullCalendar Element -->
+  <div id="calendar"></div>
+
+  <!-- Dein weiteres HTML für das Formular bleibt unverändert -->
 </div>
 
 </body>
