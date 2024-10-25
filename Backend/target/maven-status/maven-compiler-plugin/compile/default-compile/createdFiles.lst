@@ -1,7 +1,6 @@
 mosbach\dhbw\de\tasks\TasksBackendApplication.class
 mosbach\dhbw\de\tasks\controller\MappingController.class
 mosbach\dhbw\de\tasks\model\TokenTask.class
-mosbach\dhbw\de\tasks\config\Springconfig.class
 mosbach\dhbw\de\tasks\model\User.class
 mosbach\dhbw\de\tasks\model\MessageAnswer.class
 mosbach\dhbw\de\tasks\data\impl\TaskManagerImpl.class
