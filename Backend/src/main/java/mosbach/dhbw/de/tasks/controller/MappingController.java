@@ -9,7 +9,9 @@ import mosbach.dhbw.de.tasks.model.SortedTasks;
 import mosbach.dhbw.de.tasks.model.TokenTask;
 import mosbach.dhbw.de.tasks.model.UserConv;
 import mosbach.dhbw.de.tasks.data.basis.User;
+import mosbach.dhbw.de.tasks.data.impl.UserManager;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +28,9 @@ import java.util.logging.Logger;
 public class MappingController {
 
     TaskManager taskManager = TaskManagerImpl.getTaskManagerImpl();
+    UserManager userManger = UserManager.getUserManager();
 
     public MappingController() {}
-
-    @GetMapping("/login")
-    public String getAuthServerAlive() {
-        return "The Mosbach Task Organiser is alive.";
-    }
 
     @PostMapping(
             path = "/register",
@@ -40,13 +38,37 @@ public class MappingController {
     )
     public ResponseEntity<?> register(@RequestBody UserConv data) {
         if(data.getUserName() != null || data.getEmail() != null|| data.getPassword() != null) {
-            User user;
-            user = new User(data.getUserName(), data.getEmail(), data.getPassword());
-            return ResponseEntity.ok(Map.of("message", "Account successfully registered"));
+
+            User u = new User(
+                    data.getUserName(),
+                    data.getEmail(),
+                    data.getPassword()
+                    );
+            userManger.addUser(u);
+
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "Account successfully registered"));
         }
-        else return ResponseEntity.ok(Map.of("reason", "Uncomplete data"));
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Uncomplete data"));
     }
 
+    @GetMapping("/login")
+    public String getAuthServerAlive() {
+        return "The Mosbach Task Organiser is alive.";
+    }
+
+    @PostMapping(
+            path="/login",
+            consumes = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public ResponseEntity<?> login(@RequestBody UserConv data) {
+        if (userManger.checkUser(data)==true)
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("token", "123"));
+        }
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Account does not exist"));
+    }
+
+    //Hardwig Stuff...
 
     @GetMapping("/tasks")
     public SortedTasks getAllTasks(
