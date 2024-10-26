@@ -7,8 +7,8 @@ import mosbach.dhbw.de.tasks.data.impl.TaskManagerImpl;
 import mosbach.dhbw.de.tasks.model.MessageAnswer;
 import mosbach.dhbw.de.tasks.model.SortedTasks;
 import mosbach.dhbw.de.tasks.model.TokenTask;
-import mosbach.dhbw.de.tasks.model.UserDTO;
-import mosbach.dhbw.de.tasks.model.User;
+import mosbach.dhbw.de.tasks.model.UserConv;
+import mosbach.dhbw.de.tasks.data.basis.User;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,10 +38,13 @@ public class MappingController {
             path = "/register",
             consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<?> register(@RequestBody UserDTO data) {
-        User user;
-        user = new User(data.getUserName(), data.getEmail(), data.getPassword());
-        return ResponseEntity.ok(Map.of("message", "Account successfully registered"));
+    public ResponseEntity<?> register(@RequestBody UserConv data) {
+        if(data.getUserName() != null || data.getEmail() != null|| data.getPassword() != null) {
+            User user;
+            user = new User(data.getUserName(), data.getEmail(), data.getPassword());
+            return ResponseEntity.ok(Map.of("message", "Account successfully registered"));
+        }
+        else return ResponseEntity.ok(Map.of("reason", "Uncomplete data"));
     }
 
 
