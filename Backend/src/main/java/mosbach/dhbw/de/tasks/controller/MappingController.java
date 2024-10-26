@@ -1,4 +1,5 @@
 package mosbach.dhbw.de.tasks.controller;
+
 import mosbach.dhbw.de.tasks.data.api.Task;
 import mosbach.dhbw.de.tasks.data.api.TaskManager;
 import mosbach.dhbw.de.tasks.data.impl.TaskImpl;
@@ -6,13 +7,16 @@ import mosbach.dhbw.de.tasks.data.impl.TaskManagerImpl;
 import mosbach.dhbw.de.tasks.model.MessageAnswer;
 import mosbach.dhbw.de.tasks.model.SortedTasks;
 import mosbach.dhbw.de.tasks.model.TokenTask;
+import mosbach.dhbw.de.tasks.model.UserDTO;
+import mosbach.dhbw.de.tasks.model.User;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,20 +25,25 @@ import java.util.logging.Logger;
 @RequestMapping("/api")
 public class MappingController {
 
-    // TODO: Write other managers
     TaskManager taskManager = TaskManagerImpl.getTaskManagerImpl();
 
-    // TODO: When ready for using a database manager, switch to database use
-    // TaskManager taskManager = PostgresDBTaskManagerImpl.getTaskManagerImpl();
+    public MappingController() {}
 
-    public MappingController(
-    ) {}
-
-    @GetMapping("/auth")
+    @GetMapping("/login")
     public String getAuthServerAlive() {
-        return
-                "The Mosbach Task Organiser is alive.";
+        return "The Mosbach Task Organiser is alive.";
     }
+
+    @PostMapping(
+            path = "/register",
+            consumes = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public ResponseEntity<?> register(@RequestBody UserDTO data) {
+        User user;
+        user = new User(data.getUserName(), data.getEmail(), data.getPassword());
+        return ResponseEntity.ok(Map.of("message", "Account successfully registered"));
+    }
+
 
     @GetMapping("/tasks")
     public SortedTasks getAllTasks(
