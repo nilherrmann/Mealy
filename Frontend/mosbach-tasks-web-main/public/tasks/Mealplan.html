@@ -8,16 +8,11 @@
   <link rel="stylesheet" href="../css/myMealplanCreate.css">
   <link rel="icon" href="../Logo/Mealy-Favicon.ico">
 
-  <link href="https://unpkg.com/@fullcalendar/core@6.1.5/main.min.css" rel="stylesheet" />
-  
-  <!-- jQuery einbinden -->
+  <!-- FullCalendar CSS -->
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/main.min.css' rel='stylesheet' />
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- FullCalendar JS einbinden -->
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-
-  <!-- Dein JavaScript-File -->
-  <script src="../js/mealplan.js"></script> <!-- Dies verweist auf die separate JavaScript-Datei -->
+  <script src="../js/Mealplan.js"></script>
 
 </head>
 <body>
@@ -36,10 +31,19 @@
   <h1>Mealplan Erstellen</h1>
 
   <!-- FullCalendar Element -->
+  <div class="fullcalendar-container">
   <div id="calendar"></div>
-
-  <!-- Dein weiteres HTML für das Formular bleibt unverändert -->
 </div>
-
+  <div id="mealForm" class="meal-form">
+    <h2>Neue Mahlzeit hinzufügen</h2>
+    <form id="mealAddForm">
+      <label for="mealTime">Zeit der Mahlzeit:</label>
+      <input type="text" id="mealTime" placeholder="Z.B. Frühstück" required>
+      <label for="meal">Mahlzeit:</label>
+      <input type="text" id="meal" placeholder="Z.B. Porridge" required>
+      <button type="submit" class="submit-btn">Mahlzeit hinzufügen</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>

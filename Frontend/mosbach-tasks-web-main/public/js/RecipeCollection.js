@@ -2,7 +2,7 @@ const token = "123"; // Beispiel-Token, in der Realität sollte das Token dynami
 
 // Funktion zum Abrufen der Pläne (Rezepte) vom Backend
 function fetchPlans() {
-    fetch('http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/plan', {
+    fetch('https://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/plan', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

@@ -7,8 +7,10 @@
   <title>Registrierung - Mealy</title>
   <link rel="stylesheet" href="../css/register.css">
   <link rel="icon" href="../Logo/Mealy-Favicon.ico" type="image/x-icon">
-  <script src="../js/AccountErstellen.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="../js/AccountErstellen.js"></script>
+
+</head>
 
 <body>
 <div class="registration-box">
@@ -19,7 +21,6 @@
     <header>Registrierung</header>
   </div>
 
-  
   <form id="registrationForm">
     <div class="input-type">
       <input type="email" class="input-field" id="email" placeholder="E-Mail Adresse" autocomplete="off" required>
@@ -34,7 +35,7 @@
       <input type="password" class="input-field" id="passwordConfirm" placeholder="Passwort wiederholen" autocomplete="off" required>
     </div>
     <div class="input-action">
-      <button type="submit" class="action-btn">Account erstellen</button>
+      <button type="submit" id="submit" class="action-btn">Account erstellen</button>
     </div>
   </form>
 
@@ -42,6 +43,7 @@
     <p>Bereits einen Account? <a href="Login.html">Login</a></p>
   </div>
 </div>
+
 
 </body>
 </html>

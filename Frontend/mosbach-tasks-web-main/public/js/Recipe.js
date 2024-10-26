@@ -24,7 +24,7 @@ document.getElementById('recipe-form').addEventListener('submit', function(event
   }
 
   // API-Anfrage mit fetch() senden
-  fetch( 'http://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/register', {
+  fetch( 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

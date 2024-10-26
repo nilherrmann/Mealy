@@ -1,110 +1,135 @@
 body {
-    font-family: Arial, sans-serif; /* Schriftart */
-    background-color: #e0f7f5; /* Helles Grün für den Hintergrund */
-    margin: 0; /* Kein Außenabstand */
-    padding: 0; /* Kein Innenabstand */
+    font-family: Arial, sans-serif;
+    background-color: #e0f7f5;
+    margin: 0;
+    padding: 0;
 }
 
 header {
-    background-color: #086A87; /* Dunkler Farbton für den Header */
-    padding: 10px 0; /* Vertikales Padding */
-    width: 100%; /* Volle Breite */
-    position: fixed; /* Fixiert oben */
-    top: 0; /* An die obere Seite anheften */
-    left: 0; /* An die linke Seite anheften */
-    z-index: 1000; /* Sicherstellen, dass der Header immer sichtbar ist */
+    background-color: #086A87;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .navbar {
-    display: flex; /* Flexbox für die Navbar */
-    justify-content: center; /* Zentrieren der Elemente */
-    padding: 10px 0; /* Vertikales Padding */
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
 }
 
 .navbar ul {
-    list-style-type: none; /* Keine Aufzählungszeichen */
-    margin: 0; /* Kein Außenabstand */
-    padding: 0; /* Kein Innenabstand */
-    display: flex; /* Flexbox für die Listenelemente */
-    justify-content: space-around; /* Gleichmäßige Verteilung der Listenelemente */
-    flex: 1; /* Flexibles Layout */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    flex: 1;
 }
 
 .navbar ul li {
-    margin: 0 15px; /* Abstand zwischen den Menüpunkten */
+    margin: 0 15px;
 }
 
 .navbar ul li a {
-    color: white; /* Schriftfarbe für Links */
-    font-size: 16px; /* Schriftgröße */
-    font-weight: bold; /* Fettdruck */
-    text-decoration: none; /* Keine Unterstreichung */
-    padding: 10px 20px; /* Padding für die Links */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 20px;
 }
 
 .navbar ul li a.active {
-    color: #333; /* Dunklere Schriftfarbe für die aktuelle Seite */
-    background-color: #f4fbfa; /* Hintergrundfarbe für die aktive Seite */
-    border-radius: 5px; /* Leicht abgerundete Kanten */
+    color: #333;
+    background-color: #f4fbfa;
+    border-radius: 5px;
 }
 
 .navbar ul li a:hover {
-    background-color: #065f6a; /* Hover-Effekt für alle Links */
+    background-color: #065f6a;
+}
+
+.fullcalendar-container {
+    max-width: 900px; /* Maximale Breite des Kalenders */
+    margin: 40px auto; /* Zentriert den Kalender mit Abstand oben und unten */
+    padding: 20px; /* Innenabstand für den Kalender */
+    background-color: white; /* Weißer Hintergrund für den Kalender */
+    border-radius: 10px; /* Runde Ecken für den Kalender */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefenwirkung */
+}
+
+
+h1 {
+    color: #0295A9;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .mealplan-container {
-    display: flex; /* Flexbox für den Container */
-    flex-direction: column; /* Vertikale Anordnung */
-    align-items: center; /* Zentrieren des Inhalts */
-    padding: 100px 20px; /* Platz für Header */
-}
 
-h1 {
-    color: #0295A9; /* Helle Farbe für die Überschrift */
-    text-align: center; /* Zentrieren der Überschrift */
-    margin-bottom: 30px; /* Abstand nach unten */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 3D-Effekt */
-}
-
-.mealplan-table {
-    border-collapse: collapse; /* Zusammenlegen der Zellen */
-    width: 100%; /* Volle Breite */
-    margin-bottom: 20px; /* Abstand nach unten */
-}
-
-.mealplan-table th, .mealplan-table td {
-    border: 1px solid #ccc; /* Rand für die Zellen */
-    padding: 10px; /* Innenabstand */
-    text-align: center; /* Zentrieren des Textes */
-}
-
-.mealplan-table th {
-    background-color: #086A87; /* Gleiche Farbe wie die Navbar */
-    color: white; /* Textfarbe für die Überschrift */
-}
-
-input[type="text"] {
-    width: 150px; /* Breite der Eingabefelder */
-    padding: 5px; /* Innenabstand */
-    border: 1px solid #ccc; /* Rand */
-    border-radius: 5px; /* Runde Ecken */
-    box-sizing: border-box; /* Berücksichtigt Padding und Border bei der Breite */
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 20px;
 }
 
 .nutritional-info {
-    font-weight: bold; /* Fettdruck für Nährwertangaben */
+    font-weight: bold;
+    color: #086A87;
 }
 
-.submit-btn {
-    padding: 10px 20px; /* Innenabstand */
-    background-color: #086A87; /* Gleiche Farbe wie die Navbar */
-    color: white; /* Schriftfarbe */
-    border: none; /* Kein Rahmen */
-    border-radius: 5px; /* Runde Ecken */
-    cursor: pointer; /* Handcursor */
-    transition: background-color 0.3s; /* Übergangseffekt für Hover */
+.meal-form {
+    margin-top: 20px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;/* Starten mit verstecktem Formular */
+    justify-content: center; /* Horizontale Zentrierung */
+    align-items: center;
+    width: 100%;
+    max-width: 400px; /* Maximale Breite des Formulars */
+    background-color: #f4fbfa; /* Leichter Hintergrund für das Formular */
+    padding: 20px; /* Innenabstand für das Formular */
+    border-radius: 10px; /* Runde Ecken für das Formular */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leichter Schatten für das Formular */
 }
 
-.submit-btn:hover {
-    background-color: #055f6a; /* Etwas dunklerer Farbton beim Hover */
+.meal-form h2 {
+    text-align: center; /* Überschrift mittig */
+    font-weight: bold; /* Fettgedruckte Schrift */
+    color: #086A87; /* Farbe passend zum Design */
+    margin-bottom: 0 0 15px 0; /* Abstand unter der Überschrift */
 }
+
+.meal-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #086A87;
+    align-self: flex-start; /* Label linksbündig */
+}
+.meal-form input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+.meal-form .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #086A87;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+.meal-form .submit-btn:hover {
+    background-color: #055f6a;
+}
+

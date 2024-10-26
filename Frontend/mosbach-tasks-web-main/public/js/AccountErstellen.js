@@ -1,9 +1,7 @@
-
 $(document).ready(function() {
   $("#submit").click(function(event) {
-    event.preventDefault(); // Verhindert das Standardverhalten des Formulars (Seitenreload)
+    event.preventDefault();
 
-    // Eingabewerte sammeln
     var loginData = {
       email: $("#email").val(),
       username: $("#username").val(),
@@ -11,34 +9,38 @@ $(document).ready(function() {
       passwordConfirm: $("#passwordConfirm").val(),
     };
 
-    // Überprüfen, ob die Passwörter übereinstimmen
-    if (password !== passwordConfirm) {
+    console.log("Eingesammelte Daten:", loginData);
+
+    if (loginData.password !== loginData.passwordConfirm) {
+      console.log("Passwort und Passwort-Bestätigung stimmen nicht überein.");
       alert('Die Passwörter stimmen nicht überein.');
       return;
     }
+    delete loginData.passwordConfirm;
 
-    console.log("Registrierungsdaten:", data);
+    console.log("Daten, die gesendet werden:", loginData);
 
-    // AJAX-Anfrage an das Backend senden
     $.ajax({
-      url: 'http://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/register', // Stelle sicher, dass die URL korrekt ist
+      url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/register',
       type: 'POST',
       dataType: 'json',
       contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify(data),
+      data: JSON.stringify(loginData),
       success: function(response) {
-        console.log(response); // Antwort prüfen
+        console.log("Serverantwort:", response);
         if (response.message === "Account successfully registered") {
-          window.location.href = 'RegistBestätigung.html'; // Weiterleitung nach erfolgreicher Registrierung
+          console.log("Registrierung erfolgreich. Weiterleitung zur Bestätigungsseite.");
+          window.location.href = 'RegistBestätigung.html';
         } else {
+          console.log("Registrierung fehlgeschlagen:", response.reason);
           alert(response.reason || "Registrierung fehlgeschlagen");
         }
       },
       error: function(xhr, ajaxOptions, thrownError) {
-        console.log('Fehler: ' + xhr.status + ' ' + thrownError);
+        console.log('Fehlerstatus: ' + xhr.status);
+        console.log('Fehlerdetails:', thrownError);
         alert('Ein Fehler ist bei der Registrierung aufgetreten: ' + xhr.status + ' ' + thrownError);
       }
     });
   });
 });
-
