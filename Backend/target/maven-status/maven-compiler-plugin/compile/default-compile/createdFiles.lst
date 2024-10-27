@@ -1,12 +1,14 @@
 mosbach\dhbw\de\tasks\TasksBackendApplication.class
 mosbach\dhbw\de\tasks\controller\MappingController.class
+mosbach\dhbw\de\tasks\data\api\UserIF.class
 mosbach\dhbw\de\tasks\model\TokenTask.class
-mosbach\dhbw\de\tasks\model\User.class
 mosbach\dhbw\de\tasks\model\MessageAnswer.class
+mosbach\dhbw\de\tasks\model\UserConv.class
 mosbach\dhbw\de\tasks\data\impl\TaskManagerImpl.class
+mosbach\dhbw\de\tasks\data\impl\UserManager.class
 mosbach\dhbw\de\tasks\data\api\Task.class
 mosbach\dhbw\de\tasks\data\api\TaskManager.class
+mosbach\dhbw\de\tasks\data\basis\User.class
 mosbach\dhbw\de\tasks\data\impl\TaskImpl.class
-mosbach\dhbw\de\tasks\model\UserDTO.class
 mosbach\dhbw\de\tasks\model\Task.class
 mosbach\dhbw\de\tasks\model\SortedTasks.class

@@ -1,12 +1,14 @@
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\controller\MappingController.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\api\Task.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\api\TaskManager.java
+C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\api\UserIF.java
+C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\basis\User.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\impl\TaskImpl.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\impl\TaskManagerImpl.java
+C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\impl\UserManager.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\MessageAnswer.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\SortedTasks.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\Task.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\TokenTask.java
-C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\User.java
-C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\UserDTO.java
+C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\UserConv.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\TasksBackendApplication.java
