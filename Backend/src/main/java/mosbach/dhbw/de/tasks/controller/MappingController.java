@@ -37,6 +37,7 @@ public class MappingController {
             consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
     public ResponseEntity<?> register(@RequestBody UserConv data) {
+
         if(data.getUserName() != null || data.getEmail() != null|| data.getPassword() != null) {
 
             User u = new User(
@@ -44,11 +45,13 @@ public class MappingController {
                     data.getEmail(),
                     data.getPassword()
                     );
-            userManger.addUser(u);
 
+
+            userManger.addUser(u);
             return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "Account successfully registered"));
         }
         else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Uncomplete data"));
+
     }
 
     @GetMapping("/login")

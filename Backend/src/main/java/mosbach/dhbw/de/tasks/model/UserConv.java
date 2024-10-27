@@ -12,14 +12,14 @@ import mosbach.dhbw.de.tasks.data.api.UserIF;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "userName",
+        "username",
         "email",
         "password"
 })
 public class UserConv implements UserIF {
 
-    @JsonProperty("userName")
-    private String userName;
+    @JsonProperty("username")
+    private String username;
     @JsonProperty("email")
     private String email;
     @JsonProperty("password")
@@ -33,21 +33,26 @@ public class UserConv implements UserIF {
     public UserConv() {
     }
 
-    public UserConv(String userName, String email, String password) {
+    public UserConv(String username, String email, String password) {
         super();
-        this.userName = userName;
+        this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    @JsonProperty("userName")
-    public String getUserName() {
-        return userName;
+    @JsonProperty("username")
+    public String getUsername() {
+        return username;
     }
 
-    @JsonProperty("userName")
-    public void setUserName(String userName) {
-        this.userName = userName;
+    @JsonProperty("username")
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String getUserName() {
+        return "";
     }
 
     @JsonProperty("email")
@@ -80,3 +85,4 @@ public class UserConv implements UserIF {
         this.additionalProperties.put(name, value);
     }
 }
+
