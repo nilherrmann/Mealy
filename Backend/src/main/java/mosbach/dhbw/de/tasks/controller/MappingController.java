@@ -7,9 +7,11 @@ import mosbach.dhbw.de.tasks.data.impl.TaskManagerImpl;
 import mosbach.dhbw.de.tasks.model.MessageAnswer;
 import mosbach.dhbw.de.tasks.model.SortedTasks;
 import mosbach.dhbw.de.tasks.model.TokenTask;
-import mosbach.dhbw.de.tasks.model.UserDTO;
-import mosbach.dhbw.de.tasks.model.User;
+import mosbach.dhbw.de.tasks.model.UserConv;
+import mosbach.dhbw.de.tasks.data.basis.User;
+import mosbach.dhbw.de.tasks.data.impl.UserManager;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +28,28 @@ import java.util.logging.Logger;
 public class MappingController {
 
     TaskManager taskManager = TaskManagerImpl.getTaskManagerImpl();
+    UserManager userManger = UserManager.getUserManager();
 
     public MappingController() {}
+
+    @PostMapping(
+            path = "/register",
+            consumes = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public ResponseEntity<?> register(@RequestBody UserConv data) {
+        if(data.getUserName() != null || data.getEmail() != null|| data.getPassword() != null) {
+
+            User u = new User(
+                    data.getUserName(),
+                    data.getEmail(),
+                    data.getPassword()
+                    );
+            userManger.addUser(u);
+
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "Account successfully registered"));
+        }
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Uncomplete data"));
+    }
 
     @GetMapping("/login")
     public String getAuthServerAlive() {
@@ -35,15 +57,18 @@ public class MappingController {
     }
 
     @PostMapping(
-            path = "/register",
+            path="/login",
             consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<?> register(@RequestBody UserDTO data) {
-        User user;
-        user = new User(data.getUserName(), data.getEmail(), data.getPassword());
-        return ResponseEntity.ok(Map.of("message", "Account successfully registered"));
+    public ResponseEntity<?> login(@RequestBody UserConv data) {
+        if (userManger.checkUser(data)==true)
+        {
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("token", "123"));
+        }
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Account does not exist"));
     }
 
+    //Hardwig Stuff...
 
     @GetMapping("/tasks")
     public SortedTasks getAllTasks(

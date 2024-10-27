@@ -1,6 +1,19 @@
-package mosbach.dhbw.de.tasks.model;
+package mosbach.dhbw.de.tasks.data.basis;
 
-public class User {
+import mosbach.dhbw.de.tasks.model.UserConv;
+import mosbach.dhbw.de.tasks.data.api.UserIF;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class User implements UserIF {
 
     private String userName;
     private String email;
@@ -35,4 +48,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

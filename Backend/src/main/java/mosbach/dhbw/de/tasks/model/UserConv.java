@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import mosbach.dhbw.de.tasks.data.api.UserIF;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -15,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "email",
         "password"
 })
-public class UserDTO {
+public class UserConv implements UserIF {
 
     @JsonProperty("userName")
     private String userName;
@@ -29,10 +30,10 @@ public class UserDTO {
     /**
      * No args constructor for use in serialization
      */
-    public UserDTO() {
+    public UserConv() {
     }
 
-    public UserDTO(String userName, String email, String password) {
+    public UserConv(String userName, String email, String password) {
         super();
         this.userName = userName;
         this.email = email;
