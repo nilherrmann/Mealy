@@ -7,6 +7,8 @@
     <title>Profil - Mealy</title>
     <link rel="stylesheet" href="../css/myProfile.css">
     <link rel="icon" href="../Logo/Mealy-Favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/Profile.js"></script>
 </head>
 <body>
 <div class="profile-box">
@@ -35,8 +37,8 @@
     </div>
 
     <div class="action-container">
-        <button class="submit-btn" onclick="deleteAccount()">Account löschen</button>
-        <button class="submit-btn" onclick="logOut()">Abmelden</button>
+        <button class="submit-btn" id="deleteAccount">Account löschen</button>
+        <button class="submit-btn" id="logOut">Abmelden</button>
     </div>
 </div>
 

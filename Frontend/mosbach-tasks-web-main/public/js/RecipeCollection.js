@@ -1,83 +1,120 @@
-const token = "123"; // Beispiel-Token, in der Realität sollte das Token dynamisch ermittelt werden
+// Funktion zur Benutzeranmeldung und zum Abrufen des Tokens
+(function() {
+    let token = "123";
 
-// Funktion zum Abrufen der Pläne (Rezepte) vom Backend
-function fetchPlans() {
-    fetch('https://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/plan', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.plans) {
-            displayPlans(data.plans); // Pläne in der UI anzeigen
-        } else {
-            alert(data.reason || 'Fehler beim Abrufen der Rezepte.');
-        }
-    })
-    .catch(error => {
-        console.error('Fehler:', error);
-        alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
-    });
-}
+    // Funktion zur Benutzeranmeldung
+    function loginUser(email, password) {
+        const loginData = {
+            email: email,
+            password: password
+        };
 
-// Funktion zur Anzeige der Pläne in der UI
-function displayPlans(plans) {
-    const recipeList = document.getElementById('recipe-list');
-    recipeList.innerHTML = ''; // Vorherige Einträge entfernen
-
-    plans.forEach(plan => {
-        const planElement = document.createElement('div');
-        planElement.classList.add('plan-item');
-        planElement.innerHTML = `
-            <h3>${plan.name}</h3>
-            <p>Diät: ${plan.diet}</p>
-            <p>Beschreibung: ${plan.description}</p>
-        `;
-        recipeList.appendChild(planElement);
-    });
-}
-
-// Funktion zum Erstellen eines neuen Ordners (Plan)
-function createFolder() {
-    const folderName = document.getElementById('folder-name').value;
-
-    if (!folderName) {
-        alert('Bitte gib einen Ordnernamen ein.');
-        return;
+        $.ajax({
+            url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/login', // URL zum Anmelden
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(loginData),
+            success: function(response) {
+                if (response.token) {
+                    // Token speichern (z.B. im Local Storage)
+                    localStorage.setItem('authToken', response.token);
+                    alert('Anmeldung erfolgreich!');
+                    fetchPlans(); // Pläne abrufen, nachdem der Benutzer erfolgreich angemeldet wurde
+                } else {
+                    alert(response.reason || 'Anmeldung fehlgeschlagen.');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.error('Fehler:', thrownError);
+                alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
+            }
+        });
     }
 
-    fetch('http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/plan', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            token: token,
-            name: folderName,
-            diet: 'Standard',  // Beispielwert für Diät
-            description: 'Dieser Ordner enthält Rezepte.'  // Beispielbeschreibung
-        })
-    })
-    .then(response => response.json())
-    .then(result => {
-        if (result.message === "Plan successfully created") {
-            alert('Ordner erfolgreich erstellt!');
-            fetchPlans();  // Liste der Ordner aktualisieren
-        } else {
-            alert(result.reason || 'Fehler beim Erstellen des Ordners.');
-        }
-    })
-    .catch(error => {
-        console.error('Fehler:', error);
-        alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
-    });
-}
+    function getToken() {
+        return localStorage.getItem('authToken');
+    }
 
-// EventListener hinzufügen, wenn die Seite geladen wird
-document.addEventListener('DOMContentLoaded', function() {
-    fetchPlans();  // Pläne abrufen, sobald die Seite geladen wird
-});
+    // Funktion zum Abrufen der Pläne (Rezepte) vom Backend
+    function fetchPlans() {
+        const token = getToken(); // Dynamisch das Token abrufen
+
+        $.ajax({
+            url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/plan',
+            type: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            success: function(data) {
+                if (data.plans) {
+                    displayPlans(data.plans); // Pläne in der UI anzeigen
+                } else {
+                    alert(data.reason || 'Fehler beim Abrufen der Rezepte.');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.error('Fehler:', thrownError);
+                alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
+            }
+        });
+    }
+
+    // Funktion zum Erstellen eines neuen Ordners (Plan)
+    function createFolder() {
+        const folderName = document.getElementById('folder-name').value;
+        const diet = 'Standard'; // Beispielwert für Diät
+        const description = 'Dieser Ordner enthält Rezepte.'; // Beispielbeschreibung
+        const token = getToken(); // Dynamisch das Token abrufen
+
+        if (!folderName) {
+            alert('Bitte gib einen Ordnernamen ein.');
+            return;
+        }
+
+        $.ajax({
+            url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/plan',
+            type: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify({
+                token: token, // Token im Request-Body senden
+                name: folderName,
+                diet: diet,
+                description: description
+            }),
+            success: function(result) {
+                if (result.message === "Plan successfully created") {
+                    alert('Ordner erfolgreich erstellt!');
+                    fetchPlans(); // Liste der Ordner aktualisieren
+                } else {
+                    alert(result.reason || 'Fehler beim Erstellen des Ordners.');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.error('Fehler:', thrownError);
+                alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
+            }
+        });
+    }
+
+    // EventListener hinzufügen, wenn die Seite geladen wird
+    $(document).ready(function() {
+        // Beispielaufruf zur Benutzeranmeldung, hier kannst du Eingabefelder anpassen
+        $("#login-button").click(function(event) {
+            event.preventDefault();
+            const email = $("#email").val();
+            const password = $("#password").val();
+            loginUser(email, password); // Benutzeranmeldung durchführen
+        });
+
+        fetchPlans(); // Pläne abrufen, sobald die Seite geladen wird
+
+        // EventListener für die Erstellung eines neuen Ordners
+        $("#create-folder-button").click(function(event) {
+            event.preventDefault();
+            createFolder(); // Ordner erstellen
+        });
+    });
+})();

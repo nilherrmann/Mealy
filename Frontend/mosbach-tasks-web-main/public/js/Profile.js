@@ -1,113 +1,124 @@
-<script>
+const token = "123"; // Token auf den Wert 123 gesetzt
 
-    const token = "123"; // Token auf den Wert 123 gesetzt
-
+$(document).ready(function() {
     // Funktion zum Abrufen der Profildaten (GET)
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/user', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Token im Header senden
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
+    $.ajax({
+        url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/user',
+        type: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        success: function(data) {
             if (data.userName && data.email) {
-                document.getElementById('userName').value = data.userName;
-                document.getElementById('userEmail').value = data.email;
+                $('#userName').val(data.userName);
+                $('#userEmail').val(data.email);
             } else {
                 alert('Fehler beim Abrufen der Profildaten');
             }
-        })
-        .catch(error => {
-            console.error('Fehler:', error);
-            alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
-        });
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log('Fehler:', thrownError);
+            if (xhr.status === 0) {
+                alert('CORS Fehler: Zugriff verweigert. Überprüfe die Serverkonfiguration.');
+            } else if (xhr.status === 404) {
+                alert('Die angeforderte Ressource wurde nicht gefunden (404).');
+            } else if (xhr.status === 403) {
+                alert('Zugriff verweigert (403). Bitte überprüfe deine Berechtigungen.');
+            } else {
+                alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
+            }
+        }
     });
 
     // Funktion zum Speichern des Profils (PUT)
-    function saveProfile() {
-        const userName = document.getElementById('userName').value;
-        const userEmail = document.getElementById('userEmail').value;
-        const newPassword = document.getElementById('newPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
+    window.saveProfile = function() {
+        const userName = $('#userName').val();
+        const userEmail = $('#userEmail').val();
+        const newPassword = $('#newPassword').val();
+        const confirmPassword = $('#confirmPassword').val();
 
-        // Überprüfen, ob die Passwörter übereinstimmen
         if (newPassword && newPassword !== confirmPassword) {
             alert('Die Passwörter stimmen nicht überein.');
             return;
         }
 
-        const fieldsToUpdate = [
-            { field: "userName", value: userName },
-            { field: "email", value: userEmail }
-        ];
+        const fieldsToUpdate = {
+            userName: userName,
+            email: userEmail,
+            password: newPassword ? newPassword : undefined
+        };
 
-        if (newPassword) {
-            fieldsToUpdate.push({ field: "password", value: newPassword });
-        }
-
-        // PUT-Anfragen für jedes Feld
-        fieldsToUpdate.forEach(field => {
-            fetch('http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/user', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    token: token,
-                    field: field.field,
-                    value: field.value
-                })
-            })
-            .then(response => response.json())
-            .then(result => {
+        $.ajax({
+            url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/user',
+            type: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            data: JSON.stringify(fieldsToUpdate),
+            success: function(result) {
                 if (result.message === "Account details successfully changed") {
                     alert('Profil erfolgreich aktualisiert!');
                 } else {
                     alert(result.reason || 'Fehler beim Speichern des Profils');
                 }
-            })
-            .catch(error => {
-                console.error('Fehler:', error);
-                alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
-            });
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log('Fehler:', thrownError);
+                if (xhr.status === 0) {
+                    alert('CORS Fehler: Zugriff verweigert. Überprüfe die Serverkonfiguration.');
+                } else if (xhr.status === 404) {
+                    alert('Die angeforderte Ressource wurde nicht gefunden (404).');
+                } else if (xhr.status === 403) {
+                    alert('Zugriff verweigert (403). Bitte überprüfe deine Berechtigungen.');
+                } else {
+                    alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
+                }
+            }
         });
-    }
+    };
 
     // Funktion zum Löschen des Accounts (DELETE)
-    function deleteAccount() {
+    $("#deleteAccount").click(function(event) {
+        event.preventDefault();
+
         if (confirm('Möchtest du wirklich deinen Account löschen?')) {
-            fetch('http://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/user', {
-                method: 'DELETE',
+            $.ajax({
+                url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/user',
+                type: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    token: token
-                })
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.message === "Account successfully deleted") {
-                    alert('Account erfolgreich gelöscht.');
-                    window.location.href = "login.html";
-                } else {
-                    alert(result.reason || 'Fehler beim Löschen des Accounts');
+                success: function(result) {
+                    if (result.message === "Account successfully deleted") {
+                        alert('Account erfolgreich gelöscht.');
+                        window.location.href = "Login.html";
+                    } else {
+                        alert(result.reason || 'Fehler beim Löschen des Accounts');
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log('Fehler:', thrownError);
+                    if (xhr.status === 0) {
+                        alert('CORS Fehler: Zugriff verweigert. Überprüfe die Serverkonfiguration.');
+                    } else if (xhr.status === 404) {
+                        alert('Die angeforderte Ressource wurde nicht gefunden (404).');
+                    } else if (xhr.status === 403) {
+                        alert('Zugriff verweigert (403). Bitte überprüfe deine Berechtigungen.');
+                    } else {
+                        alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
+                    }
                 }
-            })
-            .catch(error => {
-                console.error('Fehler:', error);
-                alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
             });
         }
-    }
+    });
 
-    function logOut() {
+    // Funktion zum Abmelden
+    $("#logOut").click(function(event) {
+        event.preventDefault();
         alert('Erfolgreich abgemeldet!');
         window.location.href = "Login.html";
-    }
-</script>
+    });
+});
