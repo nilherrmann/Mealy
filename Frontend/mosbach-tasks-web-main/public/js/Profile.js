@@ -1,7 +1,8 @@
-const token = "123"; // Token auf den Wert 123 gesetzt
-
 $(document).ready(function() {
-    // Funktion zum Abrufen der Profildaten (GET)
+    // Token vom LocalStorage abrufen
+    const token = localStorage.getItem('authToken');
+
+function getProfileData() {
     $.ajax({
         url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/user',
         type: 'GET',
@@ -15,21 +16,13 @@ $(document).ready(function() {
                 $('#userEmail').val(data.email);
             } else {
                 alert('Fehler beim Abrufen der Profildaten');
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log('Fehler:', thrownError);
-            if (xhr.status === 0) {
-                alert('CORS Fehler: Zugriff verweigert. Überprüfe die Serverkonfiguration.');
-            } else if (xhr.status === 404) {
-                alert('Die angeforderte Ressource wurde nicht gefunden (404).');
-            } else if (xhr.status === 403) {
-                alert('Zugriff verweigert (403). Bitte überprüfe deine Berechtigungen.');
-            } else {
-                alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
-            }
-        }
-    });
+             }
+                        },
+                        error: function(xhr) {
+                            handleError(xhr);
+                        }
+                    });
+                }
 
     // Funktion zum Speichern des Profils (PUT)
     window.saveProfile = function() {
@@ -64,21 +57,11 @@ $(document).ready(function() {
                     alert(result.reason || 'Fehler beim Speichern des Profils');
                 }
             },
-            error: function(xhr, ajaxOptions, thrownError) {
-                console.log('Fehler:', thrownError);
-                if (xhr.status === 0) {
-                    alert('CORS Fehler: Zugriff verweigert. Überprüfe die Serverkonfiguration.');
-                } else if (xhr.status === 404) {
-                    alert('Die angeforderte Ressource wurde nicht gefunden (404).');
-                } else if (xhr.status === 403) {
-                    alert('Zugriff verweigert (403). Bitte überprüfe deine Berechtigungen.');
-                } else {
-                    alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
-                }
-            }
-        });
-    };
-
+             error: function(xhr) {
+                            handleError(xhr);
+                        }
+                    });
+                };
     // Funktion zum Löschen des Accounts (DELETE)
     $("#deleteAccount").click(function(event) {
         event.preventDefault();
@@ -99,26 +82,31 @@ $(document).ready(function() {
                         alert(result.reason || 'Fehler beim Löschen des Accounts');
                     }
                 },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    console.log('Fehler:', thrownError);
-                    if (xhr.status === 0) {
-                        alert('CORS Fehler: Zugriff verweigert. Überprüfe die Serverkonfiguration.');
-                    } else if (xhr.status === 404) {
-                        alert('Die angeforderte Ressource wurde nicht gefunden (404).');
-                    } else if (xhr.status === 403) {
-                        alert('Zugriff verweigert (403). Bitte überprüfe deine Berechtigungen.');
-                    } else {
-                        alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
-                    }
-                }
-            });
-        }
-    });
-
+                 error: function(xhr) {
+                                    handleError(xhr);
+                                }
+                            });
+                        }
+                    });
     // Funktion zum Abmelden
     $("#logOut").click(function(event) {
         event.preventDefault();
         alert('Erfolgreich abgemeldet!');
         window.location.href = "Login.html";
     });
+ function handleError(xhr) {
+        console.log('Fehler:', xhr.status);
+        if (xhr.status === 0) {
+            alert('CORS Fehler: Zugriff verweigert. Überprüfe die Serverkonfiguration.');
+        } else if (xhr.status === 404) {
+            alert('Die angeforderte Ressource wurde nicht gefunden (404).');
+        } else if (xhr.status === 403) {
+            alert('Zugriff verweigert (403). Bitte überprüfe deine Berechtigungen.');
+        } else {
+            alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
+        }
+    }
+
+    // Profildaten beim Laden der Seite abrufen
+    getProfileData();
 });

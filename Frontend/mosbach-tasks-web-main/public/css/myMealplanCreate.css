@@ -104,12 +104,14 @@ h1 {
 }
 
 .meal-form label {
+    display: block;
     margin-bottom: 5px;
     font-weight: bold;
     color: #086A87;
     align-self: flex-start; /* Label linksbündig */
 }
-.meal-form input[type="text"] {
+.meal-form input[type="text"],
+ input[type="number"]   {
     width: calc(100% - 20px);
     padding: 10px;
     border: 1px solid #ccc;

@@ -26,6 +26,13 @@ $(document).ready(function() {
         const meal = $('#meal').val();
         const selectedDate = info.dateStr;
 
+         const nutritionalInfo = {
+                  calories: $('#calories').val(),     // Kalorien
+                  protein: $('#protein').val(),       // Protein
+                  carbs: $('#carbs').val(),           // Kohlenhydrate
+                  fats: $('#fats').val()               // Fette
+                };
+
         // Füge die Mahlzeit zum Kalender hinzu
         calendar.addEvent({
           title: `${mealTime}: ${meal}`,
@@ -101,7 +108,7 @@ $(document).ready(function() {
           calendar.addEvent({
             id: meal.id,
             title: meal.mealName,
-            start: meal.date,
+            start: meal.date + 'T' + meal.time + ':00',
             allDay: true
           });
         });
@@ -112,6 +119,5 @@ $(document).ready(function() {
     });
   }
 
-  // Kalender initial laden
   loadMealsFromDatabase();
 });
