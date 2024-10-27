@@ -1,120 +1,103 @@
-// Funktion zur Benutzeranmeldung und zum Abrufen des Tokens
-(function() {
-    let token = "123";
+$(document).ready(function() {
+    const apiUrl = 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe'; // Replace with your actual API URL
+    const token = localStorage.getItem('authToken'); // Get the token from localStorage
 
-    // Funktion zur Benutzeranmeldung
-    function loginUser(email, password) {
-        const loginData = {
-            email: email,
-            password: password
-        };
-
-        $.ajax({
-            url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/login', // URL zum Anmelden
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(loginData),
-            success: function(response) {
-                if (response.token) {
-                    // Token speichern (z.B. im Local Storage)
-                    localStorage.setItem('authToken', response.token);
-                    alert('Anmeldung erfolgreich!');
-                    fetchPlans(); // Pläne abrufen, nachdem der Benutzer erfolgreich angemeldet wurde
-                } else {
-                    alert(response.reason || 'Anmeldung fehlgeschlagen.');
-                }
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                console.error('Fehler:', thrownError);
-                alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
-            }
-        });
+    if (!token) {
+        alert('Bitte melde dich zuerst an.');
+        window.location.href = 'login.html'; // Redirect to login page
+        return;
     }
 
-    function getToken() {
-        return localStorage.getItem('authToken');
-    }
+    // Fetch recipes when the page loads
+    fetchRecipes();
 
-    // Funktion zum Abrufen der Pläne (Rezepte) vom Backend
-    function fetchPlans() {
-        const token = getToken(); // Dynamisch das Token abrufen
+    // Event listener for adding a new recipe
+    $('#add-recipe-btn').on('click', function() {
+        window.location.href = 'RecipeCreate.html'; // Redirect to the recipe creation page
+    });
 
+    // Function to fetch recipes
+    function fetchRecipes() {
         $.ajax({
-            url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/plan',
+            url: apiUrl,
             type: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+            headers: { 'Authorization': `Bearer ${token}` }, // Assuming your API uses Bearer token authentication
+            success: function(response) {
+                const recipes = response.recipes; // Assuming the response has a 'recipes' array
+                displayRecipes(recipes);
             },
-            success: function(data) {
-                if (data.plans) {
-                    displayPlans(data.plans); // Pläne in der UI anzeigen
-                } else {
-                    alert(data.reason || 'Fehler beim Abrufen der Rezepte.');
-                }
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                console.error('Fehler:', thrownError);
+            error: function(xhr) {
+                console.error('Fehler beim Abrufen der Rezepte:', xhr);
                 alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
             }
         });
     }
 
-    // Funktion zum Erstellen eines neuen Ordners (Plan)
-    function createFolder() {
-        const folderName = document.getElementById('folder-name').value;
-        const diet = 'Standard'; // Beispielwert für Diät
-        const description = 'Dieser Ordner enthält Rezepte.'; // Beispielbeschreibung
-        const token = getToken(); // Dynamisch das Token abrufen
+    // Function to display recipes
+    function displayRecipes(recipes) {
+        recipes.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically by name
+        $('#recipe-list').empty(); // Clear the recipe list
 
-        if (!folderName) {
-            alert('Bitte gib einen Ordnernamen ein.');
-            return;
-        }
+        recipes.forEach(recipe => {
+            const recipeItem = `<div class="recipe-item" data-id="${recipe.plan_id}">
+                <span>${recipe.name}</span>
+                <button class="view-recipe-btn">Anzeigen</button>
+            </div>`;
+            $('#recipe-list').append(recipeItem);
+        });
 
+        // Add event listener for view buttons
+        $('.view-recipe-btn').on('click', function() {
+            const recipeId = $(this).closest('.recipe-item').data('id');
+            viewRecipeDetails(recipeId);
+        });
+    }
+
+    // Function to view recipe details
+    function viewRecipeDetails(recipeId) {
         $.ajax({
-            url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/plan',
-            type: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
+            url: `${apiUrl}/${recipeId}`,
+            type: 'GET',
+            headers: { 'Authorization': `Bearer ${token}` },
+            success: function(recipe) {
+                $('#modal-recipe-name').text(recipe.name);
+                $('#modal-recipe-description').text(recipe.description);
+                $('#modal-ingredient-list').empty();
+
+                recipe.ingredients.forEach(ingredient => {
+                    $('#modal-ingredient-list').append(`<li>${ingredient.name} (${ingredient.amount} ${ingredient.unit})</li>`);
+                });
+
+                $('#recipe-modal').show();
             },
-            data: JSON.stringify({
-                token: token, // Token im Request-Body senden
-                name: folderName,
-                diet: diet,
-                description: description
-            }),
-            success: function(result) {
-                if (result.message === "Plan successfully created") {
-                    alert('Ordner erfolgreich erstellt!');
-                    fetchPlans(); // Liste der Ordner aktualisieren
-                } else {
-                    alert(result.reason || 'Fehler beim Erstellen des Ordners.');
-                }
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                console.error('Fehler:', thrownError);
+            error: function(xhr) {
+                console.error('Fehler beim Abrufen des Rezepts:', xhr);
                 alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
             }
         });
     }
 
-    // EventListener hinzufügen, wenn die Seite geladen wird
-    $(document).ready(function() {
-        // Beispielaufruf zur Benutzeranmeldung, hier kannst du Eingabefelder anpassen
-        $("#login-button").click(function(event) {
-            event.preventDefault();
-            const email = $("#email").val();
-            const password = $("#password").val();
-            loginUser(email, password); // Benutzeranmeldung durchführen
-        });
+    // Event listener for closing the modal
+    $('#recipe-modal .close-btn').on('click', function() {
+        $('#recipe-modal').hide();
+    });
 
-        fetchPlans(); // Pläne abrufen, sobald die Seite geladen wird
-
-        // EventListener für die Erstellung eines neuen Ordners
-        $("#create-folder-button").click(function(event) {
-            event.preventDefault();
-            createFolder(); // Ordner erstellen
+    // Event listener for deleting a recipe
+    $('#delete-recipe-btn').on('click', function() {
+        const recipeId = $('#modal-recipe-name').data('id');
+        $.ajax({
+            url: `${apiUrl}/${recipeId}`,
+            type: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` },
+            success: function() {
+                alert('Rezept erfolgreich gelöscht!');
+                $('#recipe-modal').hide();
+                fetchRecipes(); // Refresh the recipe list
+            },
+            error: function(xhr) {
+                console.error('Fehler beim Löschen des Rezepts:', xhr);
+                alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
+            }
         });
     });
-})();
+});

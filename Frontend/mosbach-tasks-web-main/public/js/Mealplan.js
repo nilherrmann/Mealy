@@ -1,5 +1,10 @@
 $(document).ready(function() {
-  const token = '123';  // Dummy Token
+   // Token dynamisch aus LocalStorage abrufen
+   const token = localStorage.getItem('authToken');
+   if (!token) {
+     alert('Bitte melde dich zuerst an.');
+     return; // Stoppe die Ausführung, wenn kein Token vorhanden ist
+   }
 
   // FullCalendar Initialisierung
   var calendarEl = document.getElementById('calendar');
