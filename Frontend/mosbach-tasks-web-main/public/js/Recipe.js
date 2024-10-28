@@ -28,8 +28,8 @@ $(document).ready(function() {
       });
     });
 
-    // Bilddatei abrufen
-    const recipeImage = $('#recipe-image')[0].files[0];
+    // Bilddatei auskommentiert
+    // const recipeImage = $('#recipe-image')[0].files[0];
     const formData = new FormData();
     formData.append('token', token);
     formData.append('recipe', JSON.stringify({
@@ -37,7 +37,7 @@ $(document).ready(function() {
       ingredients: ingredients,
       description: recipeDescription
     }));
-    formData.append('recipe_image', recipeImage); // Bilddatei hinzufügen
+    // formData.append('recipe_image', recipeImage); // Bilddatei hinzufügen - auskommentiert
 
     // AJAX-Anfrage zum Erstellen des Rezepts
     $.ajax({
@@ -46,9 +46,9 @@ $(document).ready(function() {
       data: formData,
       processData: false, // Verhindert jQuery, die Daten in eine Abfragezeichenfolge umzuwandeln
       contentType: false,
-        headers: {
-               'token': token // Token im Header hinzufügen
-             },
+      headers: {
+        'token': token // Token im Header hinzufügen
+      },
       success: function(response) {
         if (response.message === "Recipe successfully created") {
           alert('Rezept erfolgreich erstellt!');
