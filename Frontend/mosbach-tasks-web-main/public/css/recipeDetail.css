@@ -1,0 +1,89 @@
+/* recipeDetail.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7f5; /* Hintergrundfarbe */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Rezept-Detail-Container */
+.recipe-detail-container {
+    display: flex;
+    flex-direction: column; /* Vertikale Anordnung */
+    align-items: center; /* Zentrieren des Inhalts */
+    padding: 60px 20px; /* Innenabstand */
+    width: 80%; /* Breite des Containers */
+    max-width: 600px; /* Maximale Breite */
+    background-color: #ffffff; /* Weiße Hintergrundfarbe für den Container */
+    border-radius: 10px; /* Runde Ecken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Schatten für den Container */
+    margin-top: 60px; /* Abstand zum Header */
+}
+
+/* Überschrift */
+#recipe-name {
+    color: #0295A9; /* Farbe für den Rezeptnamen */
+    text-align: center; /* Zentrieren des Rezeptnamens */
+    margin-top: 0; /* Kein Abstand nach oben */
+    margin-bottom: 20px; /* Abstand nach unten */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Leichter 3D-Effekt */
+}
+
+/* Rezeptbild */
+#recipe-image {
+    width: 100%; /* Bild nimmt volle Breite ein */
+    height: auto; /* Höhe automatisch anpassen */
+    border-radius: 10px; /* Runde Ecken für das Bild */
+    margin-bottom: 20px; /* Abstand zum Beschreibungstext */
+}
+
+/* Rezeptbeschreibung */
+#recipe-description {
+    color: #666; /* Farbe für die Rezeptbeschreibung */
+    font-size: 1em; /* Schriftgröße für die Beschreibung */
+    text-align: center; /* Zentrieren des Textes */
+    margin-bottom: 20px; /* Abstand nach unten */
+}
+
+/* Zutatenliste */
+#ingredient-list {
+    list-style-type: none; /* Keine Aufzählungszeichen */
+    padding: 0; /* Kein Innenabstand */
+    margin: 0; /* Kein Außenabstand */
+    width: 100%; /* Volle Breite */
+}
+
+#ingredient-list li {
+    background-color: #f4fbfa; /* Hintergrundfarbe für die Zutaten */
+    padding: 10px; /* Innenabstand für die Zutaten */
+    border-radius: 5px; /* Runde Ecken */
+    margin-bottom: 10px; /* Abstand zwischen den Zutaten */
+}
+
+/* Löschen-Button */
+#delete-recipe-btn {
+    background-color: #e74c3c; /* Rote Hintergrundfarbe für den Button */
+    color: white; /* Schriftfarbe */
+    border: none; /* Keine Rahmen */
+    border-radius: 5px; /* Runde Ecken */
+    padding: 10px 20px; /* Innenabstand */
+    font-size: 1em; /* Schriftgröße */
+    cursor: pointer; /* Cursor ändern */
+    transition: background-color 0.3s; /* Übergang für Hover-Effekt */
+}
+
+#delete-recipe-btn:hover {
+    background-color: #c0392b; /* Dunklere Farbe beim Hover */
+}
+
+/* Footer */
+footer {
+    text-align: center; /* Zentrieren des Fußbereichs */
+    font-size: 0.8em; /* Schriftgröße für den Fußbereich */
+    color: #666; /* Farbe für den Fußbereich */
+    padding: 20px; /* Innenabstand für den Fußbereich */
+}

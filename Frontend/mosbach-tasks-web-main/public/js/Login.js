@@ -30,9 +30,7 @@ $(document).ready(function() {
           localStorage.setItem('authToken', data.token);  // Token im localStorage speichern
           console.log("Token erfolgreich gespeichert:", data.token);
 
-          const redirectUrl = 'Hompage2.html'; // Setze die URL für die Weiterleitung
-          console.log("Weiterleitung zur URL:", redirectUrl);
-          window.location.href = redirectUrl; // Weiterleitung auf die Dashboard-Seite
+          window.location.href = 'Hompage2.html';
         } else {
           console.log("Login fehlgeschlagen: Kein Token erhalten.");
           alert('Login fehlgeschlagen. Bitte überprüfe deine Zugangsdaten.');

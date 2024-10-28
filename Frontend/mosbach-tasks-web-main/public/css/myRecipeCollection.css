@@ -121,6 +121,47 @@ h1 {
     color: #666; /* Farbe für die Rezeptbeschreibung */
     font-size: 1em; /* Schriftgröße für die Beschreibung */
 }
+.action-container {
+    text-align: center; /* Zentriert die Buttons und den Text */
+    margin-top: 20px;
+}
+
+.action-buttons {
+    display: flex; /* Flexbox für die Buttons */
+    justify-content: center; /* Zentriert die Buttons */
+    gap: 30px; /* Abstand zwischen den Buttons */
+    margin-top: 50px; /* Abstand oben */
+}
+
+.action-description {
+    color: #0295A9; /* Gleiche Farbe wie der Rest des Textes */
+    font-size: 14px; /* Kleinere Schriftgröße für die Beschreibung */
+    margin-bottom: 5px; /* Abstand zum Button */
+    max-width: 180px; /* Maximale Breite des Beschreibungstextes */
+    text-align: center; /* Zentriert den Text */
+}
+
+.action-btn {
+    padding: 20px 30px;
+    background-color: #0295A9;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 180px; /* Breite der Buttons */
+    height: 80px; /* Höhe der Buttons */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    text-align: center;
+}
+
+.action-btn:hover {
+    background-color: #055f6a;
+}
 
 /* Footer */
 footer {
