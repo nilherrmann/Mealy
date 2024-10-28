@@ -1,16 +1,12 @@
 $(document).ready(function() {
-    const apiUrl = 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/plan';
+    const apiUrl = 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/collection';
 
     // Zentrales Tokenhandling
     function getToken() {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-            alert('Bitte melde dich zuerst an.');
-            window.location.href = 'Login.html';
-            return null;
+            const token = localStorage.getItem('token');
+            console.log('Token retrieved:', token);
+            return token;
         }
-        return token;
-    }
 
     // Rezept-ID aus der URL abrufen
     const urlParams = new URLSearchParams(window.location.search);

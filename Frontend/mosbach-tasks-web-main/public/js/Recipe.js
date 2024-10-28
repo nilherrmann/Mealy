@@ -1,21 +1,26 @@
-$(document).ready(function() {
-  // EventListener für das Rezeptformular
-  $('#recipe-form').on('submit', function(event) {
-    event.preventDefault(); // Verhindert die Standard-Formularübermittlung
 
-    const token = localStorage.getItem('authToken'); // Token aus localStorage abrufen
+const tokenValue = '123';
+localStorage.setItem('token', tokenValue);
+console.log('Token set:', tokenValue);
+
+$(document).ready(function() {
+  $('#recipe-form').on('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const token = localStorage.getItem('token');
+    console.log('Token retrieved:', token); // Log the retrieved token
 
     if (!token) {
-      alert('Bitte melde dich zuerst an.');
+      alert('Es gibt kein Rezept-Token.');
       return;
     }
 
-    // Rezeptdaten sammeln
+    // Gather recipe data
     const recipeName = $('#recipe-name').val();
     const recipeDescription = $('#recipe-description').val();
     const ingredients = [];
 
-    // Zutaten sammeln
+    // Collect ingredients
     $('#ingredient-fields-container .ingredient-fields').each(function() {
       const ingredientName = $(this).find('input[name="ingredient_name[]"]').val();
       const ingredientAmount = $(this).find('input[name="ingredient_amount[]"]').val();
@@ -24,48 +29,60 @@ $(document).ready(function() {
       ingredients.push({
         name: ingredientName,
         unit: ingredientUnit,
-        amount: parseFloat(ingredientAmount) // Menge in eine Zahl umwandeln
+        amount: parseFloat(ingredientAmount) // Convert amount to a number
       });
     });
 
-    // Bilddatei auskommentiert
-    // const recipeImage = $('#recipe-image')[0].files[0];
-    const formData = new FormData();
-    formData.append('token', token);
-    formData.append('recipe', JSON.stringify({
+    // Prepare the recipe data as JSON
+    const recipeData = {
       name: recipeName,
       ingredients: ingredients,
       description: recipeDescription
-    }));
-    // formData.append('recipe_image', recipeImage); // Bilddatei hinzufügen - auskommentiert
+    };
 
-    // AJAX-Anfrage zum Erstellen des Rezepts
+    // AJAX request to create the recipe
     $.ajax({
-      url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe',
+      url: 'https://mealybackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe',
       type: 'POST',
-      data: formData,
-      processData: false, // Verhindert jQuery, die Daten in eine Abfragezeichenfolge umzuwandeln
-      contentType: false,
+      contentType: 'application/json', // Set content type to JSON
+      data: JSON.stringify(recipeData), // Convert the recipe data to JSON
       headers: {
-        'token': token // Token im Header hinzufügen
+        'token': token // Include the token in the header
       },
-      success: function(response) {
-        if (response.message === "Recipe successfully created") {
-          alert('Rezept erfolgreich erstellt!');
-          window.location.href = 'RecipeCollection.html'; // Weiterleitung zur Rezeptsammlung
+      success: function(data) {
+        console.log("Antwort von der API erhalten:", data);
+
+        // Überprüfe, ob die API eine positive Antwort zurückgegeben hat
+        if (data && JSON.stringify(data).includes("Recipe successfully created")) {
+          alert('Rezept erfolgreich erstellt!'); // Alert on successful creation
+          window.location.href = 'RecipeCollection.html'; // Redirect to recipe collection
         } else {
-          alert(response.reason || 'Fehler beim Erstellen des Rezepts.');
+          console.log("Rezept-Erstellung fehlgeschlagen: ", data.reason || 'Unbekannter Fehler.');
+          alert('Fehler beim Erstellen des Rezepts: ' + (data.reason || 'Bitte versuche es später erneut.'));
         }
       },
       error: function(xhr, ajaxOptions, thrownError) {
         console.error('Fehler:', thrownError);
-        alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
+        console.error('Status:', xhr.status);
+        console.error('Response Text:', xhr.responseText);
+
+        let responseMessage = 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.';
+        try {
+          const responseData = JSON.parse(xhr.responseText);
+          if (responseData && responseData.reason) {
+            responseMessage = responseData.reason; // Verwende den Grund aus der Antwort, falls verfügbar
+          }
+        } catch (e) {
+          console.error('Fehler beim Parsen der Antwort:', e);
+        }
+
+        alert(responseMessage); // Alert bei AJAX-Fehler mit detaillierter Nachricht
       }
     });
   });
 });
 
-// Funktion zum Hinzufügen einer neuen Zutat
+// Function to add a new ingredient
 function addIngredient(button) {
   const newIngredient = `
     <div class="ingredient-fields">
@@ -82,10 +99,10 @@ function addIngredient(button) {
       <button type="button" class="remove-ingredient-btn" onclick="removeIngredient(this)">-</button>
     </div>
   `;
-  $('#ingredient-fields-container').append(newIngredient);
+  $('#ingredient-fields-container').append(newIngredient); // Append new ingredient fields
 }
 
-// Funktion zum Entfernen einer Zutat
+// Function to remove an ingredient
 function removeIngredient(button) {
-  $(button).closest('.ingredient-fields').remove();
+  $(button).closest('.ingredient-fields').remove(); // Remove the closest ingredient fields container
 }
