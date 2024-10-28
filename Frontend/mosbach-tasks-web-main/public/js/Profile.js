@@ -1,33 +1,47 @@
 $(document).ready(function() {
     // Token vom LocalStorage abrufen
     const token = localStorage.getItem('authToken');
+    if (token) {
+        console.log("Token erfolgreich abgerufen:", token);
+    } else {
+        console.log("Kein Token im LocalStorage gefunden.");
+    }
 
-function getProfileData() {
-    $.ajax({
-        url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/user',
-        type: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        success: function(data) {
-            if (data.userName && data.email) {
-                $('#userName').val(data.userName);
-                $('#userEmail').val(data.email);
-            } else {
-                alert('Fehler beim Abrufen der Profildaten');
-             }
-                        },
-                        error: function(xhr) {
-                            handleError(xhr);
-                        }
-                    });
-                }
+    // Funktion zum Abrufen der Profildaten
+    function getProfileData() {
+        $.ajax({
+            url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/user',
+            type: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            success: function(data) {
+            console.log("Erhaltene Profildaten:", data);
+
+                 if (data.userName || data.username) {
+                               $('#userName').val(data.userName || data.username);
+                           } else {
+                               alert('Fehler: Benutzername nicht gefunden.');
+                           }
+
+                           // Überprüfe und setze die E-Mail
+                           if (data.email) {
+                               $('#useremail').val(data.email);
+                           } else {
+                               alert('Fehler: E-Mail nicht gefunden.');
+                           }
+                       },
+            error: function(xhr) {
+                handleError(xhr);
+            }
+        });
+    }
 
     // Funktion zum Speichern des Profils (PUT)
     window.saveProfile = function() {
         const userName = $('#userName').val();
-        const userEmail = $('#userEmail').val();
+        const useremail = $('#useremail').val();
         const newPassword = $('#newPassword').val();
         const confirmPassword = $('#confirmPassword').val();
 
@@ -38,7 +52,7 @@ function getProfileData() {
 
         const fieldsToUpdate = {
             userName: userName,
-            email: userEmail,
+            email: useremail,
             password: newPassword ? newPassword : undefined
         };
 
@@ -57,11 +71,12 @@ function getProfileData() {
                     alert(result.reason || 'Fehler beim Speichern des Profils');
                 }
             },
-             error: function(xhr) {
-                            handleError(xhr);
-                        }
-                    });
-                };
+            error: function(xhr) {
+                handleError(xhr);
+            }
+        });
+    };
+
     // Funktion zum Löschen des Accounts (DELETE)
     $("#deleteAccount").click(function(event) {
         event.preventDefault();
@@ -77,25 +92,30 @@ function getProfileData() {
                 success: function(result) {
                     if (result.message === "Account successfully deleted") {
                         alert('Account erfolgreich gelöscht.');
+                        localStorage.removeItem('authToken');
                         window.location.href = "Login.html";
                     } else {
                         alert(result.reason || 'Fehler beim Löschen des Accounts');
                     }
                 },
-                 error: function(xhr) {
-                                    handleError(xhr);
-                                }
-                            });
-                        }
-                    });
+                error: function(xhr) {
+                    handleError(xhr);
+                }
+            });
+        }
+    });
+
     // Funktion zum Abmelden
     $("#logOut").click(function(event) {
         event.preventDefault();
         alert('Erfolgreich abgemeldet!');
+        localStorage.removeItem('authToken');
         window.location.href = "Login.html";
     });
- function handleError(xhr) {
+
+    function handleError(xhr) {
         console.log('Fehler:', xhr.status);
+        console.log('Antwort:', xhr.responseText);
         if (xhr.status === 0) {
             alert('CORS Fehler: Zugriff verweigert. Überprüfe die Serverkonfiguration.');
         } else if (xhr.status === 404) {
