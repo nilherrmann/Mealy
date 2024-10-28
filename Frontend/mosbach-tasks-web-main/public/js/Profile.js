@@ -17,13 +17,21 @@ $(document).ready(function() {
                 'Authorization': `Bearer ${token}`
             },
             success: function(data) {
-                if (data.userName && data.email) {
-                    $('#userName').val(data.userName);
-                    $('#useremail').val(data.email);
-                } else {
-                    alert('Fehler beim Abrufen der Profildaten');
-                }
-            },
+            console.log("Erhaltene Profildaten:", data);
+
+                 if (data.userName || data.username) {
+                               $('#userName').val(data.userName || data.username);
+                           } else {
+                               alert('Fehler: Benutzername nicht gefunden.');
+                           }
+
+                           // Überprüfe und setze die E-Mail
+                           if (data.email) {
+                               $('#useremail').val(data.email);
+                           } else {
+                               alert('Fehler: E-Mail nicht gefunden.');
+                           }
+                       },
             error: function(xhr) {
                 handleError(xhr);
             }
@@ -107,6 +115,7 @@ $(document).ready(function() {
 
     function handleError(xhr) {
         console.log('Fehler:', xhr.status);
+        console.log('Antwort:', xhr.responseText);
         if (xhr.status === 0) {
             alert('CORS Fehler: Zugriff verweigert. Überprüfe die Serverkonfiguration.');
         } else if (xhr.status === 404) {
