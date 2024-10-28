@@ -1,49 +1,51 @@
 package mosbach.dhbw.de.tasks.model;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+        "id",
         "name",
-        "ingredient",
+        "ingredients",
         "description"
 })
+public class RecipeConv {
 
-public class MealConv {
+    @JsonProperty("id")
+    private int id; // Neue ID-Eigenschaft für jedes Rezept
 
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("ingredient")
+    @JsonProperty("ingredients")
     private List<IngredientConv> ingredients = new ArrayList<>();
 
     @JsonProperty("description")
     private String description;
 
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public MealConv() {
+    // Konstruktoren, Getter und Setter
+    public RecipeConv() {
     }
 
-    public MealConv(String name, List<IngredientConv> ingredients, String description) {
-        super();
+    public RecipeConv(int id, String name, List<IngredientConv> ingredients, String description) {
+        this.id = id;
         this.name = name;
         this.ingredients = ingredients;
         this.description = description;
+    }
+
+    @JsonProperty("id")
+    public int getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(int id) {
+        this.id = id;
     }
 
     @JsonProperty("name")
@@ -56,12 +58,12 @@ public class MealConv {
         this.name = name;
     }
 
-    @JsonProperty("ingredient")
+    @JsonProperty("ingredients")
     public List<IngredientConv> getIngredients() {
         return ingredients;
     }
 
-    @JsonProperty("ingredient")
+    @JsonProperty("ingredients")
     public void setIngredients(List<IngredientConv> ingredients) {
         this.ingredients = ingredients;
     }
@@ -75,16 +77,5 @@ public class MealConv {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
 }
 

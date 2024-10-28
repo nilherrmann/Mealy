@@ -3,12 +3,13 @@ C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\api\TaskManager.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\api\UserIF.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\basis\User.java
+C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\impl\RecipeManager.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\impl\TaskImpl.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\impl\TaskManagerImpl.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\data\impl\UserManager.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\IngredientConv.java
-C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\MealConv.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\MessageAnswer.java
+C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\RecipeConv.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\SortedTasks.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\Task.java
 C:\Users\azureadmin\Documents\GitHub\Mealy\Backend\src\main\java\mosbach\dhbw\de\tasks\model\TokenConv.java

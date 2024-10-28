@@ -2,6 +2,7 @@ package mosbach.dhbw.de.tasks.controller;
 
 import mosbach.dhbw.de.tasks.data.api.Task;
 import mosbach.dhbw.de.tasks.data.api.TaskManager;
+import mosbach.dhbw.de.tasks.data.impl.RecipeManager;
 import mosbach.dhbw.de.tasks.data.impl.TaskImpl;
 import mosbach.dhbw.de.tasks.data.impl.TaskManagerImpl;
 import mosbach.dhbw.de.tasks.model.*;
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
 @RequestMapping("/api")
 public class MappingController {
 
+    RecipeManager recipeManager = RecipeManager.getRecipeManager();
     TaskManager taskManager = TaskManagerImpl.getTaskManagerImpl();
     UserManager userManger = UserManager.getUserManager();
 
@@ -79,26 +81,42 @@ public class MappingController {
         }
         else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Account does not exist"));
 
-
     }
 
-    /*
+
     @PostMapping(
-            path="/recipe",
+            path = "/recipe",
             consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<?> saveRecipe(@RequestBody MealConv recipe){
+    public ResponseEntity<?> saveRecipe(
+            @RequestHeader("token") String token,
+            @RequestBody RecipeConv recipe) {
+
+        TokenConv t = new TokenConv(token);
+
+        // Überprüfen des Tokens
+        if (userManger.checkToken(t)) {
+            // Rezept speichern
+            recipeManager.saveRecipe(recipe);
+            return ResponseEntity.ok("Recipe successfully created");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Wrong token"));
+        }
+    }
+
+    @GetMapping("/collection")
+    public ResponseEntity<?> getRecepes(@RequestHeader("token") String data){
         data="123";
         TokenConv t = new TokenConv(data);
 
         if (userManger.checkToken(t)==true)
         {
-
-            return
+            return ResponseEntity.ok(recipeManager.readRecipeNames());
         }
-        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Wrong token"));
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Wrong Token"));
+
     }
-     */
+
 
     //Hardwig Stuff...
 
