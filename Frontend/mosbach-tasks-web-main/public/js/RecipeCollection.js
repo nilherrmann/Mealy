@@ -1,30 +1,35 @@
 $(document).ready(function() {
-    const apiUrl = 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe'; // Replace with your actual API URL
-    const token = localStorage.getItem('authToken'); // Get the token from localStorage
+    const apiUrl = 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/plan';
 
-    if (!token) {
-        alert('Bitte melde dich zuerst an.');
-        window.location.href = 'login.html'; // Redirect to login page
-        return;
+    // Zentrales Tokenhandling
+    function getToken() {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert('Bitte melde dich zuerst an.');
+            window.location.href = 'Login.html';
+            return null;
+        }
+        return token;
     }
 
-    // Fetch recipes when the page loads
-    fetchRecipes();
+    // Rezepte beim Laden der Seite abrufen
+    const token = getToken();
+    if (token) {
+        fetchRecipes();
+    }
 
-    // Event listener for adding a new recipe
     $('#add-recipe-btn').on('click', function() {
-        window.location.href = 'RecipeCreate.html'; // Redirect to the recipe creation page
+        window.location.href = 'RecipeCreate.html';
     });
 
-    // Function to fetch recipes
+    // Funktion, um Rezepte abzurufen
     function fetchRecipes() {
         $.ajax({
             url: apiUrl,
             type: 'GET',
-            headers: { 'Authorization': `Bearer ${token}` }, // Assuming your API uses Bearer token authentication
+            headers: { 'Authorization': `Bearer ${getToken()}` },
             success: function(response) {
-                const recipes = response.recipes; // Assuming the response has a 'recipes' array
-                displayRecipes(recipes);
+                displayRecipes(response.recipes);
             },
             error: function(xhr) {
                 console.error('Fehler beim Abrufen der Rezepte:', xhr);
@@ -33,41 +38,39 @@ $(document).ready(function() {
         });
     }
 
-    // Function to display recipes
+    // Funktion, um Rezepte anzuzeigen
     function displayRecipes(recipes) {
-        recipes.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically by name
-        $('#recipe-list').empty(); // Clear the recipe list
+        $('#recipe-list').empty();
+        recipes.sort((a, b) => a.name.localeCompare(b.name));
 
         recipes.forEach(recipe => {
             const recipeItem = `<div class="recipe-item" data-id="${recipe.plan_id}">
+                <input type="checkbox" class="select-recipe-checkbox">
                 <span>${recipe.name}</span>
                 <button class="view-recipe-btn">Anzeigen</button>
             </div>`;
             $('#recipe-list').append(recipeItem);
         });
 
-        // Add event listener for view buttons
         $('.view-recipe-btn').on('click', function() {
             const recipeId = $(this).closest('.recipe-item').data('id');
             viewRecipeDetails(recipeId);
         });
     }
 
-    // Function to view recipe details
+    // Funktion, um Rezeptdetails anzuzeigen
     function viewRecipeDetails(recipeId) {
         $.ajax({
             url: `${apiUrl}/${recipeId}`,
             type: 'GET',
-            headers: { 'Authorization': `Bearer ${token}` },
+            headers: { 'Authorization': `Bearer ${getToken()}` },
             success: function(recipe) {
                 $('#modal-recipe-name').text(recipe.name);
                 $('#modal-recipe-description').text(recipe.description);
                 $('#modal-ingredient-list').empty();
-
                 recipe.ingredients.forEach(ingredient => {
                     $('#modal-ingredient-list').append(`<li>${ingredient.name} (${ingredient.amount} ${ingredient.unit})</li>`);
                 });
-
                 $('#recipe-modal').show();
             },
             error: function(xhr) {
@@ -77,22 +80,20 @@ $(document).ready(function() {
         });
     }
 
-    // Event listener for closing the modal
     $('#recipe-modal .close-btn').on('click', function() {
         $('#recipe-modal').hide();
     });
 
-    // Event listener for deleting a recipe
     $('#delete-recipe-btn').on('click', function() {
         const recipeId = $('#modal-recipe-name').data('id');
         $.ajax({
             url: `${apiUrl}/${recipeId}`,
             type: 'DELETE',
-            headers: { 'Authorization': `Bearer ${token}` },
+            headers: { 'Authorization': `Bearer ${getToken()}` },
             success: function() {
                 alert('Rezept erfolgreich gelöscht!');
                 $('#recipe-modal').hide();
-                fetchRecipes(); // Refresh the recipe list
+                fetchRecipes();
             },
             error: function(xhr) {
                 console.error('Fehler beim Löschen des Rezepts:', xhr);
@@ -100,4 +101,42 @@ $(document).ready(function() {
             }
         });
     });
+
+    // Funktion, um ausgewählte Rezepte einem Ordner hinzuzufügen
+    $('#add-to-folder-btn').on('click', function() {
+        const selectedRecipes = [];
+        $('.select-recipe-checkbox:checked').each(function() {
+            const recipeId = $(this).closest('.recipe-item').data('id');
+            selectedRecipes.push(recipeId);
+        });
+
+        const folderTitle = prompt('Bitte gib eine Überschrift für den Ordner an:');
+        if (!folderTitle) {
+            alert('Überschrift ist erforderlich.');
+            return;
+        }
+
+        addToFolder(selectedRecipes, folderTitle);
+    });
+
+    // Funktion zur Speicherung von Rezepten in einem Ordner
+    function addToFolder(recipeIds, folderTitle) {
+        $.ajax({
+            url: `${apiUrl}/folder`,
+            type: 'POST',
+            headers: { 'Authorization': `Bearer ${getToken()}` },
+            contentType: 'application/json',
+            data: JSON.stringify({
+                title: folderTitle,
+                recipes: recipeIds
+            }),
+            success: function() {
+                alert(`Rezepte wurden erfolgreich in den Ordner "${folderTitle}" gespeichert.`);
+            },
+            error: function(xhr) {
+                console.error('Fehler beim Hinzufügen zum Ordner:', xhr);
+                alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
+            }
+        });
+    }
 });
