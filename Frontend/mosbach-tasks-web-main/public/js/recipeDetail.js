@@ -28,7 +28,7 @@ $(document).ready(function() {
         $.ajax({
             url: `${apiUrl}/${id}`,
             type: 'GET',
-            headers: { 'Authorization': `Bearer ${getToken()}` },
+            headers: { 'token': getToken() }, // Token im Header hinzufügen
             success: function(recipe) {
                 displayRecipeDetails(recipe);
             },
@@ -64,7 +64,7 @@ $(document).ready(function() {
         $.ajax({
             url: `${apiUrl}/${id}`,
             type: 'DELETE',
-            headers: { 'Authorization': `Bearer ${getToken()}` },
+            headers: { 'token': getToken() }, // Token im Header hinzufügen
             success: function() {
                 alert('Rezept erfolgreich gelöscht!');
                 window.location.href = 'RecipeCollection.html';

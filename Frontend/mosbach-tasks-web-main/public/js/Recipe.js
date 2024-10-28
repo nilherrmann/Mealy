@@ -45,7 +45,10 @@ $(document).ready(function() {
       type: 'POST',
       data: formData,
       processData: false, // Verhindert jQuery, die Daten in eine Abfragezeichenfolge umzuwandeln
-      contentType: false, // Verhindert jQuery, den Content-Type-Header zu setzen
+      contentType: false,
+        headers: {
+               'token': token // Token im Header hinzufügen
+             },
       success: function(response) {
         if (response.message === "Recipe successfully created") {
           alert('Rezept erfolgreich erstellt!');

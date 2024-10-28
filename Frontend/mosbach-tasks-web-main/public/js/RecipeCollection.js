@@ -27,7 +27,7 @@ $(document).ready(function() {
         $.ajax({
             url: apiUrl,
             type: 'GET',
-            headers: { 'Authorization': `Bearer ${getToken()}` },
+            headers: { 'token': getToken() }, // Token im Header hinzufügen
             success: function(response) {
                 displayRecipes(response.recipes);
             },
@@ -56,7 +56,4 @@ $(document).ready(function() {
             window.location.href = `RecipeDetail.html?id=${recipeId}`;
         });
     }
-
-
-
-
+});

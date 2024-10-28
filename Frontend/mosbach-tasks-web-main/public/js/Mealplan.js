@@ -53,8 +53,8 @@ $(document).ready(function() {
         $.ajax({
           url: 'https://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/linkRecipeToMealplan',
           method: 'POST',
+          headers: { 'token': token },  // Token im Header hinzufügen
           data: JSON.stringify({
-            token: token,
             day: selectedDate,
             time: mealTime,
             recipe: meal
@@ -74,7 +74,7 @@ $(document).ready(function() {
     eventClick: function(info) {
       if (confirm("Möchten Sie diese Mahlzeit löschen?")) {
         info.event.remove(); // Löschen der Veranstaltung aus dem Kalender
-        removeMealFromDatabase(info.event.id); // Aus der Datenbank löschen
+        removeMealFromDatabase(info.event.startStr, info.event.extendedProps.mealType); // Aus der Datenbank löschen
       }
     }
   });
@@ -83,8 +83,8 @@ $(document).ready(function() {
       $.ajax({
           url: 'https://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/unlinkRecipe',
           type: 'DELETE',
+          headers: { 'token': token },  // Token im Header hinzufügen
           data: JSON.stringify({
-              token: token,
               day: day,
               time: time
           }),
@@ -98,7 +98,6 @@ $(document).ready(function() {
       });
   }
 
-
   calendar.render();
 
   // Funktion zum Abrufen von Mahlzeiten aus der Datenbank
@@ -106,8 +105,8 @@ $(document).ready(function() {
     $.ajax({
       url: 'https://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/getMeals',
       type: 'GET',
-      data: { token: token },
-       success: function(response){
+      headers: { 'token': token },  // Token im Header hinzufügen
+      success: function(response){
         // Angenommen, response ist ein Array von Mahlzeiten
         response.forEach(meal => {
           calendar.addEvent({

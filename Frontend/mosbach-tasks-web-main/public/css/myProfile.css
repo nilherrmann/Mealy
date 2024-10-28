@@ -8,7 +8,53 @@ body {
     height: 100vh;
     position: relative;
 }
+header {
+    background-color: #086A87;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
 
+/* Navbar */
+.navbar {
+    display: flex; /* Flexbox für die Navbar */
+    justify-content: center; /* Zentrieren der Elemente */
+    padding: 10px 0; /* Vertikales Padding */
+}
+
+.navbar ul {
+    list-style-type: none; /* Keine Aufzählungszeichen */
+    margin: 0; /* Kein Außenabstand */
+    padding: 0; /* Kein Innenabstand */
+    display: flex; /* Flexbox für die Listenelemente */
+    justify-content: space-around; /* Gleichmäßige Verteilung der Listenelemente */
+    flex: 1; /* Flexibles Layout */
+}
+
+.navbar ul li {
+    margin: 0 15px; /* Abstand zwischen den Menüpunkten */
+}
+
+.navbar ul li a {
+    color: white; /* Schriftfarbe für Links */
+    font-size: 16px; /* Schriftgröße */
+    font-weight: bold; /* Fettdruck */
+    text-decoration: none; /* Keine Unterstreichung */
+    padding: 10px 20px; /* Padding für die Links */
+}
+
+.navbar ul li a.active {
+    color: #333; /* Dunklere Schriftfarbe für die aktuelle Seite */
+    background-color: #f4fbfa; /* Hintergrundfarbe für die aktive Seite */
+    border-radius: 5px; /* Leicht abgerundete Kanten */
+}
+
+.navbar ul li a:hover {
+    background-color: #065f6a; /* Hover-Effekt für alle Links */
+}
 .profile-box {
     background-color: white;
     border-radius: 10px;
