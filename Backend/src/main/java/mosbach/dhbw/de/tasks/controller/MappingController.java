@@ -4,10 +4,7 @@ import mosbach.dhbw.de.tasks.data.api.Task;
 import mosbach.dhbw.de.tasks.data.api.TaskManager;
 import mosbach.dhbw.de.tasks.data.impl.TaskImpl;
 import mosbach.dhbw.de.tasks.data.impl.TaskManagerImpl;
-import mosbach.dhbw.de.tasks.model.MessageAnswer;
-import mosbach.dhbw.de.tasks.model.SortedTasks;
-import mosbach.dhbw.de.tasks.model.TokenTask;
-import mosbach.dhbw.de.tasks.model.UserConv;
+import mosbach.dhbw.de.tasks.model.*;
 import mosbach.dhbw.de.tasks.data.basis.User;
 import mosbach.dhbw.de.tasks.data.impl.UserManager;
 
@@ -55,7 +52,7 @@ public class MappingController {
     }
 
     @GetMapping("/login")
-    public String getAuthServerAlive() {
+    public String getServerAlive() {
         return "The Mosbach Task Organiser is alive.";
     }
 
@@ -69,6 +66,20 @@ public class MappingController {
             return ResponseEntity.status(HttpStatus.OK).body(Map.of("token", "123"));
         }
         else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Account does not exist"));
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<?> getUser(@RequestHeader("Authorization") String data){
+        data="123";
+        TokenConv t = new TokenConv(data);
+
+        if (userManger.checkToken(t)==true)
+        {
+            return ResponseEntity.ok(userManger.TokenToUser(data));
+        }
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Account does not exist"));
+
+
     }
 
     //Hardwig Stuff...

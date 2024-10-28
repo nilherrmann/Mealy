@@ -8,6 +8,7 @@ mosbach\dhbw\de\tasks\data\impl\TaskManagerImpl.class
 mosbach\dhbw\de\tasks\data\impl\UserManager.class
 mosbach\dhbw\de\tasks\data\api\Task.class
 mosbach\dhbw\de\tasks\data\api\TaskManager.class
+mosbach\dhbw\de\tasks\model\TokenConv.class
 mosbach\dhbw\de\tasks\data\basis\User.class
 mosbach\dhbw\de\tasks\data\impl\TaskImpl.class
 mosbach\dhbw\de\tasks\model\Task.class
