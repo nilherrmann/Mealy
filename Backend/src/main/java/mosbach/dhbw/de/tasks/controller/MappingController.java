@@ -82,6 +82,24 @@ public class MappingController {
 
     }
 
+    /*
+    @PostMapping(
+            path="/recipe",
+            consumes = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public ResponseEntity<?> saveRecipe(@RequestBody MealConv recipe){
+        data="123";
+        TokenConv t = new TokenConv(data);
+
+        if (userManger.checkToken(t)==true)
+        {
+
+            return
+        }
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Wrong token"));
+    }
+     */
+
     //Hardwig Stuff...
 
     @GetMapping("/tasks")
