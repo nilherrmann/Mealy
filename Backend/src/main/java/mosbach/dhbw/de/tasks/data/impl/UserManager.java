@@ -1,6 +1,7 @@
 package mosbach.dhbw.de.tasks.data.impl;
 
 import mosbach.dhbw.de.tasks.data.api.UserIF;
+import mosbach.dhbw.de.tasks.model.TokenConv;
 import mosbach.dhbw.de.tasks.model.UserConv;
 import mosbach.dhbw.de.tasks.data.basis.User;
 
@@ -10,13 +11,15 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserManager {
 
     private static UserManager userManager = null;
-    String fileName = "UserData.properties";
+    String userdata = "UserData.properties";
+    String tokendata = "token.properties";
 
     public static UserManager getUserManager() {
         if (userManager == null) {
@@ -42,7 +45,7 @@ public class UserManager {
             i++;
         }
 
-        try (FileOutputStream out = new FileOutputStream(fileName)) {
+        try (FileOutputStream out = new FileOutputStream(userdata)) {
             properties.store(out, null);
         } catch (IOException e) {
             Logger.getLogger("Writing Tasks")
@@ -57,7 +60,7 @@ public class UserManager {
 
         try (InputStream resourceStream = Thread.currentThread()
                 .getContextClassLoader()
-                .getResourceAsStream(fileName)) {
+                .getResourceAsStream(userdata)) {
             properties.load(resourceStream);
 
             while (properties.containsKey("User." + i + ".Username")) {
@@ -82,7 +85,7 @@ public class UserManager {
 
         try (InputStream resourceStream = Thread.currentThread()
                 .getContextClassLoader()
-                .getResourceAsStream(fileName)) {
+                .getResourceAsStream(userdata)) {
             properties.load(resourceStream);
             String userName = user.getUserName();
             String password = user.getPassword();
@@ -106,6 +109,143 @@ public class UserManager {
         }
 
         return false; // Keine gültige Kombination gefunden
+    }
+
+    public List<TokenConv> readAllToken() {
+        Properties properties = new Properties();
+        List<TokenConv> tokens = new ArrayList<>();
+        int i = 1;
+
+        try (InputStream resourceStream = Thread.currentThread()
+                .getContextClassLoader()
+                .getResourceAsStream(tokendata)) {
+            properties.load(resourceStream);
+
+            while (properties.containsKey("Auth." + i + ".Email")) {
+                String username = properties.getProperty("Auth." + i + ".Email");
+                String email = properties.getProperty("Auth." + i + ".Token");
+
+                i++;
+            }
+        } catch (IOException e) {
+            Logger.getLogger("Reading Tasks")
+                    .log(Level.INFO, "File not existing", e);
+        }
+
+        return tokens;
+    }
+
+
+    public void createToken (User u){
+        Properties properties = new Properties();
+        Random r = new Random();
+
+        long token = r.nextLong(999999999);
+        String Token = Long.toString(token);
+        TokenConv t = new TokenConv(u.getEmail(),Token);
+        List<TokenConv> tokens = readAllToken();
+        tokens.add(t);
+
+        int i = 1;
+
+        for (TokenConv ToKeN : tokens) {
+            properties.setProperty("Auth." + i + ".Email", t.getEmail());
+            properties.setProperty("Auth." + i + ".Token", t.getToken());
+            i++;
+        }
+
+        try (FileOutputStream out = new FileOutputStream(tokendata)) {
+            properties.store(out, null);
+        } catch (IOException e) {
+            Logger.getLogger("Writing Tasks")
+                    .log(Level.INFO, "File cannot be written", e);
+        }
+    }
+
+    public boolean checkToken(TokenConv token) {
+        Properties properties = new Properties();
+
+        try (InputStream resourceStream = Thread.currentThread()
+                .getContextClassLoader()
+                .getResourceAsStream(tokendata)) {
+            properties.load(resourceStream);
+            String Token = token.getToken();
+
+            for (String key : properties.stringPropertyNames()) {
+
+                if (key.matches("Auth\\.\\d+\\.Token")) {
+                    String id = key.split("\\.")[1];
+                    String storedToken = properties.getProperty("Auth." + id + ".Token");
+
+
+                    if (Token.equals(storedToken)){
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            Logger.getLogger("Reading Tasks")
+                    .log(Level.INFO, "File not existing", e);
+        }
+
+        return false;
+    }
+
+    public UserConv TokenToUser (String token){
+        Properties properties = new Properties();
+
+        try (InputStream resourceStream = Thread.currentThread()
+                .getContextClassLoader()
+                .getResourceAsStream(tokendata)) {
+            properties.load(resourceStream);
+
+            for (String key : properties.stringPropertyNames()) {
+
+                if (key.matches("Auth\\.\\d+\\.Token")) {
+                    String id = key.split("\\.")[1];
+                    String storedEmail = properties.getProperty("Auth." + id + ".Email");
+
+                    return serchUserByEmail(storedEmail);
+                }
+            }
+        } catch (IOException e) {
+            Logger.getLogger("Reading Tasks")
+                    .log(Level.INFO, "File not existing", e);
+        }
+
+        UserConv f = new UserConv("Token", "not", "found");
+        return f;
+    }
+
+    public UserConv serchUserByEmail(String Email) {
+        Properties properties = new Properties();
+
+        try (InputStream resourceStream = Thread.currentThread()
+                .getContextClassLoader()
+                .getResourceAsStream(userdata)) {
+            properties.load(resourceStream);
+
+            for (String key : properties.stringPropertyNames()) {
+
+                if (key.matches("User\\.\\d+\\.Email")) {
+                    String id = key.split("\\.")[1];
+                    String storedUser = properties.getProperty("User." + id + ".Username");
+                    String storedEmail = properties.getProperty("User." + id + ".Email");
+                    String storedPasswort = properties.getProperty("User." + id + ".Passwort");
+
+                    UserConv u = new UserConv(storedUser, storedEmail, storedPasswort);
+
+                    return u;
+
+                }
+            }
+        } catch (IOException e) {
+            Logger.getLogger("Reading Tasks")
+                    .log(Level.INFO, "File not existing", e);
+        }
+
+        UserConv f = new UserConv("User", "not", "found");
+        return (f);
     }
 }
 
