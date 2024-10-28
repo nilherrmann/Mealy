@@ -205,7 +205,7 @@ public class UserManager {
                     String id = key.split("\\.")[1];
                     String storedEmail = properties.getProperty("Auth." + id + ".Email");
 
-                    return serchUserByEmail(storedEmail);
+                    return searchUserByEmail(storedEmail);
                 }
             }
         } catch (IOException e) {
@@ -217,7 +217,7 @@ public class UserManager {
         return f;
     }
 
-    public UserConv serchUserByEmail(String Email) {
+    public UserConv searchUserByEmail(String email) {
         Properties properties = new Properties();
 
         try (InputStream resourceStream = Thread.currentThread()
@@ -226,26 +226,27 @@ public class UserManager {
             properties.load(resourceStream);
 
             for (String key : properties.stringPropertyNames()) {
-
                 if (key.matches("User\\.\\d+\\.Email")) {
                     String id = key.split("\\.")[1];
-                    String storedUser = properties.getProperty("User." + id + ".Username");
                     String storedEmail = properties.getProperty("User." + id + ".Email");
-                    String storedPasswort = properties.getProperty("User." + id + ".Passwort");
 
-                    UserConv u = new UserConv(storedUser, storedEmail, storedPasswort);
+                    // Prüfen, ob die E-Mail übereinstimmt
+                    if (storedEmail != null && storedEmail.equals(email)) {
+                        String storedUser = properties.getProperty("User." + id + ".Username");
+                        String storedPasswort = properties.getProperty("User." + id + ".Passwort");
 
-                    return u;
-
+                        return new UserConv(storedUser, storedEmail, storedPasswort);
+                    }
                 }
             }
         } catch (IOException e) {
-            Logger.getLogger("Reading Tasks")
-                    .log(Level.INFO, "File not existing", e);
+            Logger.getLogger("Reading Tasks").log(Level.INFO, "File not existing", e);
         }
 
-        UserConv f = new UserConv("User", "not", "found");
-        return (f);
+        // Rückgabe, falls kein Benutzer mit der angegebenen E-Mail gefunden wurde
+        return new UserConv("User", "not", "found");
     }
+
+
 }
 

@@ -12,47 +12,38 @@ import mosbach.dhbw.de.tasks.data.api.UserIF;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "username",
+        "userName",
         "email",
         "password"
 })
 public class UserConv implements UserIF {
 
-    @JsonProperty("username")
-    private String username;
+    @JsonProperty("userName")
+    private String userName;
     @JsonProperty("email")
     private String email;
     @JsonProperty("password")
     private String password;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new LinkedHashMap<>();
 
-    /**
-     * No args constructor for use in serialization
-     */
     public UserConv() {
     }
 
-    public UserConv(String username, String email, String password) {
-        super();
-        this.username = username;
+    public UserConv(String userName, String email, String password) {
+        this.userName = userName;
         this.email = email;
         this.password = password;
     }
 
-    @JsonProperty("username")
-    public String getUsername() {
-        return username;
-    }
-
-    @JsonProperty("username")
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Override
+    @JsonProperty("userName")
     public String getUserName() {
-        return "";
+        return userName;
+    }
+
+    @JsonProperty("userName")
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @JsonProperty("email")
@@ -85,4 +76,5 @@ public class UserConv implements UserIF {
         this.additionalProperties.put(name, value);
     }
 }
+
 
