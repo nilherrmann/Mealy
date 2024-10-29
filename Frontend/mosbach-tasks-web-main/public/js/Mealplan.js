@@ -1,127 +1,131 @@
 $(document).ready(function() {
-   // Token dynamisch aus LocalStorage abrufen
-   const token = localStorage.getItem('authToken');
-   if (!token) {
-     alert('Bitte melde dich zuerst an.');
-     return; // Stoppe die Ausführung, wenn kein Token vorhanden ist
-   }
+    const apiUrl = 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/mealplan';
 
-  // FullCalendar Initialisierung
-  var calendarEl = document.getElementById('calendar');
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    locale: 'de',  // Sprache auf Deutsch setzen
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
-    selectable: true,
-    editable: true,
-    events: [], // Zunächst ein leeres Array für die Ereignisse
-    dateClick: function(info) {
-      // Zeigt das Formular an, wenn ein Datum im Kalender geklickt wird
-      $('#mealForm').show();
-      $('#selectedDate').text(info.dateStr);  // Ausgewähltes Datum anzeigen
+    function getToken() {
+        const token = localStorage.getItem('token');
+        console.log('Token retrieved:', token);
+        return token;
+    }
 
-      // Formular für das Hinzufügen von Mahlzeiten bearbeiten
-      $('#mealAddForm').off('submit').on('submit', function(e) {
-        e.preventDefault();
-        const mealTime = $('#mealTime').val();
-        const meal = $('#meal').val();
-        const selectedDate = info.dateStr;
+    const token = getToken();
+    if (token) {
+        fetchRecipes();
+    } else {
+        console.warn('Kein Token gefunden');
+        alert('Bitte melden Sie sich an, um Rezepte anzuzeigen.');
+    }
 
-         const nutritionalInfo = {
-                  calories: $('#calories').val(),     // Kalorien
-                  protein: $('#protein').val(),       // Protein
-                  carbs: $('#carbs').val(),           // Kohlenhydrate
-                  fats: $('#fats').val()               // Fette
+    // FullCalendar Initialisierung
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'de',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        selectable: true,
+        editable: true,
+        events: [],
+        dateClick: function(info) {
+            $('#mealForm').show();
+            $('#selectedDate').text(info.dateStr);
+
+            $('#mealAddForm').off('submit').on('submit', function(e) {
+                e.preventDefault();
+                const mealTime = $('#mealTime').val();
+                const recipeId = $('#meal').val(); // Rezept-ID anstelle des Namens
+                const selectedDate = info.dateStr;
+
+                const nutritionalInfo = {
+                    calories: $('#calories').val(),
+                    protein: $('#protein').val(),
+                    carbs: $('#carbs').val(),
+                    fats: $('#fats').val()
                 };
 
-        // Füge die Mahlzeit zum Kalender hinzu
-        calendar.addEvent({
-          title: `${mealTime}: ${meal}`,
-          start: selectedDate,
-          allDay: true,
-          extendedProps: {
-            mealType: mealTime,
-            mealName: meal
-          }
-        });
+                calendar.addEvent({
+                    title: `${mealTime}: ${recipeId}`, // Anzeige der ID (optional)
+                    start: selectedDate,
+                    allDay: true,
+                    extendedProps: {
+                        mealType: mealTime,
+                        mealName: recipeId // Hier könntest du den Namen oder die ID speichern
+                    }
+                });
 
-        // POST Request zum Backend, um die Mahlzeit zu speichern
-        $.ajax({
-          url: 'https://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/linkRecipeToMealplan',
-          method: 'POST',
-          headers: { 'token': token },  // Token im Header hinzufügen
-          data: JSON.stringify({
-            day: selectedDate,
-            time: mealTime,
-            recipe: meal
-          }),
-          contentType: 'application/json',
-          success: function(response) {
-            alert('Mahlzeit erfolgreich gespeichert');
-            $('#mealForm').hide();
-            updateNutritionalInfo(selectedDate, mealTime, meal); // Nährwerte aktualisieren
-          },
-          error: function(xhr) {
-            alert('Fehler beim Hinzufügen der Mahlzeit: ' + xhr.responseJSON.reason);
-          }
-        });
-      });
-    },
-    eventClick: function(info) {
-      if (confirm("Möchten Sie diese Mahlzeit löschen?")) {
-        info.event.remove(); // Löschen der Veranstaltung aus dem Kalender
-        removeMealFromDatabase(info.event.startStr, info.event.extendedProps.mealType); // Aus der Datenbank löschen
-      }
-    }
-  });
-
-  function removeMealFromDatabase(day, time) {
-      $.ajax({
-          url: 'https://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/unlinkRecipe',
-          type: 'DELETE',
-          headers: { 'token': token },  // Token im Header hinzufügen
-          data: JSON.stringify({
-              day: day,
-              time: time
-          }),
-          contentType: 'application/json',
-          success: function(response) {
-              alert('Mahlzeit erfolgreich entfernt');
-          },
-          error: function(xhr) {
-              alert('Fehler beim Entfernen der Mahlzeit: ' + xhr.responseJSON.reason);
-          }
-      });
-  }
-
-  calendar.render();
-
-  // Funktion zum Abrufen von Mahlzeiten aus der Datenbank
-  function loadMealsFromDatabase() {
-    $.ajax({
-      url: 'https://MealyBackend-fealess-bushbuck-kcapps.01.cf.eu01.stackit.cloud/recipe/getMeals',
-      type: 'GET',
-      headers: { 'token': token },  // Token im Header hinzufügen
-      success: function(response){
-        // Angenommen, response ist ein Array von Mahlzeiten
-        response.forEach(meal => {
-          calendar.addEvent({
-            id: meal.id,
-            title: meal.mealName,
-            start: meal.date + 'T' + meal.time + ':00',
-            allDay: true
-          });
-        });
-      },
-      error: function(xhr, status, error) {
-        console.error('Fehler beim Laden der Mahlzeiten:', error);
-      }
+                $.ajax({
+                    url: apiUrl + '/recipe/linkRecipeToMealplan',
+                    method: 'POST',
+                    headers: { 'token': token },
+                    data: JSON.stringify({
+                        day: selectedDate,
+                        time: mealTime,
+                        recipe: recipeId // Rezept-ID wird gesendet
+                    }),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        alert('Mahlzeit erfolgreich gespeichert');
+                        $('#mealForm').hide();
+                        updateNutritionalInfo(selectedDate, mealTime, recipeId);
+                    },
+                    error: function(xhr) {
+                        const errorMessage = xhr.responseJSON && xhr.responseJSON.reason ? xhr.responseJSON.reason : 'Ein unbekannter Fehler ist aufgetreten.';
+                        alert('Fehler beim Hinzufügen der Mahlzeit: ' + errorMessage);
+                    }
+                });
+            });
+        },
+        eventClick: function(info) {
+            if (confirm("Möchten Sie diese Mahlzeit löschen?")) {
+                info.event.remove();
+                removeMealFromDatabase(info.event.startStr, info.event.extendedProps.mealType);
+            }
+        }
     });
-  }
 
-  loadMealsFromDatabase();
+    function removeMealFromDatabase(day, time) {
+        $.ajax({
+            url: apiUrl + '/recipe/unlinkRecipe',
+            type: 'DELETE',
+            headers: { 'token': token },
+            data: JSON.stringify({
+                day: day,
+                time: time
+            }),
+            contentType: 'application/json',
+            success: function(response) {
+                alert('Mahlzeit erfolgreich entfernt');
+            },
+            error: function(xhr) {
+                const errorMessage = xhr.responseJSON && xhr.responseJSON.reason ? xhr.responseJSON.reason : 'Ein unbekannter Fehler ist aufgetreten.';
+                alert('Fehler beim Entfernen der Mahlzeit: ' + errorMessage);
+            }
+        });
+    }
+
+    function loadMealsFromDatabase() {
+        $.ajax({
+            url: apiUrl + '/recipe/getMeals',
+            type: 'GET',
+            headers: { 'token': token },
+            success: function(response) {
+                response.forEach(meal => {
+                    calendar.addEvent({
+                        id: meal.id,
+                        title: meal.mealName,
+                        start: meal.date + 'T' + meal.time + ':00',
+                        allDay: true
+                    });
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Fehler beim Laden der Mahlzeiten:', error);
+            }
+        });
+    }
+
+    calendar.render();
+    loadMealsFromDatabase();
 });

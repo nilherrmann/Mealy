@@ -40,7 +40,11 @@
       <label for="mealTime">Zeit der Mahlzeit:</label>
       <input type="text" id="mealTime" placeholder="Z.B. Frühstück" required>
       <label for="meal">Mahlzeit:</label>
-      <input type="text" id="meal" placeholder="Z.B. Porridge" required>
+
+      <select id="meal" required>
+        <option value="" disabled selected>Wähle ein Rezept</option>
+        <!-- Hier werden die Rezepte dynamisch hinzugefügt -->
+      </select>
 
       <label for="calories">Kalorien:</label>
       <input type="number" id="calories" placeholder="Z.B. 200" required>
