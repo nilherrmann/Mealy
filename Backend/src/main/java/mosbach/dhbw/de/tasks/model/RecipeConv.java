@@ -16,10 +16,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class RecipeConv {
 
     @JsonProperty("id")
-    private int id; // Neue ID-Eigenschaft für jedes Rezept
+    private int id;
 
     @JsonProperty("name")
     private String name;
+
+    @JsonProperty("owner")
+    private String owner;
 
     @JsonProperty("ingredients")
     private List<IngredientConv> ingredients = new ArrayList<>();
@@ -27,17 +30,29 @@ public class RecipeConv {
     @JsonProperty("description")
     private String description;
 
-    // Konstruktoren, Getter und Setter
+    // Standardkonstruktor
     public RecipeConv() {
     }
 
-    public RecipeConv(int id, String name, List<IngredientConv> ingredients, String description) {
+    // Konstruktor mit allen Eigenschaften
+    public RecipeConv(int id, String name, String owner, List<IngredientConv> ingredients, String description) {
         this.id = id;
         this.name = name;
+        this.owner = owner;
         this.ingredients = ingredients;
         this.description = description;
     }
 
+    // Methode, um eine Kopie ohne den Owner zurückzugeben
+    public RecipeConv (int id, String name, List<IngredientConv> ingredients, String description) {
+        this.id = id;
+        this.name = name;
+        owner = null;
+        this.ingredients = ingredients;
+        this.description = description;
+    }
+
+    // Getter und Setter für ID
     @JsonProperty("id")
     public int getId() {
         return id;
@@ -48,6 +63,7 @@ public class RecipeConv {
         this.id = id;
     }
 
+    // Getter und Setter für Name
     @JsonProperty("name")
     public String getName() {
         return name;
@@ -58,6 +74,18 @@ public class RecipeConv {
         this.name = name;
     }
 
+    // Getter und Setter für Owner
+    @JsonProperty("owner")
+    public String getOwner() {
+        return owner;
+    }
+
+    @JsonProperty("owner")
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    // Getter und Setter für Ingredients
     @JsonProperty("ingredients")
     public List<IngredientConv> getIngredients() {
         return ingredients;
@@ -68,6 +96,7 @@ public class RecipeConv {
         this.ingredients = ingredients;
     }
 
+    // Getter und Setter für Description
     @JsonProperty("description")
     public String getDescription() {
         return description;
@@ -78,4 +107,3 @@ public class RecipeConv {
         this.description = description;
     }
 }
-

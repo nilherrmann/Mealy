@@ -97,7 +97,7 @@ public class MappingController {
         // Überprüfen des Tokens
         if (userManger.checkToken(t)) {
             // Rezept speichern
-            recipeManager.saveRecipe(recipe);
+            recipeManager.saveRecipe(recipe, userManger.TokenToUser(token));
             return ResponseEntity.ok("Recipe successfully created");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Wrong token"));
@@ -111,7 +111,20 @@ public class MappingController {
 
         if (userManger.checkToken(t)==true)
         {
-            return ResponseEntity.ok(recipeManager.readRecipeNames());
+            return ResponseEntity.ok(recipeManager.readRecipeNames(userManger.TokenToUser(data)));
+        }
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Wrong Token"));
+
+    }
+
+    @GetMapping("recipe/detail/{id}")
+    public ResponseEntity<?> getRecipeById( @PathVariable int id, @RequestHeader("token") String data) {
+        data="123";
+        TokenConv t = new TokenConv(data);
+
+        if (userManger.checkToken(t)==true) {
+            // Je nach Wert der ID eine unterschiedliche Antwort
+            return ResponseEntity.ok(recipeManager.readRecipeById(id));
         }
         else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Wrong Token"));
 
