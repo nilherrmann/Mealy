@@ -1,12 +1,11 @@
 $(document).ready(function() {
-    const apiUrl = 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/collection';
+    const apiUrl = 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe/detail';
 
-    // Zentrales Tokenhandling
     function getToken() {
-            const token = localStorage.getItem('token');
-            console.log('Token retrieved:', token);
-            return token;
-        }
+        const token = localStorage.getItem('token');
+        console.log('Token retrieved:', token);
+        return token;
+    }
 
     // Rezept-ID aus der URL abrufen
     const urlParams = new URLSearchParams(window.location.search);
@@ -22,14 +21,14 @@ $(document).ready(function() {
     // Funktion, um Rezeptdetails abzurufen
     function fetchRecipeDetails(id) {
         $.ajax({
-            url: `${apiUrl}/${id}`,
+            url: `https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe/detail/${id}`, // Korrekte URL mit Template-String
             type: 'GET',
-            headers: { 'token': getToken() }, // Token im Header hinzufügen
+            headers: { 'token': getToken() },
             success: function(recipe) {
                 displayRecipeDetails(recipe);
             },
             error: function(xhr) {
-                console.error('Fehler beim Abrufen des Rezepts:', xhr);
+                console.error('Fehler beim Abrufen des Rezepts:', xhr.status, xhr.statusText);
                 alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
                 window.location.href = 'RecipeCollection.html';
             }
@@ -39,7 +38,6 @@ $(document).ready(function() {
     // Funktion, um Rezeptdetails anzuzeigen
     function displayRecipeDetails(recipe) {
         $('#recipe-name').text(recipe.name);
-        $('#recipe-image').attr('src', recipe.image);
         $('#recipe-description').text(recipe.description);
         $('#ingredient-list').empty();
         recipe.ingredients.forEach(ingredient => {
@@ -58,17 +56,18 @@ $(document).ready(function() {
     // Funktion zum Löschen eines Rezepts
     function deleteRecipe(id) {
         $.ajax({
-            url: `${apiUrl}/${id}`,
+            url: `https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe/detail/${id}`, // Korrekte URL für das Löschen
             type: 'DELETE',
-            headers: { 'token': getToken() }, // Token im Header hinzufügen
+            headers: { 'token': getToken() },
             success: function() {
                 alert('Rezept erfolgreich gelöscht!');
                 window.location.href = 'RecipeCollection.html';
             },
             error: function(xhr) {
-                console.error('Fehler beim Löschen des Rezepts:', xhr);
+                console.error('Fehler beim Löschen des Rezepts:', xhr.status, xhr.statusText);
                 alert('Ein Fehler ist aufgetreten. Bitte versuche es später erneut.');
             }
         });
     }
 });
+cf
