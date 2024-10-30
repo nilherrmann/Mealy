@@ -36,17 +36,17 @@ body {
     border: 1px solid #B0E0E6;
     border-radius: 5px;
     outline: none;
-    background-color: #f0f8ff; /* Hellere Hintergrundfarbe */
+    background-color: #f0f8ff;
 }
 
 .input-type .input-field:focus, .input-box .input-field:focus {
-    border-color: #6699CC; /* Dunklere Farbe bei Fokus */
+    border-color: #6699CC;
 }
 
 .submit-btn {
     width: 100%;
     padding: 12px;
-    background-color: #086A87; /* Dunklerer Farbton für den Button */
+    background-color: #086A87;
     border: none;
     border-radius: 5px;
     color: white;
@@ -56,7 +56,7 @@ body {
 }
 
 .submit-btn:hover {
-    background-color: #065A66; /* Noch dunkler bei Hover */
+    background-color: #065A66;
 }
 
 .sign-up-link p {

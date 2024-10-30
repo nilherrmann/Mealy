@@ -5,22 +5,20 @@ console.log('Token set:', tokenValue);
 
 $(document).ready(function() {
   $('#recipe-form').on('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();
 
     const token = localStorage.getItem('token');
-    console.log('Token retrieved:', token); // Log the retrieved token
+    console.log('Token retrieved:', token);
 
     if (!token) {
       alert('Es gibt kein Rezept-Token.');
       return;
     }
 
-    // Gather recipe data
     const recipeName = $('#recipe-name').val();
     const recipeDescription = $('#recipe-description').val();
     const ingredients = [];
 
-    // Collect ingredients
     $('#ingredient-fields-container .ingredient-fields').each(function() {
       const ingredientName = $(this).find('input[name="ingredient_name[]"]').val();
       const ingredientAmount = $(this).find('input[name="ingredient_amount[]"]').val();
@@ -29,33 +27,30 @@ $(document).ready(function() {
       ingredients.push({
         name: ingredientName,
         unit: ingredientUnit,
-        amount: parseFloat(ingredientAmount) // Convert amount to a number
+        amount: parseFloat(ingredientAmount)
       });
     });
 
-    // Prepare the recipe data as JSON
     const recipeData = {
       name: recipeName,
       ingredients: ingredients,
       description: recipeDescription
     };
 
-    // AJAX request to create the recipe
     $.ajax({
       url: 'https://mealybackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe',
       type: 'POST',
-      contentType: 'application/json', // Set content type to JSON
-      data: JSON.stringify(recipeData), // Convert the recipe data to JSON
+      contentType: 'application/json',
+      data: JSON.stringify(recipeData),
       headers: {
-        'token': token // Include the token in the header
+        'token': token
       },
       success: function(data) {
         console.log("Antwort von der API erhalten:", data);
 
-        // Überprüfe, ob die API eine positive Antwort zurückgegeben hat
         if (data && JSON.stringify(data).includes("Recipe successfully created")) {
-          alert('Rezept erfolgreich erstellt!'); // Alert on successful creation
-          window.location.href = 'RecipeCollection.html'; // Redirect to recipe collection
+          alert('Rezept erfolgreich erstellt!');
+          window.location.href = 'RecipeCollection.html';
         } else {
           console.log("Rezept-Erstellung fehlgeschlagen: ", data.reason || 'Unbekannter Fehler.');
           alert('Fehler beim Erstellen des Rezepts: ' + (data.reason || 'Bitte versuche es später erneut.'));
@@ -70,19 +65,17 @@ $(document).ready(function() {
         try {
           const responseData = JSON.parse(xhr.responseText);
           if (responseData && responseData.reason) {
-            responseMessage = responseData.reason; // Verwende den Grund aus der Antwort, falls verfügbar
+            responseMessage = responseData.reason;
           }
         } catch (e) {
           console.error('Fehler beim Parsen der Antwort:', e);
         }
 
-        alert(responseMessage); // Alert bei AJAX-Fehler mit detaillierter Nachricht
-      }
+        alert(responseMessage);
     });
   });
 });
 
-// Function to add a new ingredient
 function addIngredient(button) {
   const newIngredient = `
     <div class="ingredient-fields">
@@ -99,10 +92,9 @@ function addIngredient(button) {
       <button type="button" class="remove-ingredient-btn" onclick="removeIngredient(this)">-</button>
     </div>
   `;
-  $('#ingredient-fields-container').append(newIngredient); // Append new ingredient fields
+  $('#ingredient-fields-container').append(newIngredient);
 }
 
-// Function to remove an ingredient
 function removeIngredient(button) {
-  $(button).closest('.ingredient-fields').remove(); // Remove the closest ingredient fields container
+  $(button).closest('.ingredient-fields').remove();
 }

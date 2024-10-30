@@ -53,12 +53,12 @@ header {
 }
 
 .fullcalendar-container {
-    max-width: 900px; /* Maximale Breite des Kalenders */
-    margin: 40px auto; /* Zentriert den Kalender mit Abstand oben und unten */
-    padding: 20px; /* Innenabstand für den Kalender */
-    background-color: white; /* Weißer Hintergrund für den Kalender */
-    border-radius: 10px; /* Runde Ecken für den Kalender */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefenwirkung */
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -85,22 +85,22 @@ h1 {
     margin-top: 20px;
     margin: 40px auto;
     display: flex;
-    flex-direction: column;/* Starten mit verstecktem Formular */
-    justify-content: center; /* Horizontale Zentrierung */
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 400px; /* Maximale Breite des Formulars */
-    background-color: #f4fbfa; /* Leichter Hintergrund für das Formular */
-    padding: 20px; /* Innenabstand für das Formular */
-    border-radius: 10px; /* Runde Ecken für das Formular */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leichter Schatten für das Formular */
+    max-width: 400px;
+    background-color: #f4fbfa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .meal-form h2 {
-    text-align: center; /* Überschrift mittig */
-    font-weight: bold; /* Fettgedruckte Schrift */
-    color: #086A87; /* Farbe passend zum Design */
-    margin-bottom: 0 0 15px 0; /* Abstand unter der Überschrift */
+    text-align: center;
+    font-weight: bold;
+    color: #086A87;
+    margin-bottom: 0 0 15px 0;
 }
 
 .meal-form label {
@@ -108,7 +108,7 @@ h1 {
     margin-bottom: 5px;
     font-weight: bold;
     color: #086A87;
-    align-self: flex-start; /* Label linksbündig */
+    align-self: flex-start;
 }
 .meal-form input[type="text"],
  input[type="number"]   {

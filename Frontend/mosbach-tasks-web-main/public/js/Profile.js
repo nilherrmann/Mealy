@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // Token vom LocalStorage abrufen
+
     const token = localStorage.getItem('authToken');
     if (token) {
         console.log("Token erfolgreich abgerufen:", token);
@@ -7,7 +7,7 @@ $(document).ready(function() {
         console.log("Kein Token im LocalStorage gefunden.");
     }
 
-    // Funktion zum Abrufen der Profildaten
+
     function getProfileData() {
         $.ajax({
             url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/user',
@@ -25,7 +25,6 @@ $(document).ready(function() {
                                alert('Fehler: Benutzername nicht gefunden.');
                            }
 
-                           // Überprüfe und setze die E-Mail
                            if (data.email) {
                                $('#useremail').val(data.email);
                            } else {
@@ -38,7 +37,6 @@ $(document).ready(function() {
         });
     }
 
-    // Funktion zum Speichern des Profils (PUT)
     window.saveProfile = function() {
         const userName = $('#userName').val();
         const useremail = $('#useremail').val();
@@ -77,7 +75,6 @@ $(document).ready(function() {
         });
     };
 
-    // Funktion zum Löschen des Accounts (DELETE)
     $("#deleteAccount").click(function(event) {
         event.preventDefault();
 
@@ -105,7 +102,6 @@ $(document).ready(function() {
         }
     });
 
-    // Funktion zum Abmelden
     $("#logOut").click(function(event) {
         event.preventDefault();
         alert('Erfolgreich abgemeldet!');
@@ -127,6 +123,5 @@ $(document).ready(function() {
         }
     }
 
-    // Profildaten beim Laden der Seite abrufen
     getProfileData();
 });

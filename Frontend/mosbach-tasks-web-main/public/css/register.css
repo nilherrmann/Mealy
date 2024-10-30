@@ -24,7 +24,7 @@ body {
 
 .registration-header header {
     font-size: 24px;
-    color: #086A87; /* Dunkler Farbton für den Header */
+    color: #086A87;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -36,17 +36,17 @@ body {
     border: 1px solid #c4e4df;
     border-radius: 5px;
     outline: none;
-    background-color: #f4fbfa; /* Helle Hintergrundfarbe für Eingabefelder */
+    background-color: #f4fbfa;
 }
 
 .input-type .input-field:focus, .input-box .input-field:focus {
-    border-color: #00a896; /* Passend zum Logo-Farbton */
+    border-color: #00a896;
 }
 
 .action-btn {
     width: 100%;
     padding: 12px;
-    background-color: #086A87; /* Dunkler Farbton für den Button */
+    background-color: #086A87;
     border: none;
     border-radius: 5px;
     color: white;
@@ -56,7 +56,7 @@ body {
 }
 
 .action-btn:hover {
-    background-color: #065b68; /* Etwas dunklerer Farbton beim Hover */
+    background-color: #065b68;
 }
 
 .login-link p {
@@ -65,7 +65,7 @@ body {
 }
 
 .login-link a {
-    color: #086A87; /* Dunkler Farbton für den Link */
+    color: #086A87;
     text-decoration: none;
 }
 

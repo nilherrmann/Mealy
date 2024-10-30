@@ -7,7 +7,6 @@ $(document).ready(function() {
         return token;
     }
 
-    // Rezept-ID aus der URL abrufen
     const urlParams = new URLSearchParams(window.location.search);
     const recipeId = urlParams.get('id');
 
@@ -18,10 +17,9 @@ $(document).ready(function() {
         window.location.href = 'RecipeCollection.html';
     }
 
-    // Funktion, um Rezeptdetails abzurufen
     function fetchRecipeDetails(id) {
         $.ajax({
-            url: `https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe/detail/${id}`, // Korrekte URL mit Template-String
+            url: `https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe/detail/${id}`,
             type: 'GET',
             headers: { 'token': getToken() },
             success: function(recipe) {
@@ -35,7 +33,6 @@ $(document).ready(function() {
         });
     }
 
-    // Funktion, um Rezeptdetails anzuzeigen
     function displayRecipeDetails(recipe) {
         $('#recipe-name').text(recipe.name);
         $('#recipe-description').text(recipe.description);
@@ -45,7 +42,6 @@ $(document).ready(function() {
         });
     }
 
-    // Funktion zum Löschen des Rezepts
     $('#delete-recipe-btn').on('click', function() {
         const confirmDelete = confirm('Möchten Sie dieses Rezept wirklich löschen?');
         if (confirmDelete) {
@@ -53,10 +49,9 @@ $(document).ready(function() {
         }
     });
 
-    // Funktion zum Löschen eines Rezepts
     function deleteRecipe(id) {
         $.ajax({
-            url: `https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe/detail/${id}`, // Korrekte URL für das Löschen
+            url: `https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/recipe/detail/${id}`,
             type: 'DELETE',
             headers: { 'token': getToken() },
             success: function() {

@@ -1,8 +1,7 @@
-/* recipeDetail.css */
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #e0f7f5; /* Hintergrundfarbe */
+    background-color: #e0f7f5;
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,14 +10,14 @@ body {
 
 }
 .backToRecipes {
-    color: #007bff; /* oder eine andere Farbe */
+    color: #007bff;
     font-weight: bold;
     text-decoration: none;
     margin: 100px 0;
     display: inline-block;
     text-align: center;
-    position: relative; /* Positionierung */
-    top: 10px; /* Abstand vom oberen Rand */
+    position: relative;
+    top: 10px;
     left: 10px;
 }
 
@@ -26,80 +25,74 @@ body {
     text-decoration: underline;
 }
 
-/* Rezept-Detail-Container */
 .recipe-detail-container {
     display: flex;
-    flex-direction: column; /* Vertikale Anordnung */
-    align-items: center; /* Zentrieren des Inhalts */
-    padding: 60px 20px; /* Innenabstand */
-    width: 80%; /* Breite des Containers */
-    max-width: 600px; /* Maximale Breite */
-    background-color: #ffffff; /* Weiße Hintergrundfarbe für den Container */
-    border-radius: 10px; /* Runde Ecken */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Schatten für den Container */
-    margin-top: 60px; /* Abstand zum Header */
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    width: 80%;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 60px;
 }
 
-/* Überschrift */
 #recipe-name {
-    color: #0295A9; /* Farbe für den Rezeptnamen */
-    text-align: center; /* Zentrieren des Rezeptnamens */
-    margin-top: 0; /* Kein Abstand nach oben */
-    margin-bottom: 20px; /* Abstand nach unten */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Leichter 3D-Effekt */
+    color: #0295A9;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Rezeptbild */
 #recipe-image {
-    width: 100%; /* Bild nimmt volle Breite ein */
-    height: auto; /* Höhe automatisch anpassen */
-    border-radius: 10px; /* Runde Ecken für das Bild */
-    margin-bottom: 20px; /* Abstand zum Beschreibungstext */
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
-/* Rezeptbeschreibung */
 #recipe-description {
-    color: #666; /* Farbe für die Rezeptbeschreibung */
-    font-size: 1em; /* Schriftgröße für die Beschreibung */
-    text-align: center; /* Zentrieren des Textes */
-    margin-bottom: 20px; /* Abstand nach unten */
+    color: #666;
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-/* Zutatenliste */
 #ingredient-list {
-    list-style-type: none; /* Keine Aufzählungszeichen */
-    padding: 0; /* Kein Innenabstand */
-    margin: 0; /* Kein Außenabstand */
-    width: 100%; /* Volle Breite */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
 }
 
 #ingredient-list li {
-    background-color: #f4fbfa; /* Hintergrundfarbe für die Zutaten */
-    padding: 10px; /* Innenabstand für die Zutaten */
-    border-radius: 5px; /* Runde Ecken */
-    margin-bottom: 10px; /* Abstand zwischen den Zutaten */
+    background-color: #f4fbfa;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-/* Löschen-Button */
 #delete-recipe-btn {
-    background-color: #e74c3c; /* Rote Hintergrundfarbe für den Button */
-    color: white; /* Schriftfarbe */
-    border: none; /* Keine Rahmen */
-    border-radius: 5px; /* Runde Ecken */
-    padding: 10px 20px; /* Innenabstand */
-    font-size: 1em; /* Schriftgröße */
-    cursor: pointer; /* Cursor ändern */
-    transition: background-color 0.3s; /* Übergang für Hover-Effekt */
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 #delete-recipe-btn:hover {
-    background-color: #c0392b; /* Dunklere Farbe beim Hover */
+    background-color: #c0392b;
 }
 
 /* Footer */
 footer {
-    text-align: center; /* Zentrieren des Fußbereichs */
-    font-size: 0.8em; /* Schriftgröße für den Fußbereich */
-    color: #666; /* Farbe für den Fußbereich */
-    padding: 20px; /* Innenabstand für den Fußbereich */
+    text-align: center;
+    font-size: 0.8em;
+    color: #666;
+    padding: 20px;
 }
