@@ -1,13 +1,10 @@
 package mosbach.dhbw.de.tasks.data.impl;
 
-import mosbach.dhbw.de.tasks.data.api.UserIF;
 import mosbach.dhbw.de.tasks.model.MealplanConv;
 import mosbach.dhbw.de.tasks.model.TimeConv;
 import mosbach.dhbw.de.tasks.model.UserConv;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,8 +12,7 @@ import java.util.logging.Logger;
 public class MealManager {
 
     private static MealManager mealManager = null;
-    private final String mealplanx = "mealplan.properties";
-
+    private final String mealplanFile = "mealplan.properties"; // Dateiname für die mealplan-Eigenschaften
 
     public static MealManager getMealManager() {
         if (mealManager == null) {
@@ -25,13 +21,15 @@ public class MealManager {
         return mealManager;
     }
 
-
     public List<MealplanConv> readAllMeals() {
         Properties properties = new Properties();
         List<MealplanConv> meals = new ArrayList<>();
         int i = 1;
 
-        try (InputStream resourceStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(mealplanx)) {
+        try (InputStream resourceStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(mealplanFile)) {
+            if (resourceStream == null) {
+                throw new FileNotFoundException("mealplan.properties file not found in the classpath.");
+            }
             properties.load(resourceStream);
 
             while (properties.containsKey("Meal." + i + ".meal_id")) {
@@ -46,6 +44,7 @@ public class MealManager {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Error loading mealplan properties file.");
         }
 
         return meals;
@@ -80,8 +79,9 @@ public class MealManager {
             i++;
         }
 
-        try (FileOutputStream out = new FileOutputStream(mealplanx)) {
+        try (FileOutputStream out = new FileOutputStream("src/main/resources/" + mealplanFile)) {
             properties.store(out, null);
+            System.out.println("Mealplan saved successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,9 +91,11 @@ public class MealManager {
         Properties properties = new Properties();
         List<TimeConv> times = new ArrayList<>();
 
-        try (FileInputStream reader = new FileInputStream(mealplanx)) {
-            properties.load(reader);
-            System.out.println("Mealplan file loaded successfully.");
+        try (InputStream resourceStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(mealplanFile)) {
+            if (resourceStream == null) {
+                throw new FileNotFoundException("mealplan.properties file not found in the classpath.");
+            }
+            properties.load(resourceStream);
 
             int i = 1;
             while (properties.containsKey("Meal." + i + ".meal_id")) {
@@ -111,11 +113,10 @@ public class MealManager {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error loading mealplan file.");
+            System.out.println("Error loading mealplan properties file.");
         }
 
         System.out.println("Total times added: " + times.size());
         return times;
     }
 }
-
