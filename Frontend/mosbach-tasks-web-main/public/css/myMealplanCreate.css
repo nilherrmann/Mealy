@@ -60,7 +60,17 @@ header {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
+.fullcalendar-event {
+     display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Ändern Sie von center zu flex-start */
+        align-items: flex-start; /* Ändern Sie von center zu flex-start */
+        padding: 10px;
+        border-radius: 5px;
+        background-color: white;
+        color: black;
+        font-size: 14px;
+}
 
 h1 {
     color: #0295A9;

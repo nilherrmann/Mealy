@@ -7,12 +7,15 @@ $(document).ready(function() {
         return token;
     }
 
+    function getAuthHeaders() {
+        return { 'token': token };
+    }
+
     const token = getToken();
-    if (token) {
-        fetchRecipes();
-    } else {
+    if (!token) {
         console.warn('Kein Token gefunden');
         alert('Bitte melden Sie sich an, um Rezepte anzuzeigen.');
+        return;
     }
 
     var calendarEl = document.getElementById('calendar');
@@ -45,23 +48,35 @@ $(document).ready(function() {
                 };
 
                 calendar.addEvent({
-                    title: `${mealTime}: ${recipeId}`,
+                    title:  `<div>${recipeId}</div>
+                                       <div>Kalorien: ${meal.calories}</div>
+                                       <div>Protein: ${meal.protein}g</div>
+                                       <div>Kohlenhydrate: ${meal.carbs}g</div>
+                                       <div>Fette: ${meal.fats}g</div>`,
                     start: selectedDate,
                     allDay: true,
                     extendedProps: {
                         mealType: mealTime,
-                        mealName: recipeId
+                        mealName: recipeId,
+                        calories: meal.calories,
+                        protein: meal.protein,
+                        carbs: meal.carbs,
+                        fats: meal.fats
                     }
                 });
 
                 $.ajax({
-                    url: apiUrl + '/recipe/linkRecipeToMealplan',
+                    url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/mealplan',
                     method: 'POST',
                     headers: { 'token': token },
                     data: JSON.stringify({
+                        name: recipeId,
                         day: selectedDate,
                         time: mealTime,
-                        recipe: recipeId
+                        calories: meal.calories,
+                        protein: meal.protein,
+                        carbs: meal.carbs,
+                        fats: meal.fats
                     }),
                     contentType: 'application/json',
                     success: function(response) {
@@ -86,7 +101,7 @@ $(document).ready(function() {
 
     function removeMealFromDatabase(day, time) {
         $.ajax({
-            url: apiUrl + '/recipe/unlinkRecipe',
+            url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/mealplan',
             type: 'DELETE',
             headers: { 'token': token },
             data: JSON.stringify({
@@ -106,21 +121,53 @@ $(document).ready(function() {
 
     function loadMealsFromDatabase() {
         $.ajax({
-            url: apiUrl + '/recipe/getMeals',
+            url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/api/mealplan',
             type: 'GET',
             headers: { 'token': token },
             success: function(response) {
-                response.forEach(meal => {
-                    calendar.addEvent({
-                        id: meal.id,
-                        title: meal.mealName,
-                        start: meal.date + 'T' + meal.time + ':00',
-                        allDay: true
+                console.log('API Response:', response); // Log the response for debugging
+
+                // Check if response is a string and parse it if necessary
+                if (typeof response === 'string') {
+                    try {
+                        response = JSON.parse(response); // Parse the string to JSON
+                    } catch (error) {
+                        console.error('Fehler beim Parsen der JSON-Antwort:', error);
+                        alert('Fehler: Die Antwort vom Server konnte nicht verarbeitet werden.');
+                        return;
+                    }
+                }
+
+                // Directly access response.meals without re-declaration
+                const meals = response.meals;
+
+                if (Array.isArray(meals)) {
+                    meals.forEach(meal => {
+                        console.log('Adding meal to calendar:', meal);
+                        calendar.addEvent({
+                            title: `${meal.name},
+                            Kalorien: ${meal.calories}</div>
+                            <div>Protein: ${meal.protein}g</div>
+                            <div>Kohlenhydrate: ${meal.carbs}g</div>
+                            <div>Fette: ${meal.fats}g</div>`,
+                            start: meal.day + 'T' + meal.time + ':00',
+                            allDay: true,
+                            extendedProps: {
+                                calories: meal.calories,
+                                protein: meal.protein,
+                                carbs: meal.carbs,
+                                fats: meal.fats
+                            }
+                        });
                     });
-                });
+                } else {
+                    console.error('Unexpected response format: meals property is not an array:', response);
+                    alert('Fehler: Die Antwort vom Server hat nicht das erwartete Format.');
+                }
             },
             error: function(xhr, status, error) {
                 console.error('Fehler beim Laden der Mahlzeiten:', error);
+                alert('Fehler beim Laden der Mahlzeiten: ' + error);
             }
         });
     }
