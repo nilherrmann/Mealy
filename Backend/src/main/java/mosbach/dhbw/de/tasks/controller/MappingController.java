@@ -78,7 +78,7 @@ public class MappingController {
         {
             return ResponseEntity.ok(userManger.TokenToUser(data));
         }
-        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Account does not exist"));
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Wrong token"));
 
     }
 
@@ -194,8 +194,6 @@ public class MappingController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ein unerwarteter Fehler ist aufgetreten.");
         }
     }
-
-
 
 
     @PostMapping(
