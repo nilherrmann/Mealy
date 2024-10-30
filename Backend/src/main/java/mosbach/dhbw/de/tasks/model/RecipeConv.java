@@ -11,7 +11,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "id",
         "name",
         "ingredients",
-        "description"
+        "description",
+        "Calories_(kcal)",
+        "Total_Fat_(g)",
+        "Saturated_Fat_(g)",
+        "Cholesterol_(mg)",
+        "Sodium_(mg)",
+        "Total_Carbohydrates_(g)",
+        "Dietary_Fiber_(g)",
+        "Sugars_(g)",
+        "Protein_(g)"
 })
 public class RecipeConv {
 
@@ -29,6 +38,33 @@ public class RecipeConv {
 
     @JsonProperty("description")
     private String description;
+
+    @JsonProperty("Calories_(kcal)")
+    private String caloriesKcal;
+
+    @JsonProperty("Total_Fat_(g)")
+    private String totalFatG;
+
+    @JsonProperty("Saturated_Fat_(g)")
+    private String saturatedFatG;
+
+    @JsonProperty("Cholesterol_(mg)")
+    private String cholesterolMg;
+
+    @JsonProperty("Sodium_(mg)")
+    private String sodiumMg;
+
+    @JsonProperty("Total_Carbohydrates_(g)")
+    private String totalCarbohydratesG;
+
+    @JsonProperty("Dietary_Fiber_(g)")
+    private String dietaryFiberG;
+
+    @JsonProperty("Sugars_(g)")
+    private String sugarsG;
+
+    @JsonProperty("Protein_(g)")
+    private String proteinG;
 
     // Standardkonstruktor
     public RecipeConv() {

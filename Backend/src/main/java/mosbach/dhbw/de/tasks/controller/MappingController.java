@@ -2,12 +2,9 @@ package mosbach.dhbw.de.tasks.controller;
 
 import mosbach.dhbw.de.tasks.data.api.Task;
 import mosbach.dhbw.de.tasks.data.api.TaskManager;
-import mosbach.dhbw.de.tasks.data.impl.RecipeManager;
-import mosbach.dhbw.de.tasks.data.impl.TaskImpl;
-import mosbach.dhbw.de.tasks.data.impl.TaskManagerImpl;
+import mosbach.dhbw.de.tasks.data.impl.*;
 import mosbach.dhbw.de.tasks.model.*;
 import mosbach.dhbw.de.tasks.data.basis.User;
-import mosbach.dhbw.de.tasks.data.impl.UserManager;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,6 +25,8 @@ public class MappingController {
     RecipeManager recipeManager = RecipeManager.getRecipeManager();
     TaskManager taskManager = TaskManagerImpl.getTaskManagerImpl();
     UserManager userManger = UserManager.getUserManager();
+    MealManager mealManager = MealManager.getMealManager();
+    MealPlanConverter mealPlanConverter = MealPlanConverter.getMealPlanConverter();
 
     public MappingController() {}
 
@@ -130,6 +129,89 @@ public class MappingController {
 
     }
 
+
+    @GetMapping("/mealplan")
+    public ResponseEntity<?> getMeals(@RequestHeader("token") String data) {
+        try {
+            data = "123"; // Zum Testen, später durch den echten Token ersetzen
+            TokenConv t = new TokenConv(data);
+
+            if (!userManger.checkToken(t)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Ungültiges Token"));
+            }
+
+            UserConv user = userManger.TokenToUser(data);
+            if (user == null) {
+                Logger.getLogger(MealManager.class.getName()).log(Level.SEVERE, "Fehler: Benutzer für Token nicht gefunden");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fehler: Ungültiges Token oder Benutzer nicht gefunden.");
+            }
+
+            List<Integer> RecipeIDS = recipeManager.readRecipeIDs(user);
+            List<String> RecipeNames = recipeManager.readRecipeName(user);
+            List<TimeConv> MealTimes = mealManager.readTime(user);
+            List<SendNutriConv> NutritionValues = new ArrayList<>();
+
+            if (RecipeIDS.isEmpty()) {
+                Logger.getLogger(MealManager.class.getName()).log(Level.INFO, "Fehler: Keine Rezepte für Benutzer vorhanden.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fehler: Es sind keine Rezepte für diesen Benutzer vorhanden.");
+            }
+
+            if (RecipeNames.isEmpty()) {
+                Logger.getLogger(MealManager.class.getName()).log(Level.INFO, "Fehler: Keine Rezeptnamen für Benutzer vorhanden.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fehler: Es sind keine Rezeptnamen für diesen Benutzer vorhanden.");
+            }
+
+            if (MealTimes.isEmpty()) {
+                Logger.getLogger(MealManager.class.getName()).log(Level.INFO, "Fehler: Keine Mahlzeitenzeiten für Benutzer vorhanden.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fehler: Es sind keine Mahlzeitenzeiten für diesen Benutzer vorhanden.");
+            }
+
+            // Nutri-Werte anfragen
+            for (int id : RecipeIDS) {
+                try {
+                    NutritionConv nutris = recipeManager.sendNutritionRequest(
+                            recipeManager.generateIngredientString(
+                                    recipeManager.readRecipeIngredientName(id),
+                                    recipeManager.readRecipeIngredientAmount(id)
+                            )
+                    );
+                    if (nutris == null) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fehler: Die Nährwertdaten konnten nicht geladen werden.");
+                    }
+                    NutritionValues.add(new SendNutriConv(nutris.getCaloriesKcal(), nutris.getProteinG(), nutris.getTotalCarbohydratesG(), nutris.getTotalFatG()));
+                } catch (Exception e) {
+                    Logger.getLogger(RecipeManager.class.getName()).log(Level.SEVERE, "Fehler beim Laden der Nährwerte für Rezept-ID: " + id, e);
+                }
+            }
+
+            return ResponseEntity.ok(mealPlanConverter.convertToMealPlanJson(RecipeNames, MealTimes, NutritionValues));
+
+        } catch (Exception e) {
+            Logger.getLogger(MealManager.class.getName()).log(Level.SEVERE, "Fehler in der /mealplan-Anfrage", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ein unerwarteter Fehler ist aufgetreten.");
+        }
+    }
+
+
+
+    @PostMapping(
+            path = "/mealplan",
+            consumes = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public ResponseEntity<?> RecipeToMealplan(
+            @RequestHeader("token") String token,
+            @RequestBody MealplanConv recipe) {
+
+        token="123";
+        TokenConv t = new TokenConv(token);
+
+        if (userManger.checkToken(t)==true)
+        {
+            mealManager.saveMeals(recipe, userManger.TokenToUser(token));
+            return ResponseEntity.ok("Recipe successfully added to meal plan");
+        }
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("reason", "Wrong Token"));
+    }
 
     //Hardwig Stuff...
 
