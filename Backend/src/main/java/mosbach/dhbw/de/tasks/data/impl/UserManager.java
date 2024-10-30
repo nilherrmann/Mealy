@@ -73,8 +73,7 @@ public class UserManager {
                 i++;
             }
         } catch (IOException e) {
-            Logger.getLogger("Reading Tasks")
-                    .log(Level.INFO, "File not existing", e);
+            e.printStackTrace();
         }
 
         return users;
@@ -104,8 +103,7 @@ public class UserManager {
                 }
             }
         } catch (IOException e) {
-            Logger.getLogger("Reading Tasks")
-                    .log(Level.INFO, "File not existing", e);
+            e.printStackTrace();
         }
 
         return false; // Keine gültige Kombination gefunden
@@ -128,8 +126,7 @@ public class UserManager {
                 i++;
             }
         } catch (IOException e) {
-            Logger.getLogger("Reading Tasks")
-                    .log(Level.INFO, "File not existing", e);
+            e.printStackTrace();
         }
 
         return tokens;
@@ -157,8 +154,7 @@ public class UserManager {
         try (FileOutputStream out = new FileOutputStream(tokendata)) {
             properties.store(out, null);
         } catch (IOException e) {
-            Logger.getLogger("Writing Tasks")
-                    .log(Level.INFO, "File cannot be written", e);
+            e.printStackTrace();
         }
     }
 
@@ -184,37 +180,31 @@ public class UserManager {
                 }
             }
         } catch (IOException e) {
-            Logger.getLogger("Reading Tasks")
-                    .log(Level.INFO, "File not existing", e);
+            e.printStackTrace();
         }
 
         return false;
     }
 
-    public UserConv TokenToUser (String token){
+    public UserConv TokenToUser(String token) {
         Properties properties = new Properties();
-
-        try (InputStream resourceStream = Thread.currentThread()
-                .getContextClassLoader()
-                .getResourceAsStream(tokendata)) {
+        try (InputStream resourceStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(tokendata)) {
             properties.load(resourceStream);
 
             for (String key : properties.stringPropertyNames()) {
-
                 if (key.matches("Auth\\.\\d+\\.Token")) {
                     String id = key.split("\\.")[1];
-                    String storedEmail = properties.getProperty("Auth." + id + ".Email");
-
-                    return searchUserByEmail(storedEmail);
+                    String storedToken = properties.getProperty("Auth." + id + ".Token");
+                    if (token.equals(storedToken)) {
+                        String storedEmail = properties.getProperty("Auth." + id + ".Email");
+                        return searchUserByEmail(storedEmail);  // E-Mail des Besitzers abrufen
+                    }
                 }
             }
         } catch (IOException e) {
-            Logger.getLogger("Reading Tasks")
-                    .log(Level.INFO, "File not existing", e);
+            e.printStackTrace();
         }
-
-        UserConv f = new UserConv("Token", "not", "found");
-        return f;
+        return null;  // Bei ungültigem Token zurückgeben
     }
 
     public UserConv searchUserByEmail(String email) {
@@ -240,7 +230,7 @@ public class UserManager {
                 }
             }
         } catch (IOException e) {
-            Logger.getLogger("Reading Tasks").log(Level.INFO, "File not existing", e);
+            e.printStackTrace();
         }
 
         // Rückgabe, falls kein Benutzer mit der angegebenen E-Mail gefunden wurde
