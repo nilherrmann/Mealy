@@ -330,6 +330,7 @@ public class RecipeManager {
 
     public NutritionConv sendNutritionRequest(String ingredientsJson) {
         try {
+            System.out.println("Sende JSON an API: " + ingredientsJson);
             URL url = new URL(API_URL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -338,7 +339,6 @@ public class RecipeManager {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
-            // JSON-Daten senden
             try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
                 outputStream.writeBytes(ingredientsJson);
                 outputStream.flush();
@@ -354,7 +354,12 @@ public class RecipeManager {
                     }
 
                     ObjectMapper objectMapper = new ObjectMapper();
-                    return objectMapper.readValue(response.toString(), NutritionConv.class);
+                    System.out.println("API Response erhalten: " + response.toString());
+
+                    // Überprüfung und Ausgabe der konvertierten Nährwerte
+                    NutritionConv nutritionData = objectMapper.readValue(response.toString(), NutritionConv.class);
+                    System.out.println("Konvertierte Nährwerte: " + nutritionData);
+                    return nutritionData;
                 }
             } else {
                 Logger.getLogger(RecipeManager.class.getName()).log(Level.SEVERE, "Fehlerhafte API-Antwort: Code " + responseCode);
@@ -365,6 +370,7 @@ public class RecipeManager {
             return null;
         }
     }
+
 
 
 

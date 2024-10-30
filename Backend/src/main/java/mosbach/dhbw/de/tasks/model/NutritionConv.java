@@ -71,6 +71,21 @@ public class NutritionConv {
         this.proteinG = proteinG;
     }
 
+    @Override
+    public String toString() {
+        return "NutritionConv{" +
+                "caloriesKcal=" + caloriesKcal +
+                ", totalFatG=" + totalFatG +
+                ", saturatedFatG=" + saturatedFatG +
+                ", cholesterolMg=" + cholesterolMg +
+                ", sodiumMg=" + sodiumMg +
+                ", totalCarbohydratesG=" + totalCarbohydratesG +
+                ", dietaryFiberG=" + dietaryFiberG +
+                ", sugarsG=" + sugarsG +
+                ", proteinG=" + proteinG +
+                '}';
+    }
+
     @JsonProperty("Calories_(kcal)")
     public double getCaloriesKcal() {
         return caloriesKcal;

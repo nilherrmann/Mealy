@@ -164,7 +164,9 @@ public class MappingController {
                                     recipeManager.readRecipeIngredientName(id),
                                     recipeManager.readRecipeIngredientAmount(id)
                             )
+
                     );
+                    System.out.println(nutris.toString());
                     if (nutris == null) {
                         Logger.getLogger(RecipeManager.class.getName()).log(Level.SEVERE, "Nährwertdaten fehlen für Rezept-ID: " + id);
                         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fehler: Die Nährwertdaten konnten nicht vollständig geladen werden.");
