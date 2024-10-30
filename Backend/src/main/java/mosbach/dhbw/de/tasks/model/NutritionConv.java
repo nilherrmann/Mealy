@@ -7,47 +7,35 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-        "Calories_(kcal)",
-        "Total_Fat_(g)",
-        "Saturated_Fat_(g)",
-        "Cholesterol_(mg)",
-        "Sodium_(mg)",
-        "Total_Carbohydrates_(g)",
-        "Dietary_Fiber_(g)",
-        "Sugars_(g)",
-        "Protein_(g)"
-})
 public class NutritionConv {
 
-    @JsonProperty("Calories_(kcal)")
+    @JsonProperty("Calories (kcal)")
     private double caloriesKcal;
 
-    @JsonProperty("Total_Fat_(g)")
+    @JsonProperty("Total Fat (g)")
     private double totalFatG;
 
-    @JsonProperty("Saturated_Fat_(g)")
+    @JsonProperty("Saturated Fat (g)")
     private double saturatedFatG;
 
-    @JsonProperty("Cholesterol_(mg)")
+    @JsonProperty("Cholesterol (mg)")
     private double cholesterolMg;
 
-    @JsonProperty("Sodium_(mg)")
+    @JsonProperty("Sodium (mg)")
     private double sodiumMg;
 
-    @JsonProperty("Total_Carbohydrates_(g)")
+    @JsonProperty("Total Carbohydrates (g)")
     private double totalCarbohydratesG;
 
-    @JsonProperty("Dietary_Fiber_(g)")
+    @JsonProperty("Dietary Fiber (g)")
     private double dietaryFiberG;
 
-    @JsonProperty("Sugars_(g)")
+    @JsonProperty("Sugars (g)")
     private double sugarsG;
 
-    @JsonProperty("Protein_(g)")
+    @JsonProperty("Protein (g)")
     private double proteinG;
 
     @JsonIgnore
@@ -86,92 +74,92 @@ public class NutritionConv {
                 '}';
     }
 
-    @JsonProperty("Calories_(kcal)")
+    @JsonProperty("Calories (kcal)")
     public double getCaloriesKcal() {
         return caloriesKcal;
     }
 
-    @JsonProperty("Calories_(kcal)")
+    @JsonProperty("Calories (kcal)")
     public void setCaloriesKcal(double caloriesKcal) {
         this.caloriesKcal = caloriesKcal;
     }
 
-    @JsonProperty("Total_Fat_(g)")
+    @JsonProperty("Total Fat (g)")
     public double getTotalFatG() {
         return totalFatG;
     }
 
-    @JsonProperty("Total_Fat_(g)")
+    @JsonProperty("Total Fat (g)")
     public void setTotalFatG(double totalFatG) {
         this.totalFatG = totalFatG;
     }
 
-    @JsonProperty("Saturated_Fat_(g)")
+    @JsonProperty("Saturated Fat (g)")
     public double getSaturatedFatG() {
         return saturatedFatG;
     }
 
-    @JsonProperty("Saturated_Fat_(g)")
+    @JsonProperty("Saturated Fat (g)")
     public void setSaturatedFatG(double saturatedFatG) {
         this.saturatedFatG = saturatedFatG;
     }
 
-    @JsonProperty("Cholesterol_(mg)")
+    @JsonProperty("Cholesterol (mg)")
     public double getCholesterolMg() {
         return cholesterolMg;
     }
 
-    @JsonProperty("Cholesterol_(mg)")
+    @JsonProperty("Cholesterol (mg)")
     public void setCholesterolMg(double cholesterolMg) {
         this.cholesterolMg = cholesterolMg;
     }
 
-    @JsonProperty("Sodium_(mg)")
+    @JsonProperty("Sodium (mg)")
     public double getSodiumMg() {
         return sodiumMg;
     }
 
-    @JsonProperty("Sodium_(mg)")
+    @JsonProperty("Sodium (mg)")
     public void setSodiumMg(double sodiumMg) {
         this.sodiumMg = sodiumMg;
     }
 
-    @JsonProperty("Total_Carbohydrates_(g)")
+    @JsonProperty("Total Carbohydrates (g)")
     public double getTotalCarbohydratesG() {
         return totalCarbohydratesG;
     }
 
-    @JsonProperty("Total_Carbohydrates_(g)")
+    @JsonProperty("Total Carbohydrates (g)")
     public void setTotalCarbohydratesG(double totalCarbohydratesG) {
         this.totalCarbohydratesG = totalCarbohydratesG;
     }
 
-    @JsonProperty("Dietary_Fiber_(g)")
+    @JsonProperty("Dietary Fiber (g)")
     public double getDietaryFiberG() {
         return dietaryFiberG;
     }
 
-    @JsonProperty("Dietary_Fiber_(g)")
+    @JsonProperty("Dietary Fiber (g)")
     public void setDietaryFiberG(double dietaryFiberG) {
         this.dietaryFiberG = dietaryFiberG;
     }
 
-    @JsonProperty("Sugars_(g)")
+    @JsonProperty("Sugars (g)")
     public double getSugarsG() {
         return sugarsG;
     }
 
-    @JsonProperty("Sugars_(g)")
+    @JsonProperty("Sugars (g)")
     public void setSugarsG(double sugarsG) {
         this.sugarsG = sugarsG;
     }
 
-    @JsonProperty("Protein_(g)")
+    @JsonProperty("Protein (g)")
     public double getProteinG() {
         return proteinG;
     }
 
-    @JsonProperty("Protein_(g)")
+    @JsonProperty("Protein (g)")
     public void setProteinG(double proteinG) {
         this.proteinG = proteinG;
     }
