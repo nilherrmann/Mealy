@@ -357,9 +357,9 @@ public class RecipeManager {
                     System.out.println("API Response erhalten: " + response.toString());
 
                     // Überprüfung und Ausgabe der konvertierten Nährwerte
-                    NutritionConv nutritionData = objectMapper.readValue(response.toString(), NutritionConv.class);
-                    System.out.println("Konvertierte Nährwerte: " + nutritionData);
-                    return nutritionData;
+                    NutritionAnswer nutritionData = objectMapper.readValue(response.toString(), NutritionAnswer.class);
+                    System.out.println("Konvertierte Nährwerte: " + nutritionData.getNutritionalValues().getCaloriesKcal());
+                    return nutritionData.getNutritionalValues();
                 }
             } else {
                 Logger.getLogger(RecipeManager.class.getName()).log(Level.SEVERE, "Fehlerhafte API-Antwort: Code " + responseCode);
