@@ -7,7 +7,6 @@ $(document).ready(function() {
         return token;
     }
 
-    // Rezepte beim Laden der Seite abrufen
     const token = getToken();
     if (token) {
         fetchRecipes();
@@ -20,7 +19,6 @@ $(document).ready(function() {
         window.location.href = 'RecipeCreate.html';
     });
 
-    // Funktion, um Rezepte abzurufen
     function fetchRecipes() {
         $.ajax({
             url: apiUrl,
@@ -29,7 +27,6 @@ $(document).ready(function() {
             success: function(response) {
                 console.log('Rezepte erfolgreich abgerufen:', response);
 
-                // Rezeptdaten als Array umwandeln
                 const recipesArray = Object.keys(response).map(key => ({
                     plan_id: key,
                     name: response[key]
@@ -49,7 +46,6 @@ $(document).ready(function() {
         });
     }
 
-    // Funktion, um Rezepte anzuzeigen
     function displayRecipes(recipes) {
         $('#recipe-list').empty();
         recipes.sort((a, b) => a.name.localeCompare(b.name));
@@ -62,10 +58,9 @@ $(document).ready(function() {
             $('#recipe-list').append(recipeItem);
         });
 
-        // Event-Handler für die Rezeptauswahl zum Weiterleiten zur Detailseite
         $('.recipe-item').on('click', function() {
             const recipeId = $(this).data('id');
-             console.log('Rezept-ID:', recipeId); // Konsolenausgabe hinzufügen
+             console.log('Rezept-ID:', recipeId);
             window.location.href = `RecipeDetail.html?id=${recipeId}`;
         });
     }

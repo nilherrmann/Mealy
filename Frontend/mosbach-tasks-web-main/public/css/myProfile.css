@@ -18,42 +18,42 @@ header {
     z-index: 1000;
 }
 
-/* Navbar */
+
 .navbar {
-    display: flex; /* Flexbox für die Navbar */
-    justify-content: center; /* Zentrieren der Elemente */
-    padding: 10px 0; /* Vertikales Padding */
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
 }
 
 .navbar ul {
-    list-style-type: none; /* Keine Aufzählungszeichen */
-    margin: 0; /* Kein Außenabstand */
-    padding: 0; /* Kein Innenabstand */
-    display: flex; /* Flexbox für die Listenelemente */
-    justify-content: space-around; /* Gleichmäßige Verteilung der Listenelemente */
-    flex: 1; /* Flexibles Layout */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    flex: 1;
 }
 
 .navbar ul li {
-    margin: 0 15px; /* Abstand zwischen den Menüpunkten */
+    margin: 0 15px;
 }
 
 .navbar ul li a {
-    color: white; /* Schriftfarbe für Links */
-    font-size: 16px; /* Schriftgröße */
-    font-weight: bold; /* Fettdruck */
-    text-decoration: none; /* Keine Unterstreichung */
-    padding: 10px 20px; /* Padding für die Links */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 20px;
 }
 
 .navbar ul li a.active {
-    color: #333; /* Dunklere Schriftfarbe für die aktuelle Seite */
-    background-color: #f4fbfa; /* Hintergrundfarbe für die aktive Seite */
-    border-radius: 5px; /* Leicht abgerundete Kanten */
+    color: #333;
+    background-color: #f4fbfa;
+    border-radius: 5px;
 }
 
 .navbar ul li a:hover {
-    background-color: #065f6a; /* Hover-Effekt für alle Links */
+    background-color: #065f6a;
 }
 .profile-box {
     background-color: white;
@@ -73,7 +73,7 @@ header {
     font-size: 24px;
     color: #086A87;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 3D-Effekt */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .input-box {
@@ -81,7 +81,7 @@ header {
 }
 
 .input-field {
-    width: 280px; /* Feste Breite für alle Eingabefelder */
+    width: 280px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;

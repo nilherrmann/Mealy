@@ -1,21 +1,18 @@
 $(document).ready(function() {
-    // Token dynamisch aus localStorage abrufen
+
     const token = localStorage.getItem('authToken');
     if (!token) {
         alert('Bitte melde dich zuerst an.');
         return;
     }
 
-    // Pläne abrufen, sobald die Seite geladen wird
     fetchPlans();
 
-    // EventListener für die Erstellung eines neuen Ordners
     $("#create-folder-button").click(function(event) {
         event.preventDefault();
         createFolder();
     });
 
-    // Login-Button-Click-Event
     $("#login-button").click(function(event) {
         event.preventDefault();
         const email = $("#email").val();
@@ -24,20 +21,18 @@ $(document).ready(function() {
     });
 });
 
-// Funktion zum Abrufen der Pläne (Rezepte) vom Backend
 function fetchPlans() {
-    const token = getToken(); // Dynamisch das Token abrufen
-
+    const token = getToken();
     $.ajax({
         url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/plan',
         type: 'GET',
         contentType: 'application/json',
         headers: {
-            'Authorization': `Bearer ${token}` // Korrekte Verwendung von Template-Strings
+            'Authorization': `Bearer ${token}`
         },
         success: function(data) {
             if (data.plans) {
-                displayPlans(data.plans); // Pläne in der UI anzeigen
+                displayPlans(data.plans);
             } else {
                 alert(data.reason || 'Fehler beim Abrufen der Rezepte.');
             }
@@ -49,7 +44,6 @@ function fetchPlans() {
     });
 }
 
-// Funktion zum Erstellen eines neuen Ordners (Plan)
 function createFolder() {
     const folderName = document.getElementById('folder-name').value;
     if (!folderName) {
@@ -57,24 +51,23 @@ function createFolder() {
         return;
     }
 
-    const token = getToken(); // Dynamisch das Token abrufen
-
+    const token = getToken();
     $.ajax({
         url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/plan',
         type: 'POST',
         contentType: 'application/json',
         headers: {
-            'Authorization': `Bearer ${token}` // Korrekte Verwendung von Template-Strings
+            'Authorization': `Bearer ${token}`
         },
         data: JSON.stringify({
             name: folderName,
-            diet: 'Standard', // Beispielwert für Diät
-            description: 'Dieser Ordner enthält Rezepte.' // Beispielbeschreibung
+            diet: 'Standard',
+            description: 'Dieser Ordner enthält Rezepte.'
         }),
         success: function(result) {
             if (result.message === "Plan successfully created") {
                 alert('Ordner erfolgreich erstellt!');
-                fetchPlans(); // Liste der Ordner aktualisieren
+                fetchPlans();
             } else {
                 alert(result.reason || 'Fehler beim Erstellen des Ordners.');
             }
@@ -86,10 +79,10 @@ function createFolder() {
     });
 }
 
-// Funktion zum Anzeigen der abgerufenen Pläne (Ordner)
+
 function displayPlans(plans) {
     const folderList = document.getElementById('folder-list');
-    folderList.innerHTML = ''; // Vorherige Inhalte löschen
+    folderList.innerHTML = '';
 
     plans.forEach(plan => {
         const folderElement = document.createElement('div');
@@ -104,21 +97,21 @@ function displayPlans(plans) {
     });
 }
 
-// Funktion zum Löschen eines Ordners (Plans)
+
 function deleteFolder(planId) {
-    const token = getToken(); // Dynamisch das Token abrufen
+    const token = getToken();
 
     $.ajax({
         url: `https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/plan/${planId}`, // Korrekte Verwendung von Template-Strings
         type: 'DELETE',
         contentType: 'application/json',
         headers: {
-            'Authorization': `Bearer ${token}` // Korrekte Verwendung von Template-Strings
+            'Authorization': `Bearer ${token}`
         },
         success: function(result) {
             if (result.message === "Plan successfully deleted") {
                 alert('Ordner erfolgreich gelöscht');
-                fetchPlans(); // Aktualisiere die Liste der Pläne nach Löschung
+                fetchPlans();
             } else {
                 alert(result.reason || 'Fehler beim Löschen des Ordners');
             }
@@ -130,19 +123,18 @@ function deleteFolder(planId) {
     });
 }
 
-// Funktion zum Bearbeiten eines Ordners (Plans)
 function editFolder(planId, currentName) {
     const newName = prompt('Geben Sie den neuen Namen des Ordners ein', currentName);
     if (!newName) return;
 
-    const token = getToken(); // Dynamisch das Token abrufen
+    const token = getToken();
 
     $.ajax({
-        url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/plan/${planId}', // Korrekte Verwendung von Template-Strings
+        url: 'https://MealyBackend-fearless-bushbuck-kc.apps.01.cf.eu01.stackit.cloud/plan/${planId}',
         type: 'PUT',
         contentType: 'application/json',
         headers: {
-            'Authorization': `Bearer ${token}` // Korrekte Verwendung von Template-Strings
+            'Authorization': `Bearer ${token}`
         },
         data: JSON.stringify({
             field: 'name',
@@ -151,7 +143,7 @@ function editFolder(planId, currentName) {
         success: function(result) {
             if (result.message === "plan successfully changed") {
                 alert('Ordnername erfolgreich geändert');
-                fetchPlans(); // Aktualisiere die Liste der Pläne nach Änderung
+                fetchPlans();
             } else {
                 alert(result.reason || 'Fehler beim Ändern des Ordnernamens');
             }
@@ -163,7 +155,6 @@ function editFolder(planId, currentName) {
     });
 }
 
-// Funktion zum Abrufen des gespeicherten Tokens
 function getToken() {
     return localStorage.getItem('authToken');
 }

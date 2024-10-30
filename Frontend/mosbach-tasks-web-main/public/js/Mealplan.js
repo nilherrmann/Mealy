@@ -15,7 +15,6 @@ $(document).ready(function() {
         alert('Bitte melden Sie sich an, um Rezepte anzuzeigen.');
     }
 
-    // FullCalendar Initialisierung
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -35,7 +34,7 @@ $(document).ready(function() {
             $('#mealAddForm').off('submit').on('submit', function(e) {
                 e.preventDefault();
                 const mealTime = $('#mealTime').val();
-                const recipeId = $('#meal').val(); // Rezept-ID anstelle des Namens
+                const recipeId = $('#meal').val();
                 const selectedDate = info.dateStr;
 
                 const nutritionalInfo = {
@@ -46,12 +45,12 @@ $(document).ready(function() {
                 };
 
                 calendar.addEvent({
-                    title: `${mealTime}: ${recipeId}`, // Anzeige der ID (optional)
+                    title: `${mealTime}: ${recipeId}`,
                     start: selectedDate,
                     allDay: true,
                     extendedProps: {
                         mealType: mealTime,
-                        mealName: recipeId // Hier könntest du den Namen oder die ID speichern
+                        mealName: recipeId
                     }
                 });
 
@@ -62,7 +61,7 @@ $(document).ready(function() {
                     data: JSON.stringify({
                         day: selectedDate,
                         time: mealTime,
-                        recipe: recipeId // Rezept-ID wird gesendet
+                        recipe: recipeId
                     }),
                     contentType: 'application/json',
                     success: function(response) {
